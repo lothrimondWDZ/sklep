@@ -23,6 +23,7 @@ public class MainView {
     private JFrame frame;
     private TshirtView tshirtFrame;
     private ShirtView shirtFrame;
+    private PantsView pantsFrame;
 
     /**
      * Launch the application.
@@ -56,7 +57,6 @@ public class MainView {
 	frame.setBounds(100, 100, 532, 350);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	JFrame JacketFrame = new JacketView();
-	JFrame PantsFrame = new PantsView();
 	JFrame ShoesFrame = new ShoesView();
 	JPanel masterPanel = new JPanel();
 	frame.getContentPane().add(masterPanel, BorderLayout.CENTER);
@@ -181,13 +181,29 @@ public class MainView {
 	pantsDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		PantsFrame.show();
+		pantsFrame = new PantsView(true, "Dodaj spodnie");
+		pantsFrame.show();
 	    }
 	});
 
 	JButton pantsEdytuj = new JButton("Edytuj");
+	pantsEdytuj.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		pantsFrame = new PantsView(true, "Edytuj spodnie");
+		pantsFrame.show();
+	    }
+	});
 
 	JButton pantsPokaz = new JButton("Poka\u017C");
+	pantsPokaz.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		pantsFrame = new PantsView(false, "Pokaż spodnie");
+		pantsFrame.show();
+	    }
+	});
+
 	GroupLayout gl_pantsPanel = new GroupLayout(pantsPanel);
 	gl_pantsPanel.setHorizontalGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
 	        .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsDodaj).addPreferredGap(ComponentPlacement.RELATED)
