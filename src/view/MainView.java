@@ -137,11 +137,38 @@ public class MainView {
 		tshirtFrame.show();
 	    }
 	});
+
+	JButton tshirtEdytuj = new JButton("Edytuj");
+	tshirtEdytuj.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		tshirtFrame = new TshirtView(true, "Edytuj T-shirt");
+		tshirtFrame.show();
+	    }
+	});
+
+	JButton tshirtUsun = new JButton("Usu\u0144");
+
+	JButton tshirtPokaz = new JButton("Poka\u017C");
+	tshirtPokaz.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		tshirtFrame = new TshirtView(false, "Przegl¹daj T-shirt");
+		tshirtFrame.show();
+	    }
+	});
 	GroupLayout gl_tshirtPanel = new GroupLayout(tshirtPanel);
-	gl_tshirtPanel.setHorizontalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap().addComponent(tshirtDodaj).addContainerGap(412, Short.MAX_VALUE)));
+	gl_tshirtPanel
+	        .setHorizontalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+	                .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap().addComponent(tshirtDodaj)
+	                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtEdytuj).addPreferredGap(ComponentPlacement.RELATED)
+	                        .addComponent(tshirtUsun).addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtPokaz)
+	                        .addContainerGap(213, Short.MAX_VALUE)));
 	gl_tshirtPanel.setVerticalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap().addComponent(tshirtDodaj).addContainerGap(231, Short.MAX_VALUE)));
+	        .addGroup(gl_tshirtPanel.createSequentialGroup()
+	                .addContainerGap().addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(tshirtDodaj)
+	                        .addComponent(tshirtEdytuj).addComponent(tshirtUsun).addComponent(tshirtPokaz))
+	        .addContainerGap(231, Short.MAX_VALUE)));
 	tshirtPanel.setLayout(gl_tshirtPanel);
 
 	JPanel pantsPanel = new JPanel();
