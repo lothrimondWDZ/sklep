@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.GroupLayout;
@@ -24,34 +23,21 @@ public class ShirtView extends JFrame {
     private JTextField brandTextField;
     private JTextField fabricTextField;
     private JTextField colarSizeTextField;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-	EventQueue.invokeLater(new Runnable() {
-	    @Override
-	    public void run() {
-		try {
-		    ShirtView frame = new ShirtView();
-		    frame.setVisible(true);
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-	    }
-	});
-    }
+    private boolean addEditShow;
+    private String actionName;
 
     /**
      * Create the frame.
      */
-    public ShirtView() {
-	setBounds(100, 100, 505, 401);
+    public ShirtView(boolean addEditShow, String actionName) {
+	this.addEditShow = addEditShow;
+	this.actionName = actionName;
+	setBounds(100, 100, 505, 417);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);
 
-	JLabel lblKoszulki = new JLabel("Koszulki");
+	JLabel lblKoszulki = new JLabel(this.actionName);
 	lblKoszulki.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 	nameTextField = new JTextField();
@@ -93,9 +79,6 @@ public class ShirtView extends JFrame {
 
 	JLabel lblKonierzyk = new JLabel("Ko\u0142nierzyk :");
 
-	colarSizeTextField = new JTextField();
-	colarSizeTextField.setColumns(10);
-
 	JLabel lblKrawat = new JLabel("Krawat :");
 
 	JCheckBox tieIncludedCheckBox = new JCheckBox("");
@@ -105,105 +88,115 @@ public class ShirtView extends JFrame {
 	JButton cancelButton = new JButton("Anuluj");
 
 	JButton saveButton = new JButton("Zapisz");
+
+	colarSizeTextField = new JTextField();
+	colarSizeTextField.setColumns(10);
+
+	addImageButton.show(this.addEditShow);
+	cancelButton.show(this.addEditShow);
+	saveButton.show(this.addEditShow);
+	nameTextField.enable(this.addEditShow);
+	priceTextField.enable(this.addEditShow);
+	colorTextField.enable(this.addEditShow);
+	brandTextField.enable(this.addEditShow);
+	fabricTextField.enable(this.addEditShow);
+	colarSizeTextField.enable(this.addEditShow);
+	sizeComboBox.setEnabled(this.addEditShow);
+	genderComboBox.setEnabled(this.addEditShow);
+	tieIncludedCheckBox.setEnabled(this.addEditShow);
+
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
-	gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_contentPane.createSequentialGroup().addGap(205).addComponent(lblKoszulki).addContainerGap(237, Short.MAX_VALUE))
-	        .addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup().addContainerGap()
-	                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-	                        .addGroup(Alignment.LEADING,
-	                                gl_contentPane.createSequentialGroup()
-	                                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblKonierzyk)
-	                                                .addComponent(lblKrawat))
-	                                .addGap(18)
-	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(tieIncludedCheckBox)
-	                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                .addComponent(colarSizeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-	                                                        GroupLayout.PREFERRED_SIZE)
-	                                                .addPreferredGap(ComponentPlacement.RELATED, 131, Short.MAX_VALUE).addComponent(saveButton)
-	                                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(cancelButton))))
-	                        .addGroup(
-	                                gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                                .addComponent(label, GroupLayout.PREFERRED_SIZE, 39,
-	                                                                        GroupLayout.PREFERRED_SIZE)
-	                                                                .addGap(35).addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, 86,
-	                                                                        GroupLayout.PREFERRED_SIZE))
-	                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                .addComponent(label_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(42)
-	                                                .addComponent(priceTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-	                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                .addComponent(label_2, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE).addGap(43)
-	                                                .addComponent(colorTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-	                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                .addComponent(label_3, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE).addGap(38)
+	gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+	        .addGroup(gl_contentPane.createSequentialGroup().addGap(205).addComponent(lblKoszulki).addContainerGap(218, Short.MAX_VALUE))
+	        .addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_contentPane
+	                        .createParallelGroup(
+	                                Alignment.LEADING)
+	                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+	                                        .addComponent(lblKrawat, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                        .addComponent(lblKonierzyk, GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+	                                .addGap(18).addComponent(tieIncludedCheckBox)
+	                                .addPreferredGap(ComponentPlacement.RELATED, 222, Short.MAX_VALUE).addComponent(saveButton)
+	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(cancelButton))
+	                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+	                                        .addComponent(label_6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                        .addComponent(label_5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+	                                                Short.MAX_VALUE)
+	                                .addComponent(label_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addComponent(label_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addComponent(label, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(
+	                                        label_4, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	                                .addGap(28)
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+	                                        .createSequentialGroup()
+	                                        .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+	                                                .addComponent(fabricTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+	                                                .addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+	                                                .addComponent(priceTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+	                                                .addComponent(colorTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
 	                                                .addComponent(brandTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-	                                        .addGroup(gl_contentPane.createSequentialGroup().addComponent(label_4).addGap(28)
-	                                                .addComponent(fabricTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)))
-	                                .addPreferredGap(ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-	                                .addComponent(imagePanel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
-	                                .addGroup(gl_contentPane.createSequentialGroup()
-	                                        .addComponent(label_6, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE).addGap(34)
-	                                        .addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)).addGroup(
-	                                                Alignment.TRAILING,
-	                                                gl_contentPane.createSequentialGroup()
-	                                                        .addComponent(label_5, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-	                                                        .addGap(29)
-	                                                        .addComponent(sizeComboBox, GroupLayout.PREFERRED_SIZE, 86,
-	                                                                GroupLayout.PREFERRED_SIZE)
-	                                        .addPreferredGap(ComponentPlacement.RELATED, 200, Short.MAX_VALUE).addComponent(addImageButton))))
+	                                        .addPreferredGap(ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+	                                        .addComponent(imagePanel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
+	                                        .addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
+	                                                .createParallelGroup(Alignment.TRAILING)
+	                                                .addComponent(sizeComboBox, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+	                                                .addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+	                                                .addComponent(colarSizeTextField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+	                                                .addPreferredGap(ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+	                                                .addComponent(addImageButton)))))
 	                .addGap(20)));
-	gl_contentPane
-	        .setVerticalGroup(
-	                gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                        .addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addComponent(lblKoszulki).addGap(0)
-	                                .addGroup(gl_contentPane
-	                                        .createParallelGroup(
-	                                                Alignment.LEADING)
-	                                        .addGroup(
-	                                                gl_contentPane.createSequentialGroup()
-	                                                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                                                .addGroup(
-	                                                                        gl_contentPane.createSequentialGroup().addGap(3).addComponent(label))
-	                                                        .addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-	                                                                GroupLayout.PREFERRED_SIZE))
+	gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+	        .addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addComponent(lblKoszulki).addGap(0)
+	                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+	                                        .addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+	                                                GroupLayout.PREFERRED_SIZE)
+	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label)))
 	                        .addGap(18)
 	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_1)).addComponent(priceTextField,
-	                                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                                .addComponent(priceTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+	                                        GroupLayout.PREFERRED_SIZE)
+	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_1)))
 	                        .addGap(18)
 	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_2)).addComponent(colorTextField,
-	                                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                                .addComponent(colorTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+	                                        GroupLayout.PREFERRED_SIZE)
+	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_2)))
 	                        .addGap(18)
 	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_3)).addComponent(brandTextField,
-	                                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                                .addComponent(brandTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+	                                        GroupLayout.PREFERRED_SIZE)
+	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_3)))
 	                        .addGap(18)
 	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_4)).addComponent(
-	                                        fabricTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                                .addComponent(fabricTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+	                                        GroupLayout.PREFERRED_SIZE)
+	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_4)))
 	                        .addGap(18)
 	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_5))
-	                                .addComponent(sizeComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	                        .addGap(18)
-	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_6)).addComponent(genderComboBox,
-	                                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-	                .addGroup(gl_contentPane.createSequentialGroup()
-	                        .addComponent(imagePanel, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE).addGap(18)
-	                        .addComponent(addImageButton)))
+	                                .addComponent(sizeComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(label_5).addGap(18)
+	                                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(label_6).addComponent(
+	                                                genderComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+	                                                GroupLayout.PREFERRED_SIZE)))))
+	                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                .addComponent(imagePanel, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE).addGap(
+	                                        18)
+	                                .addComponent(addImageButton)))
+	        .addGap(9)
 	        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 	                .addGroup(gl_contentPane.createSequentialGroup().addGap(18)
 	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblKonierzyk).addComponent(
 	                                colarSizeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	                .addGap(18)
-	                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblKrawat).addComponent(tieIncludedCheckBox)))
+	                .addGap(11)
+	                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblKrawat).addComponent(tieIncludedCheckBox)))
 	                .addGroup(gl_contentPane.createSequentialGroup().addGap(29).addGroup(
 	                        gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(cancelButton).addComponent(saveButton))))
-	        .addContainerGap(109, Short.MAX_VALUE)));
+	        .addContainerGap(19, Short.MAX_VALUE)));
 	contentPane.setLayout(gl_contentPane);
     }
 }

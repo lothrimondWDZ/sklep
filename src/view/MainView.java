@@ -102,12 +102,19 @@ public class MainView {
 	mainTabbedPane.addTab("Koszule", null, shirtPanel, null);
 
 	JButton shirtEdytuj = new JButton("Edytuj");
+	shirtEdytuj.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		shirtFrame = new ShirtView(true, "Edytuj Koszule");
+		shirtFrame.show();
+	    }
+	});
 
 	JButton shirtDodaj = new JButton("Dodaj");
 	shirtDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		shirtFrame = new ShirtView();
+		shirtFrame = new ShirtView(true, "Dodaj Koszule");
 		shirtFrame.show();
 	    }
 	});
@@ -115,6 +122,13 @@ public class MainView {
 	JButton shirtUsun = new JButton("Usu\u0144");
 
 	JButton shirtPokaz = new JButton("Poka\u017C");
+	shirtPokaz.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		shirtFrame = new ShirtView(false, "Przegl¹daj Koszule");
+		shirtFrame.show();
+	    }
+	});
 	GroupLayout gl_shirtPanel = new GroupLayout(shirtPanel);
 	gl_shirtPanel.setHorizontalGroup(gl_shirtPanel.createParallelGroup(Alignment.LEADING)
 	        .addGroup(gl_shirtPanel.createSequentialGroup().addContainerGap().addComponent(shirtDodaj).addPreferredGap(ComponentPlacement.RELATED)

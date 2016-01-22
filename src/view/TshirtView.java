@@ -89,6 +89,7 @@ public class TshirtView extends JFrame {
 	fabricTextField.enable(this.addEditShow);
 	sizeComboBox.setEnabled(this.addEditShow);
 	genderComboBox.setEnabled(this.addEditShow);
+
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
 	gl_contentPane
 	        .setHorizontalGroup(
