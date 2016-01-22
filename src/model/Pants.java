@@ -27,6 +27,8 @@ public class Pants {
     private String fabric;
 	@XmlElement
     private BufferedImage image;
+	@XmlElement(type = Promotion.class)
+	private Promotion promotion;
 
     public Gender getGender() {
 	return gender;
@@ -99,5 +101,13 @@ public class Pants {
     public void setImage(BufferedImage image) {
 	this.image = image;
     }
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
 
 }
