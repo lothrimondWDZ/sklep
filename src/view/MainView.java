@@ -22,6 +22,7 @@ public class MainView {
 
     private JFrame frame;
     private TshirtView tshirtFrame;
+    private ShirtView shirtFrame;
 
     /**
      * Launch the application.
@@ -55,7 +56,6 @@ public class MainView {
 	frame.setBounds(100, 100, 532, 350);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	JFrame JacketFrame = new JacketView();
-	JFrame ShirtFrame = new ShirtView();
 	JFrame PantsFrame = new PantsView();
 	JFrame ShoesFrame = new ShoesView();
 	JPanel masterPanel = new JPanel();
@@ -107,7 +107,8 @@ public class MainView {
 	shirtDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		ShirtFrame.show();
+		shirtFrame = new ShirtView();
+		shirtFrame.show();
 	    }
 	});
 
