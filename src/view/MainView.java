@@ -24,6 +24,7 @@ public class MainView {
     private TshirtView tshirtFrame;
     private ShirtView shirtFrame;
     private PantsView pantsFrame;
+    private JacketView jacketFrame;
 
     /**
      * Launch the application.
@@ -56,7 +57,6 @@ public class MainView {
 	frame = new JFrame();
 	frame.setBounds(100, 100, 532, 350);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	JFrame JacketFrame = new JacketView();
 	JFrame ShoesFrame = new ShoesView();
 	JPanel masterPanel = new JPanel();
 	frame.getContentPane().add(masterPanel, BorderLayout.CENTER);
@@ -75,15 +75,30 @@ public class MainView {
 	jacketDodaj.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		JacketFrame.show();
+		jacketFrame = new JacketView(true, "Dodaj kurtke");
+		jacketFrame.show();
 	    }
 	});
 
 	JButton jacketEdytuj = new JButton("Edytuj");
+	jacketEdytuj.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		jacketFrame = new JacketView(true, "Edytuj kurtke");
+		jacketFrame.show();
+	    }
+	});
 
 	JButton jacketUsun = new JButton("Usu\u0144");
 
 	JButton jacketPokaz = new JButton("Poka\u017C");
+	jacketPokaz.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		jacketFrame = new JacketView(false, "Przegl¹daj kurtke");
+		jacketFrame.show();
+	    }
+	});
 	GroupLayout gl_jacketPanel = new GroupLayout(jacketPanel);
 	gl_jacketPanel
 	        .setHorizontalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
