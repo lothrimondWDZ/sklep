@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.StringWriter;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,16 +17,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
-import model.Gender;
-import model.Pants;
 
 public class MainView {
 
     private JFrame frame;
+    private TshirtView tshirtFrame;
 
     /**
      * Launch the application.
@@ -131,6 +125,24 @@ public class MainView {
 	                        .addComponent(shirtEdytuj).addComponent(shirtDodaj).addComponent(shirtUsun).addComponent(shirtPokaz))
 	        .addContainerGap(202, Short.MAX_VALUE)));
 	shirtPanel.setLayout(gl_shirtPanel);
+
+	JPanel tshirtPanel = new JPanel();
+	mainTabbedPane.addTab("T-shirt", null, tshirtPanel, null);
+
+	JButton tshirtDodaj = new JButton("Dodaj");
+	tshirtDodaj.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		tshirtFrame = new TshirtView(true, "Dodaj T-shirt");
+		tshirtFrame.show();
+	    }
+	});
+	GroupLayout gl_tshirtPanel = new GroupLayout(tshirtPanel);
+	gl_tshirtPanel.setHorizontalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+	        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap().addComponent(tshirtDodaj).addContainerGap(412, Short.MAX_VALUE)));
+	gl_tshirtPanel.setVerticalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+	        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap().addComponent(tshirtDodaj).addContainerGap(231, Short.MAX_VALUE)));
+	tshirtPanel.setLayout(gl_tshirtPanel);
 
 	JPanel pantsPanel = new JPanel();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
