@@ -2,26 +2,34 @@ package model;
 
 import java.awt.image.BufferedImage;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Jacket {
 
+	@XmlElement(type = Gender.class)
     private Gender gender;
-
+	@XmlElement
     private String name;
-
+	@XmlElement
     private BufferedImage image;
-
+	@XmlElement
     private double price;
-
+	@XmlElement
     private String color;
-
+	@XmlElement
     private String brand;
-
+	@XmlElement(type = TshirtSize.class)
     private TshirtSize size;
-
+	@XmlElement(type = JacketClosing.class)
     private JacketClosing jacketClosing;
-
+	@XmlElement
     private String fabric;
-
+	@XmlElement
     private boolean padded;
 
     public Gender getGender() {
