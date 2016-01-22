@@ -24,6 +24,8 @@ public class PantsView extends JFrame {
     private JTextField fabricTextField;
     private boolean addEditShow;
     private String actionName;
+    private JTextField lengthTextField;
+    private JTextField obwodTextField;
 
     /**
      * Create the frame.
@@ -64,6 +66,16 @@ public class PantsView extends JFrame {
     	fabricTextField = new JTextField();
     	fabricTextField.setColumns(10);
 
+    	JLabel lblDugo = new JLabel("Długość :");
+    	
+    	lengthTextField = new JTextField();
+    	lengthTextField.setColumns(10);
+    	
+    	JLabel lblObwdPasa = new JLabel("Obwód :");
+
+    	obwodTextField = new JTextField();
+    	obwodTextField.setColumns(10);
+    	
     	JLabel lblRodzaj = new JLabel("Rodzaj :");
 
     	JComboBox genderComboBox = new JComboBox();
@@ -84,7 +96,10 @@ public class PantsView extends JFrame {
     	colorTextField.enable(this.addEditShow);
     	brandTextField.enable(this.addEditShow);
     	fabricTextField.enable(this.addEditShow);
+    	lengthTextField.enable(this.addEditShow);
+    	obwodTextField.enable(this.addEditShow);
     	genderComboBox.setEnabled(this.addEditShow);
+    	
     	GroupLayout gl_contentPane = new GroupLayout(contentPane);
     	gl_contentPane.setHorizontalGroup(
     		gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -96,21 +111,30 @@ public class PantsView extends JFrame {
     						.addPreferredGap(ComponentPlacement.RELATED)
     						.addComponent(cancelButton))
     					.addGroup(gl_contentPane.createSequentialGroup()
-    						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-    							.addComponent(lblNazwa)
-    							.addComponent(lblCena)
-    							.addComponent(lblKolor)
-    							.addComponent(lblMarka)
-    							.addComponent(lblMateria)
-    							.addComponent(lblRodzaj))
-    						.addGap(28)
-    						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-    							.addComponent(genderComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-    							.addComponent(fabricTextField)
-    							.addComponent(brandTextField)
-    							.addComponent(colorTextField)
-    							.addComponent(priceTextField)
-    							.addComponent(nameTextField))
+    						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+    							.addGroup(gl_contentPane.createSequentialGroup()
+    								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+    									.addComponent(lblNazwa)
+    									.addComponent(lblCena)
+    									.addComponent(lblKolor)
+    									.addComponent(lblMarka)
+    									.addComponent(lblMateria)
+    									.addComponent(lblRodzaj)
+    									.addComponent(lblDugo))
+    								.addGap(28)
+    								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+    									.addComponent(lengthTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+    									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+    										.addComponent(genderComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    										.addComponent(fabricTextField)
+    										.addComponent(brandTextField)
+    										.addComponent(colorTextField)
+    										.addComponent(priceTextField)
+    										.addComponent(nameTextField))))
+    							.addGroup(gl_contentPane.createSequentialGroup()
+    								.addComponent(lblObwdPasa)
+    								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    								.addComponent(obwodTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
     						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
     							.addComponent(imagePanel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
@@ -152,11 +176,19 @@ public class PantsView extends JFrame {
     						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
     							.addComponent(lblMateria)
     							.addComponent(fabricTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-    						.addGap(60)
+    						.addPreferredGap(ComponentPlacement.RELATED)
+    						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+    							.addComponent(obwodTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+    							.addComponent(lblObwdPasa))
+    						.addGap(14)
+    						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+    							.addComponent(lblDugo)
+    							.addComponent(lengthTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+    						.addPreferredGap(ComponentPlacement.RELATED)
     						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
     							.addComponent(lblRodzaj)
     							.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-    				.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+    				.addPreferredGap(ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
     				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
     					.addComponent(cancelButton)
     					.addComponent(saveButton))
@@ -164,5 +196,4 @@ public class PantsView extends JFrame {
     	);
     	contentPane.setLayout(gl_contentPane);
     }
-
 }
