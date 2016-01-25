@@ -25,6 +25,7 @@ public class MainView {
     private ShirtView shirtFrame;
     private PantsView pantsFrame;
     private JacketView jacketFrame;
+    private ShoesView shoesFrame;
 
     /**
      * Launch the application.
@@ -57,7 +58,6 @@ public class MainView {
 	frame = new JFrame();
 	frame.setBounds(100, 100, 532, 350);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	JFrame ShoesFrame = new ShoesView();
 	JPanel masterPanel = new JPanel();
 	frame.getContentPane().add(masterPanel, BorderLayout.CENTER);
 
@@ -249,16 +249,31 @@ public class MainView {
 	mainTabbedPane.addTab("Buty", null, shoesPanel, null);
 
 	JButton shoesPokaz = new JButton("Poka\u017C");
+	shoesPokaz.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		shoesFrame = new ShoesView(false, "Przegl¹daj buty");
+		shoesFrame.show();
+	    }
+	});
 
 	JButton shoesDodaj = new JButton("Dodaj");
 	shoesDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		ShoesFrame.show();
+		shoesFrame = new ShoesView(true, "Dodaj buty");
+		shoesFrame.show();
 	    }
 	});
 
 	JButton shoesEdytuj = new JButton("Edytuj");
+	shoesEdytuj.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		shoesFrame = new ShoesView(true, "Edytuj buty");
+		shoesFrame.show();
+	    }
+	});
 
 	JButton shoesUsun = new JButton("Usu\u0144");
 	GroupLayout gl_shoesPanel = new GroupLayout(shoesPanel);
