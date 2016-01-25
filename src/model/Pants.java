@@ -14,7 +14,7 @@ public class Pants {
 	@XmlElement
     private String name;
 	@XmlElement
-    private double price;
+    private Double price;
 	@XmlElement
     private String color;
 	@XmlElement
@@ -46,11 +46,11 @@ public class Pants {
 	this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
 	return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
 	this.price = price;
     }
 

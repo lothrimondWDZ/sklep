@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import model.Gender;
 import model.Pants;
 
@@ -104,13 +106,13 @@ public class PantsView extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Pants p = new Pants();
-			p.setBrand(brandTextField.getText());
-			p.setColor(colorTextField.getText());
-			p.setFabric(fabricTextField.getText());
-			p.setLength(Integer.valueOf(lengthTextField.getText()));
-			p.setName(nameTextField.getText());
-			p.setPrice(Double.valueOf(priceTextField.getText()));
-			p.setWaistSize(Integer.valueOf(obwodTextField.getText()));
+			p.setBrand(brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
+			p.setColor(colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
+			p.setFabric(fabricTextField.getText().isEmpty() ? fabricTextField.getText() : null);
+			p.setLength(NumberUtils.createInteger(!lengthTextField.getText().isEmpty() ? lengthTextField.getText() : null));
+			p.setName(nameTextField.getText().isEmpty() ? nameTextField.getText(): null);
+			p.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
+			p.setWaistSize(NumberUtils.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
 			System.out.println("Zapisuje: " + p);
 		}
 	});
