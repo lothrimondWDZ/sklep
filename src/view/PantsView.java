@@ -116,8 +116,8 @@ public class PantsView extends JFrame {
 			p.setName(nameTextField.getText().isEmpty() ? nameTextField.getText(): null);
 			p.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 			p.setWaistSize(NumberUtils.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
-			System.out.println("Zapisuje: " + p);
 			pantsListView.addPants(p);
+			hide();
 		}
 	});
 
