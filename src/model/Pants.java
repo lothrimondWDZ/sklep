@@ -110,4 +110,11 @@ public class Pants {
 		this.promotion = promotion;
 	}
 
+	@Override
+	public String toString() {
+		return "Pants [gender=" + gender + ", name=" + name + ", price=" + price + ", color=" + color + ", brand="
+				+ brand + ", waistSize=" + waistSize + ", length=" + length + ", fabric=" + fabric + ", image=" + image
+				+ ", promotion=" + promotion + "]";
+	}
+
 }

@@ -14,6 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import model.Gender;
+import model.Pants;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class PantsView extends JFrame {
 
 	private JPanel contentPane;
@@ -87,6 +93,20 @@ public class PantsView extends JFrame {
     	JButton cancelButton = new JButton("Anuluj");
 
     	JButton saveButton = new JButton("Zapisz");
+    	saveButton.addMouseListener(new MouseAdapter() {
+    		@Override
+    		public void mouseClicked(MouseEvent e) {
+    			Pants p = new Pants();
+    			p.setBrand(brandTextField.getText());
+    			p.setColor(colorTextField.getText());
+    			p.setFabric(fabricTextField.getText());
+    			p.setLength(Integer.valueOf(lengthTextField.getText()));
+    			p.setName(nameTextField.getText());
+    			p.setPrice(Double.valueOf(priceTextField.getText()));
+    			p.setWaistSize(Integer.valueOf(obwodTextField.getText()));
+    			System.out.println("Zapisuje: " + p);
+    		}
+    	});
 
     	addImageButton.show(this.addEditShow);
     	cancelButton.show(this.addEditShow);

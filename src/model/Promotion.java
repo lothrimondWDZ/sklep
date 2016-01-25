@@ -34,4 +34,9 @@ public class Promotion {
 	this.reduction = reduction;
     }
 
+	@Override
+	public String toString() {
+		return "Promotion [startDate=" + startDate + ", endDate=" + endDate + ", reduction=" + reduction + "]";
+	}
+
 }
