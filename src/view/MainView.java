@@ -296,9 +296,21 @@ public class MainView {
 	menuBar.add(mnPlik);
 
 	JMenuItem mntmImportZXml = new JMenuItem("Import z XML");
+	mntmImportZXml.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		System.out.println("import z xml");
+	    }
+	});
 	mnPlik.add(mntmImportZXml);
 
 	JMenuItem mntmExportDoXml = new JMenuItem("Export do XML");
+	mntmExportDoXml.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		System.out.println("eksport do xml");
+	    }
+	});
 	mnPlik.add(mntmExportDoXml);
     }
 }
