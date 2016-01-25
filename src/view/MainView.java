@@ -95,7 +95,7 @@ public class MainView {
 	jacketPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		jacketFrame = new JacketView(false, "Przegl¹daj kurtke");
+		jacketFrame = new JacketView(false, "Przeglï¿½daj kurtke");
 		jacketFrame.show();
 	    }
 	});
@@ -140,7 +140,7 @@ public class MainView {
 	shirtPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		shirtFrame = new ShirtView(false, "Przegl¹daj Koszule");
+		shirtFrame = new ShirtView(false, "Przeglï¿½daj Koszule");
 		shirtFrame.show();
 	    }
 	});
@@ -183,7 +183,7 @@ public class MainView {
 	tshirtPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		tshirtFrame = new TshirtView(false, "Przegl¹daj T-shirt");
+		tshirtFrame = new TshirtView(false, "Przeglï¿½daj T-shirt");
 		tshirtFrame.show();
 	    }
 	});
@@ -201,7 +201,7 @@ public class MainView {
 	        .addContainerGap(231, Short.MAX_VALUE)));
 	tshirtPanel.setLayout(gl_tshirtPanel);
 
-	JPanel pantsPanel = new JPanel();
+	PantsListView pantsPanel = new PantsListView();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
 
 	JButton pantsUsun = new JButton("Usu\u0144");
@@ -210,7 +210,7 @@ public class MainView {
 	pantsDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(true, "Dodaj spodnie");
+		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsPanel);
 		pantsFrame.show();
 	    }
 	});
@@ -219,7 +219,7 @@ public class MainView {
 	pantsEdytuj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(true, "Edytuj spodnie");
+		pantsFrame = new PantsView(true, "Edytuj spodnie", pantsPanel);
 		pantsFrame.show();
 	    }
 	});
@@ -228,7 +228,7 @@ public class MainView {
 	pantsPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(false, "PokaÅ¼ spodnie");
+		pantsFrame = new PantsView(false, "PokaÅ¼ spodnie", pantsPanel);
 		pantsFrame.show();
 	    }
 	});
@@ -252,7 +252,7 @@ public class MainView {
 	shoesPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		shoesFrame = new ShoesView(false, "Przegl¹daj buty");
+		shoesFrame = new ShoesView(false, "Przeglï¿½daj buty");
 		shoesFrame.show();
 	    }
 	});

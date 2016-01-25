@@ -35,11 +35,14 @@ public class PantsView extends JFrame {
     private String actionName;
     private JTextField lengthTextField;
     private JTextField obwodTextField;
+    private PantsListView pantsListView;
 
     /**
      * Create the frame.
+     * @param pantsPanel 
      */
-    public PantsView(boolean addEditShow, String actionName) {
+    public PantsView(boolean addEditShow, String actionName, PantsListView pantsListView) {
+    this.pantsListView = pantsListView;
 	this.addEditShow = addEditShow;
 	this.actionName = actionName;
 	setBounds(100, 100, 509, 400);
@@ -114,6 +117,7 @@ public class PantsView extends JFrame {
 			p.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 			p.setWaistSize(NumberUtils.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
 			System.out.println("Zapisuje: " + p);
+			pantsListView.addPants(p);
 		}
 	});
 
