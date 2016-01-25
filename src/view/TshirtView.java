@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -76,6 +78,12 @@ public class TshirtView extends JFrame {
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 
 	JButton cancelButton = new JButton("Anuluj");
+	cancelButton.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		hide();
+	    }
+	});
 
 	JButton saveButton = new JButton("Zapisz");
 
