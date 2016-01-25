@@ -15,8 +15,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
 
 public class MainView {
 
@@ -26,6 +29,7 @@ public class MainView {
     private PantsView pantsFrame;
     private JacketView jacketFrame;
     private ShoesView shoesFrame;
+    private JTable pantsTable;
 
     /**
      * Launch the application.
@@ -203,7 +207,10 @@ public class MainView {
 
 	PantsListView pantsPanel = new PantsListView();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
-
+	JScrollPane pantsTableScrollPane = new JScrollPane();
+	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar w pasie", "D³ugoœæ" };
+	pantsTable = new JTable(new DefaultTableModel(pantsPanel.getData(), pantsHeaders));
+	pantsTableScrollPane.setViewportView(pantsTable);
 	JButton pantsUsun = new JButton("Usu\u0144");
 
 	JButton pantsDodaj = new JButton("Dodaj");
@@ -211,6 +218,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsPanel);
+		pantsTableScrollPane.repaint();
 		pantsFrame.show();
 	    }
 	});
@@ -235,14 +243,20 @@ public class MainView {
 
 	GroupLayout gl_pantsPanel = new GroupLayout(pantsPanel);
 	gl_pantsPanel.setHorizontalGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsDodaj).addPreferredGap(ComponentPlacement.RELATED)
-	                .addComponent(pantsEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsUsun)
-	                .addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsPokaz).addContainerGap(131, Short.MAX_VALUE)));
+	        .addGroup(gl_pantsPanel.createSequentialGroup().addGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
+	                .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsDodaj)
+	                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsEdytuj).addPreferredGap(ComponentPlacement.RELATED)
+	                        .addComponent(pantsUsun).addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsPokaz))
+	                .addGroup(gl_pantsPanel.createSequentialGroup().addGap(23).addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 464,
+	                        GroupLayout.PREFERRED_SIZE)))
+	                .addContainerGap(24, Short.MAX_VALUE)));
 	gl_pantsPanel.setVerticalGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_pantsPanel
-	                .createSequentialGroup().addContainerGap().addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE)
-	                        .addComponent(pantsDodaj).addComponent(pantsEdytuj).addComponent(pantsUsun).addComponent(pantsPokaz))
-	        .addContainerGap(202, Short.MAX_VALUE)));
+	        .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(pantsDodaj).addComponent(pantsEdytuj)
+	                        .addComponent(pantsUsun).addComponent(pantsPokaz))
+	                .addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+	                .addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+
 	pantsPanel.setLayout(gl_pantsPanel);
 
 	JPanel shoesPanel = new JPanel();
