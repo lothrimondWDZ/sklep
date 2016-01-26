@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 public class MainView {
@@ -208,8 +210,14 @@ public class MainView {
 	PantsListView pantsPanel = new PantsListView();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
 	JScrollPane pantsTableScrollPane = new JScrollPane();
-	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar w pasie", "D³ugoœæ" };
-	pantsTable = new JTable(new DefaultTableModel(pantsPanel.getData(), pantsHeaders));
+	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar w pasie", "Dï¿½ugoï¿½ï¿½" };
+	pantsTable = new JTable(new DefaultTableModel(new Object[][]{}, pantsHeaders));
+	pantsTable.getModel().addTableModelListener(new TableModelListener() {
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			System.out.println(e.getType());
+		}
+	});
 	pantsTableScrollPane.setViewportView(pantsTable);
 	JButton pantsUsun = new JButton("Usu\u0144");
 
@@ -217,7 +225,7 @@ public class MainView {
 	pantsDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsPanel);
+		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsPanel, pantsTable);
 		pantsTableScrollPane.repaint();
 		pantsFrame.show();
 	    }
@@ -227,7 +235,7 @@ public class MainView {
 	pantsEdytuj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(true, "Edytuj spodnie", pantsPanel);
+		pantsFrame = new PantsView(true, "Edytuj spodnie", pantsPanel, pantsTable);
 		pantsFrame.show();
 	    }
 	});
@@ -236,7 +244,7 @@ public class MainView {
 	pantsPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(false, "PokaÅ¼ spodnie", pantsPanel);
+		pantsFrame = new PantsView(false, "PokaÅ¼ spodnie", pantsPanel, pantsTable);
 		pantsFrame.show();
 	    }
 	});
