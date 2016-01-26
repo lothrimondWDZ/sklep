@@ -24,84 +24,84 @@ import model.Pants;
 
 public class PantsView extends JFrame {
 
-    private JPanel contentPane;
-    private JTextField nameTextField;
-    private JTextField priceTextField;
-    private JTextField colorTextField;
-    private JTextField brandTextField;
-    private JTextField fabricTextField;
-    private boolean addEditShow;
-    private String actionName;
-    private JTextField lengthTextField;
-    private JTextField obwodTextField;
-    private JTable pantsTable;
-    private PantsList pantsList;
+	private JPanel contentPane;
+	private JTextField nameTextField;
+	private JTextField priceTextField;
+	private JTextField colorTextField;
+	private JTextField brandTextField;
+	private JTextField fabricTextField;
+	private boolean addEditShow;
+	private String actionName;
+	private JTextField lengthTextField;
+	private JTextField obwodTextField;
+	private JTable pantsTable;
+	private PantsList pantsList;
 
-    /**
-     * Create the frame.
-     * 
-     * @param pantsTable
-     * @param pantsPanel
-     */
-    public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList) {
-	this.pantsTable = pantsTable;
-	this.pantsList = pantsList;
-	int selectedRowIndex = pantsTable.getSelectedRow();
-	this.addEditShow = addEditShow;
-	this.actionName = actionName;
-	setBounds(100, 100, 509, 400);
-	contentPane = new JPanel();
-	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	setContentPane(contentPane);
+	/**
+	 * Create the frame.
+	 * 
+	 * @param pantsTable
+	 * @param pantsPanel
+	 */
+	public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList) {
+		this.pantsTable = pantsTable;
+		this.pantsList = pantsList;
+		int selectedRowIndex = pantsTable.getSelectedRow();
+		this.addEditShow = addEditShow;
+		this.actionName = actionName;
+		setBounds(100, 100, 509, 400);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
 
-	JLabel lblSpodni = new JLabel(this.actionName);
-	lblSpodni.setFont(new Font("Tahoma", Font.BOLD, 14));
+		JLabel lblSpodni = new JLabel(this.actionName);
+		lblSpodni.setFont(new Font("Tahoma", Font.BOLD, 14));
 
-	JLabel lblNazwa = new JLabel("Nazwa :");
+		JLabel lblNazwa = new JLabel("Nazwa :");
 
-	nameTextField = new JTextField();
-	nameTextField.setColumns(10);
+		nameTextField = new JTextField();
+		nameTextField.setColumns(10);
 
-	JLabel lblCena = new JLabel("Cena :");
+		JLabel lblCena = new JLabel("Cena :");
 
-	priceTextField = new JTextField();
-	priceTextField.setColumns(10);
+		priceTextField = new JTextField();
+		priceTextField.setColumns(10);
 
-	JLabel lblKolor = new JLabel("Kolor :");
+		JLabel lblKolor = new JLabel("Kolor :");
 
-	colorTextField = new JTextField();
-	colorTextField.setColumns(10);
+		colorTextField = new JTextField();
+		colorTextField.setColumns(10);
 
-	JLabel lblMarka = new JLabel("Marka :");
+		JLabel lblMarka = new JLabel("Marka :");
 
-	brandTextField = new JTextField();
-	brandTextField.setColumns(10);
+		brandTextField = new JTextField();
+		brandTextField.setColumns(10);
 
-	JLabel lblMateria = new JLabel("Materia\u0142 :");
+		JLabel lblMateria = new JLabel("Materia\u0142 :");
 
-	fabricTextField = new JTextField();
-	fabricTextField.setColumns(10);
+		fabricTextField = new JTextField();
+		fabricTextField.setColumns(10);
 
-	JLabel lblDugo = new JLabel("Długość :");
+		JLabel lblDugo = new JLabel("Długość :");
 
-	lengthTextField = new JTextField();
-	lengthTextField.setColumns(10);
+		lengthTextField = new JTextField();
+		lengthTextField.setColumns(10);
 
-	JLabel lblObwdPasa = new JLabel("Obwód :");
+		JLabel lblObwdPasa = new JLabel("Obwód :");
 
-	obwodTextField = new JTextField();
-	obwodTextField.setColumns(10);
+		obwodTextField = new JTextField();
+		obwodTextField.setColumns(10);
 
-	JLabel lblRodzaj = new JLabel("Rodzaj :");
+		JLabel lblRodzaj = new JLabel("Rodzaj :");
 
 		JComboBox genderComboBox = new JComboBox();
 		genderComboBox.addItem(Gender.FEMALE);
 		genderComboBox.addItem(Gender.MALE);
 		genderComboBox.addItem(Gender.UNISEX);
 
-	JPanel imagePanel = new JPanel();
+		JPanel imagePanel = new JPanel();
 
-		if(!(selectedRowIndex<0)){
+		if (!(selectedRowIndex < 0)) {
 			Pants p = pantsList.get(selectedRowIndex);
 			priceTextField.setText(p.getPrice() != null ? p.getPrice().toString() : "");
 			nameTextField.setText(p.getName() != null ? p.getName() : "");
@@ -111,7 +111,7 @@ public class PantsView extends JFrame {
 			lengthTextField.setText(p.getLength() != null ? p.getLength().toString() : "");
 			obwodTextField.setText(p.getWaistSize() != null ? p.getWaistSize().toString() : "");
 		}
-		
+
 		JButton addImageButton = new JButton("Przegl\u0105daj");
 
 		JButton cancelButton = new JButton("Anuluj");
@@ -139,7 +139,7 @@ public class PantsView extends JFrame {
 						.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
 				p.setGender((Gender) genderComboBox.getSelectedItem());
 				DefaultTableModel model = ((DefaultTableModel) pantsTable.getModel());
-				if(selectedRowIndex!=-1){
+				if (selectedRowIndex != -1) {
 					pantsList.edit(p, selectedRowIndex);
 					model.setValueAt(p.getGender() != null ? p.getGender().toString() : "", selectedRowIndex, 0);
 					model.setValueAt(p.getName(), selectedRowIndex, 1);
@@ -148,17 +148,12 @@ public class PantsView extends JFrame {
 					model.setValueAt(p.getBrand(), selectedRowIndex, 4);
 					model.setValueAt(p.getWaistSize() != null ? p.getWaistSize().toString() : "", selectedRowIndex, 5);
 					model.setValueAt(p.getLength() != null ? p.getLength().toString() : "", selectedRowIndex, 6);
-				}else{
+				} else {
 					pantsList.add(p);
-					model.addRow(new Object[]{
-							p.getGender() != null ? p.getGender().toString() : "",
-									p.getName(),
-									p.getPrice() != null ? p.getPrice().toString() : "",
-									p.getColor(),
-									p.getBrand(),
-									p.getWaistSize() != null ? p.getWaistSize().toString() : "",
-											p.getLength() != null ? p.getLength().toString() : ""
-					});
+					model.addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
+							p.getPrice() != null ? p.getPrice().toString() : "", p.getColor(), p.getBrand(),
+							p.getWaistSize() != null ? p.getWaistSize().toString() : "",
+							p.getLength() != null ? p.getLength().toString() : "" });
 				}
 				hide();
 			}
@@ -283,5 +278,5 @@ public class PantsView extends JFrame {
 						.createParallelGroup(Alignment.BASELINE).addComponent(cancelButton).addComponent(saveButton))
 				.addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
-    }
+	}
 }
