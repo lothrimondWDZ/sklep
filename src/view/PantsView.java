@@ -34,6 +34,7 @@ public class PantsView extends JFrame {
 	private JTextField lengthTextField;
 	private JTextField obwodTextField;
 	private JTable pantsTable;
+	private PantsList pantsList;
 
 	/**
 	 * Create the frame.
@@ -41,8 +42,10 @@ public class PantsView extends JFrame {
 	 * @param pantsTable
 	 * @param pantsPanel
 	 */
-	public PantsView(boolean addEditShow, String actionName, JTable pantsTable) {
+	public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList) {
 		this.pantsTable = pantsTable;
+		this.pantsList = pantsList;
+		int selectedRowIndex = pantsTable.getSelectedRow();
 		this.addEditShow = addEditShow;
 		this.actionName = actionName;
 		setBounds(100, 100, 509, 400);
@@ -94,6 +97,17 @@ public class PantsView extends JFrame {
 
 		JPanel imagePanel = new JPanel();
 
+		if(!(selectedRowIndex<0)){
+			Pants p = pantsList.get(selectedRowIndex);
+			priceTextField.setText(p.getPrice() != null ? p.getPrice().toString() : "");
+			nameTextField.setText(p.getName() != null ? p.getName() : "");
+			colorTextField.setText(p.getColor() != null ? p.getColor() : "");
+			brandTextField.setText(p.getBrand() != null ? p.getBrand() : "");
+			fabricTextField.setText(p.getFabric() != null ? p.getFabric() : "");
+			lengthTextField.setText(p.getLength() != null ? p.getLength().toString() : "");
+			obwodTextField.setText(p.getWaistSize() != null ? p.getWaistSize().toString() : "");
+		}
+		
 		JButton addImageButton = new JButton("Przegl\u0105daj");
 
 		JButton cancelButton = new JButton("Anuluj");
@@ -108,7 +122,7 @@ public class PantsView extends JFrame {
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Pants p = new Pants();
+				Pants p = selectedRowIndex == -1 ? new Pants() : pantsList.get(selectedRowIndex);
 				p.setBrand(!brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
 				p.setColor(!colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
 				p.setFabric(!fabricTextField.getText().isEmpty() ? fabricTextField.getText() : null);
@@ -119,15 +133,28 @@ public class PantsView extends JFrame {
 						.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 				p.setWaistSize(NumberUtils
 						.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
-				((DefaultTableModel) pantsTable.getModel()).addRow(new Object[]{
-						p.getGender() != null ? p.getGender().getName() : "",
-					    p.getName(),
-					    p.getPrice().toString(),
-					    p.getColor(),
-					    p.getBrand(),
-					    p.getWaistSize() != null ? p.getWaistSize().toString() : "",
-					    p.getLength() != null ? p.getLength().toString() : ""
-				});
+				DefaultTableModel model = ((DefaultTableModel) pantsTable.getModel());
+				if(selectedRowIndex!=-1){
+					pantsList.edit(p, selectedRowIndex);
+					model.setValueAt(p.getGender() != null ? p.getGender().getName() : "", selectedRowIndex, 0);
+					model.setValueAt(p.getName(), selectedRowIndex, 1);
+					model.setValueAt(p.getPrice().toString(), selectedRowIndex, 2);
+					model.setValueAt(p.getColor(), selectedRowIndex, 3);
+					model.setValueAt(p.getBrand(), selectedRowIndex, 4);
+					model.setValueAt(p.getWaistSize() != null ? p.getWaistSize().toString() : "", selectedRowIndex, 5);
+					model.setValueAt(p.getLength() != null ? p.getLength().toString() : "", selectedRowIndex, 6);
+				}else{
+					pantsList.add(p);
+					model.addRow(new Object[]{
+							p.getGender() != null ? p.getGender().getName() : "",
+									p.getName(),
+									p.getPrice().toString(),
+									p.getColor(),
+									p.getBrand(),
+									p.getWaistSize() != null ? p.getWaistSize().toString() : "",
+											p.getLength() != null ? p.getLength().toString() : ""
+					});
+				}
 				hide();
 			}
 		});
