@@ -1,13 +1,20 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,6 +42,7 @@ public class PantsView extends JFrame {
     private JTextField obwodTextField;
     private JTable pantsTable;
     private PantsList pantsList;
+    private BufferedImage image;
 
     /**
      * Create the frame.
@@ -97,6 +105,9 @@ public class PantsView extends JFrame {
 
 	JPanel imagePanel = new JPanel();
 
+	JLabel imageCanvas = new JLabel();
+	imagePanel.add(imageCanvas);
+
 	if (!(selectedRowIndex < 0)) {
 	    Pants p = pantsList.get(selectedRowIndex);
 	    priceTextField.setText(p.getPrice() != null ? p.getPrice().toString() : "");
@@ -106,9 +117,42 @@ public class PantsView extends JFrame {
 	    fabricTextField.setText(p.getFabric() != null ? p.getFabric() : "");
 	    lengthTextField.setText(p.getLength() != null ? p.getLength().toString() : "");
 	    obwodTextField.setText(p.getWaistSize() != null ? p.getWaistSize().toString() : "");
+	    if (p.getImage() != null) {
+		ImageIcon icon = new ImageIcon(p.getImage());
+		imageCanvas.setIcon(icon);
+
+		Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+		imageCanvas.setPreferredSize(imageSize);
+
+		imageCanvas.revalidate();
+		imageCanvas.repaint();
+	    }
 	}
 
 	JButton addImageButton = new JButton("Przegl\u0105daj");
+	addImageButton.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		JFileChooser chooser = new JFileChooser();
+		File file;
+		chooser.showOpenDialog(null);
+		file = chooser.getSelectedFile();
+
+		try {
+		    image = ImageIO.read(file);
+		    ImageIcon icon = new ImageIcon(image);
+		    imageCanvas.setIcon(icon);
+
+		    Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+		    imageCanvas.setPreferredSize(imageSize);
+
+		    imageCanvas.revalidate();
+		    imageCanvas.repaint();
+		} catch (IOException e1) {
+		}
+	    }
+
+	});
 
 	JButton cancelButton = new JButton("Anuluj");
 	cancelButton.addMouseListener(new MouseAdapter() {
@@ -130,12 +174,13 @@ public class PantsView extends JFrame {
 		p.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
 		p.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 		p.setWaistSize(NumberUtils.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
+		p.setImage(image != null ? image : null);
 		DefaultTableModel model = ((DefaultTableModel) pantsTable.getModel());
 		if (selectedRowIndex != -1) {
 		    pantsList.edit(p, selectedRowIndex);
 		    model.setValueAt(p.getGender() != null ? p.getGender().getName() : "", selectedRowIndex, 0);
 		    model.setValueAt(p.getName(), selectedRowIndex, 1);
-		    model.setValueAt(p.getPrice().toString(), selectedRowIndex, 2);
+		    model.setValueAt(p.getPrice() != null ? p.getPrice().toString() : "", selectedRowIndex, 2);
 		    model.setValueAt(p.getColor(), selectedRowIndex, 3);
 		    model.setValueAt(p.getBrand(), selectedRowIndex, 4);
 		    model.setValueAt(p.getWaistSize() != null ? p.getWaistSize().toString() : "", selectedRowIndex, 5);
