@@ -207,7 +207,7 @@ public class MainView {
 	        .addContainerGap(231, Short.MAX_VALUE)));
 	tshirtPanel.setLayout(gl_tshirtPanel);
 
-	PantsListView pantsPanel = new PantsListView();
+	JPanel pantsPanel = new JPanel();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
 	JScrollPane pantsTableScrollPane = new JScrollPane();
 	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar w pasie", "D�ugo��" };
@@ -225,7 +225,7 @@ public class MainView {
 	pantsDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsPanel, pantsTable);
+		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsTable);
 		pantsTableScrollPane.repaint();
 		pantsFrame.show();
 	    }
@@ -235,7 +235,7 @@ public class MainView {
 	pantsEdytuj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(true, "Edytuj spodnie", pantsPanel, pantsTable);
+		pantsFrame = new PantsView(true, "Edytuj spodnie", pantsTable);
 		pantsFrame.show();
 	    }
 	});
@@ -244,7 +244,7 @@ public class MainView {
 	pantsPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(false, "Pokaż spodnie", pantsPanel, pantsTable);
+		pantsFrame = new PantsView(false, "Pokaż spodnie", pantsTable);
 		pantsFrame.show();
 	    }
 	});

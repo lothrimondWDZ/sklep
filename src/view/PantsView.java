@@ -33,7 +33,6 @@ public class PantsView extends JFrame {
 	private String actionName;
 	private JTextField lengthTextField;
 	private JTextField obwodTextField;
-	private PantsListView pantsListView;
 	private JTable pantsTable;
 
 	/**
@@ -42,9 +41,8 @@ public class PantsView extends JFrame {
 	 * @param pantsTable
 	 * @param pantsPanel
 	 */
-	public PantsView(boolean addEditShow, String actionName, PantsListView pantsListView, JTable pantsTable) {
+	public PantsView(boolean addEditShow, String actionName, JTable pantsTable) {
 		this.pantsTable = pantsTable;
-		this.pantsListView = pantsListView;
 		this.addEditShow = addEditShow;
 		this.actionName = actionName;
 		setBounds(100, 100, 509, 400);
@@ -121,7 +119,6 @@ public class PantsView extends JFrame {
 						.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 				p.setWaistSize(NumberUtils
 						.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
-				pantsListView.addPants(p);
 				((DefaultTableModel) pantsTable.getModel()).addRow(new Object[]{
 						p.getGender() != null ? p.getGender().getName() : "",
 					    p.getName(),
