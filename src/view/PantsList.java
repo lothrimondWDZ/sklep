@@ -7,7 +7,7 @@ import model.Pants;
 
 public class PantsList {
 
-	private List<Pants> pantsList;
+    private List<Pants> pantsList;
 
 	public PantsList(){
 		this.pantsList = new ArrayList<Pants>();
@@ -44,6 +44,6 @@ public class PantsList {
 		    i++;
 		}
 		return data;
-	}
-	
+    }
+
 }

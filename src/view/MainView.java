@@ -226,6 +226,7 @@ public class MainView {
 	pantsDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
+		pantsTable.getSelectionModel().clearSelection();
 		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsTable, pantsList);
 		pantsFrame.show();
 	    }
