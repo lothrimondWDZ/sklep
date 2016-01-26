@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import model.Gender;
 import model.Pants;
 
 public class PantsView extends JFrame {
@@ -102,9 +103,11 @@ public class PantsView extends JFrame {
 	JLabel lblRodzaj = new JLabel("Rodzaj :");
 
 	JComboBox genderComboBox = new JComboBox();
+	genderComboBox.addItem(Gender.FEMALE);
+	genderComboBox.addItem(Gender.MALE);
+	genderComboBox.addItem(Gender.UNISEX);
 
 	JPanel imagePanel = new JPanel();
-
 	JLabel imageCanvas = new JLabel();
 	imagePanel.add(imageCanvas);
 
@@ -117,6 +120,7 @@ public class PantsView extends JFrame {
 	    fabricTextField.setText(p.getFabric() != null ? p.getFabric() : "");
 	    lengthTextField.setText(p.getLength() != null ? p.getLength().toString() : "");
 	    obwodTextField.setText(p.getWaistSize() != null ? p.getWaistSize().toString() : "");
+	    genderComboBox.setSelectedItem(p.getGender());
 	    if (p.getImage() != null) {
 		ImageIcon icon = new ImageIcon(p.getImage());
 		imageCanvas.setIcon(icon);
@@ -174,11 +178,12 @@ public class PantsView extends JFrame {
 		p.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
 		p.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 		p.setWaistSize(NumberUtils.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
+		p.setGender((Gender) genderComboBox.getSelectedItem());
 		p.setImage(image != null ? image : null);
 		DefaultTableModel model = ((DefaultTableModel) pantsTable.getModel());
 		if (selectedRowIndex != -1) {
 		    pantsList.edit(p, selectedRowIndex);
-		    model.setValueAt(p.getGender() != null ? p.getGender().getName() : "", selectedRowIndex, 0);
+		    model.setValueAt(p.getGender() != null ? p.getGender().toString() : "", selectedRowIndex, 0);
 		    model.setValueAt(p.getName(), selectedRowIndex, 1);
 		    model.setValueAt(p.getPrice() != null ? p.getPrice().toString() : "", selectedRowIndex, 2);
 		    model.setValueAt(p.getColor(), selectedRowIndex, 3);
@@ -187,11 +192,11 @@ public class PantsView extends JFrame {
 		    model.setValueAt(p.getLength() != null ? p.getLength().toString() : "", selectedRowIndex, 6);
 		} else {
 		    pantsList.add(p);
-		    model.addRow(new Object[] { p.getGender() != null ? p.getGender().getName() : "", p.getName(),
+		    model.addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
 	                    p.getPrice() != null ? p.getPrice().toString() : "", p.getColor(), p.getBrand(),
 	                    p.getWaistSize() != null ? p.getWaistSize().toString() : "", p.getLength() != null ? p.getLength().toString() : "" });
+		    hide();
 		}
-		hide();
 	    }
 	});
 
