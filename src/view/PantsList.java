@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Pants;
@@ -8,6 +9,10 @@ public class PantsList {
 
 	private List<Pants> pantsList;
 
+	public PantsList(){
+		this.pantsList = new ArrayList<Pants>();
+	}
+	
 	public void add(final Pants p){
 		pantsList.add(p);
 	}

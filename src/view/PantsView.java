@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import model.Gender;
 import model.Pants;
 
 public class PantsView extends JFrame {
@@ -94,6 +95,9 @@ public class PantsView extends JFrame {
 		JLabel lblRodzaj = new JLabel("Rodzaj :");
 
 		JComboBox genderComboBox = new JComboBox();
+		genderComboBox.addItem(Gender.FEMALE);
+		genderComboBox.addItem(Gender.MALE);
+		genderComboBox.addItem(Gender.UNISEX);
 
 		JPanel imagePanel = new JPanel();
 
@@ -133,10 +137,11 @@ public class PantsView extends JFrame {
 						.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 				p.setWaistSize(NumberUtils
 						.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
+				p.setGender((Gender) genderComboBox.getSelectedItem());
 				DefaultTableModel model = ((DefaultTableModel) pantsTable.getModel());
 				if(selectedRowIndex!=-1){
 					pantsList.edit(p, selectedRowIndex);
-					model.setValueAt(p.getGender() != null ? p.getGender().getName() : "", selectedRowIndex, 0);
+					model.setValueAt(p.getGender() != null ? p.getGender().toString() : "", selectedRowIndex, 0);
 					model.setValueAt(p.getName(), selectedRowIndex, 1);
 					model.setValueAt(p.getPrice().toString(), selectedRowIndex, 2);
 					model.setValueAt(p.getColor(), selectedRowIndex, 3);
@@ -146,7 +151,7 @@ public class PantsView extends JFrame {
 				}else{
 					pantsList.add(p);
 					model.addRow(new Object[]{
-							p.getGender() != null ? p.getGender().getName() : "",
+							p.getGender() != null ? p.getGender().toString() : "",
 									p.getName(),
 									p.getPrice().toString(),
 									p.getColor(),
