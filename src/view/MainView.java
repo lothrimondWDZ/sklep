@@ -210,13 +210,13 @@ public class MainView {
 	PantsListView pantsPanel = new PantsListView();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
 	JScrollPane pantsTableScrollPane = new JScrollPane();
-	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar w pasie", "Dï¿½ugoï¿½ï¿½" };
-	pantsTable = new JTable(new DefaultTableModel(new Object[][]{}, pantsHeaders));
+	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "D³ugoœæ" };
+	pantsTable = new JTable(new DefaultTableModel(new Object[][] {}, pantsHeaders));
 	pantsTable.getModel().addTableModelListener(new TableModelListener() {
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			System.out.println(e.getType());
-		}
+	    @Override
+	    public void tableChanged(TableModelEvent e) {
+		System.out.println(e.getType());
+	    }
 	});
 	pantsTableScrollPane.setViewportView(pantsTable);
 	JButton pantsUsun = new JButton("Usu\u0144");
@@ -226,7 +226,6 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsPanel, pantsTable);
-		pantsTableScrollPane.repaint();
 		pantsFrame.show();
 	    }
 	});
