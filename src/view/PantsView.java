@@ -54,7 +54,7 @@ public class PantsView extends JFrame {
     public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList) {
 	this.pantsTable = pantsTable;
 	this.pantsList = pantsList;
-	int selectedRowIndex = pantsTable.getSelectedRow();
+	int selectedRowIndex = pantsTable.convertRowIndexToModel(pantsTable.getSelectedRow());
 	this.addEditShow = addEditShow;
 	this.actionName = actionName;
 	setBounds(100, 100, 509, 400);
