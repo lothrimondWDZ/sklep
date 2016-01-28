@@ -258,7 +258,7 @@ public class MainView {
 				p.setLength(new Integer(length));
 			}
 		    pantsList.remove(p);
-		    ((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.getSelectedRow());
+		    ((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.convertRowIndexToModel(pantsTable.getSelectedRow()));
 		}
 	    }
 	});
