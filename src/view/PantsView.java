@@ -90,12 +90,12 @@ public class PantsView extends JFrame {
 	fabricTextField = new JTextField();
 	fabricTextField.setColumns(10);
 
-	JLabel lblDugo = new JLabel("DÅ‚ugoÅ›Ä‡ :");
+	JLabel lblDugo = new JLabel("D³ugoœæ :");
 
 	lengthTextField = new JTextField();
 	lengthTextField.setColumns(10);
 
-	JLabel lblObwdPasa = new JLabel("ObwÃ³d :");
+	JLabel lblObwdPasa = new JLabel("Obwód :");
 
 	obwodTextField = new JTextField();
 	obwodTextField.setColumns(10);

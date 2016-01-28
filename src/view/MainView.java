@@ -43,6 +43,14 @@ public class MainView {
     private JTable pantsTable;
     private JTextField filterPantsTextField;
     private DefaultTableModel tablePantsModel;
+    private JTable jacketTable;
+    private JTextField filstrJacketTextField;
+    private JTable shirtTable;
+    private JTextField filtrShirtTextField;
+    private JTable tshirtTable;
+    private JTextField filtrTshirtTextField;
+    private JTable shoesTable;
+    private JTextField filtrShoesTextField;
 
     /**
      * Launch the application.
@@ -116,18 +124,37 @@ public class MainView {
 		jacketFrame.show();
 	    }
 	});
+
+	JScrollPane jacketTableScrollPane = new JScrollPane();
+
+	JLabel lblFiltr_1 = new JLabel("Filtr :");
+
+	filstrJacketTextField = new JTextField();
+	filstrJacketTextField.setColumns(10);
 	GroupLayout gl_jacketPanel = new GroupLayout(jacketPanel);
+	gl_jacketPanel.setHorizontalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
+	        .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_jacketPanel.createSequentialGroup().addComponent(jacketDodaj).addPreferredGap(ComponentPlacement.RELATED)
+	                                .addComponent(jacketEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketUsun)
+	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketPokaz))
+	                .addComponent(jacketTableScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+	                .addGroup(gl_jacketPanel.createSequentialGroup().addComponent(lblFiltr_1).addGap(29).addComponent(filstrJacketTextField,
+	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+	                .addContainerGap()));
 	gl_jacketPanel
-	        .setHorizontalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
-	                .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap().addComponent(jacketDodaj)
-	                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketEdytuj).addPreferredGap(ComponentPlacement.RELATED)
-	                        .addComponent(jacketUsun).addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketPokaz)
-	                        .addContainerGap(131, Short.MAX_VALUE)));
-	gl_jacketPanel.setVerticalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_jacketPanel.createSequentialGroup()
-	                .addContainerGap().addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(jacketDodaj)
-	                        .addComponent(jacketEdytuj).addComponent(jacketUsun).addComponent(jacketPokaz))
-	        .addContainerGap(202, Short.MAX_VALUE)));
+	        .setVerticalGroup(
+	                gl_jacketPanel.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
+	                                .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(jacketDodaj)
+	                                        .addComponent(jacketEdytuj).addComponent(jacketUsun).addComponent(jacketPokaz))
+	                        .addGap(12)
+	                        .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_1).addComponent(
+	                                filstrJacketTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        .addGap(18).addComponent(jacketTableScrollPane, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE).addContainerGap()));
+
+	jacketTable = new JTable();
+	jacketTableScrollPane.setViewportView(jacketTable);
 	jacketPanel.setLayout(gl_jacketPanel);
 
 	JPanel shirtPanel = new JPanel();
@@ -161,16 +188,38 @@ public class MainView {
 		shirtFrame.show();
 	    }
 	});
+
+	JScrollPane shirtTableScrollPane = new JScrollPane();
+
+	JLabel lblFiltr_2 = new JLabel("Filtr :");
+
+	filtrShirtTextField = new JTextField();
+	filtrShirtTextField.setColumns(10);
 	GroupLayout gl_shirtPanel = new GroupLayout(shirtPanel);
 	gl_shirtPanel.setHorizontalGroup(gl_shirtPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_shirtPanel.createSequentialGroup().addContainerGap().addComponent(shirtDodaj).addPreferredGap(ComponentPlacement.RELATED)
-	                .addComponent(shirtEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(shirtUsun)
-	                .addPreferredGap(ComponentPlacement.RELATED).addComponent(shirtPokaz).addContainerGap(131, Short.MAX_VALUE)));
-	gl_shirtPanel.setVerticalGroup(gl_shirtPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_shirtPanel
-	                .createSequentialGroup().addContainerGap().addGroup(gl_shirtPanel.createParallelGroup(Alignment.BASELINE)
-	                        .addComponent(shirtEdytuj).addComponent(shirtDodaj).addComponent(shirtUsun).addComponent(shirtPokaz))
-	        .addContainerGap(202, Short.MAX_VALUE)));
+	        .addGroup(gl_shirtPanel.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_shirtPanel.createParallelGroup(Alignment.LEADING)
+	                        .addComponent(shirtTableScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+	                        .addGroup(gl_shirtPanel.createSequentialGroup().addComponent(shirtDodaj).addPreferredGap(ComponentPlacement.RELATED)
+	                                .addComponent(shirtEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(shirtUsun)
+	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(shirtPokaz))
+	                .addGroup(gl_shirtPanel.createSequentialGroup().addComponent(lblFiltr_2).addGap(34).addComponent(filtrShirtTextField,
+	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+	                .addContainerGap()));
+	gl_shirtPanel
+	        .setVerticalGroup(
+	                gl_shirtPanel.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_shirtPanel.createSequentialGroup().addContainerGap()
+	                                .addGroup(gl_shirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(shirtEdytuj)
+	                                        .addComponent(shirtDodaj).addComponent(shirtUsun).addComponent(shirtPokaz))
+	                        .addPreferredGap(ComponentPlacement.UNRELATED)
+	                        .addGroup(gl_shirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_2).addComponent(
+	                                filtrShirtTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        .addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+	        .addComponent(shirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+
+	shirtTable = new JTable();
+	shirtTableScrollPane.setViewportView(shirtTable);
 	shirtPanel.setLayout(gl_shirtPanel);
 
 	JPanel tshirtPanel = new JPanel();
@@ -204,25 +253,45 @@ public class MainView {
 		tshirtFrame.show();
 	    }
 	});
+
+	JScrollPane tshirtTableScrollPane = new JScrollPane();
+
+	JLabel lblFiltr_3 = new JLabel("Filtr :");
+
+	filtrTshirtTextField = new JTextField();
+	filtrTshirtTextField.setColumns(10);
 	GroupLayout gl_tshirtPanel = new GroupLayout(tshirtPanel);
+	gl_tshirtPanel.setHorizontalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+	        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+	                        .addComponent(tshirtTableScrollPane, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+	                        .addGroup(gl_tshirtPanel.createSequentialGroup().addComponent(tshirtDodaj).addPreferredGap(ComponentPlacement.RELATED)
+	                                .addComponent(tshirtEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtUsun)
+	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtPokaz))
+	                .addGroup(gl_tshirtPanel.createSequentialGroup().addComponent(lblFiltr_3).addGap(32).addComponent(filtrTshirtTextField,
+	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+	                .addContainerGap()));
 	gl_tshirtPanel
-	        .setHorizontalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
-	                .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap().addComponent(tshirtDodaj)
-	                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtEdytuj).addPreferredGap(ComponentPlacement.RELATED)
-	                        .addComponent(tshirtUsun).addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtPokaz)
-	                        .addContainerGap(213, Short.MAX_VALUE)));
-	gl_tshirtPanel.setVerticalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_tshirtPanel.createSequentialGroup()
-	                .addContainerGap().addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(tshirtDodaj)
-	                        .addComponent(tshirtEdytuj).addComponent(tshirtUsun).addComponent(tshirtPokaz))
-	        .addContainerGap(231, Short.MAX_VALUE)));
+	        .setVerticalGroup(
+	                gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap()
+	                                .addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(tshirtDodaj)
+	                                        .addComponent(tshirtEdytuj).addComponent(tshirtUsun).addComponent(tshirtPokaz))
+	                        .addPreferredGap(ComponentPlacement.UNRELATED)
+	                        .addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_3).addComponent(
+	                                filtrTshirtTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        .addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+	        .addComponent(tshirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+
+	tshirtTable = new JTable();
+	tshirtTableScrollPane.setViewportView(tshirtTable);
 	tshirtPanel.setLayout(gl_tshirtPanel);
 
 	JPanel pantsPanel = new JPanel();
 	PantsList pantsList = new PantsList();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
 	JScrollPane pantsTableScrollPane = new JScrollPane();
-	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "Dï¿½ugoï¿½ï¿½" };
+	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "D³ugoœæ" };
 	tablePantsModel = new DefaultTableModel(new Object[][] {}, pantsHeaders);
 	pantsTable = new JTable(tablePantsModel);
 	pantsTableScrollPane.setViewportView(pantsTable);
@@ -313,11 +382,11 @@ public class MainView {
 	                .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsDodaj)
 	                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsEdytuj).addPreferredGap(ComponentPlacement.RELATED)
 	                        .addComponent(pantsUsun).addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsPokaz))
-	                .addGroup(gl_pantsPanel.createSequentialGroup().addGap(23).addGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
-	                        .addGroup(gl_pantsPanel.createSequentialGroup().addComponent(lblFiltr).addGap(18).addComponent(filterPantsTextField,
-	                                GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	                        .addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 464, GroupLayout.PREFERRED_SIZE))))
-	        .addContainerGap(24, Short.MAX_VALUE)));
+	                .addGroup(gl_pantsPanel.createSequentialGroup().addGap(23).addComponent(lblFiltr).addGap(18)
+	                        .addComponent(filterPantsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsTableScrollPane, GroupLayout.DEFAULT_SIZE,
+	                        491, Short.MAX_VALUE)))
+	                .addContainerGap()));
 	gl_pantsPanel
 	        .setVerticalGroup(
 	                gl_pantsPanel.createParallelGroup(Alignment.LEADING)
@@ -327,7 +396,7 @@ public class MainView {
 	                        .addPreferredGap(ComponentPlacement.RELATED)
 	                        .addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr).addComponent(
 	                                filterPantsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        .addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+	        .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	        .addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
 	pantsPanel.setLayout(gl_pantsPanel);
@@ -363,16 +432,37 @@ public class MainView {
 	});
 
 	JButton shoesUsun = new JButton("Usu\u0144");
+
+	JScrollPane shoesTableScrollPane = new JScrollPane();
+
+	JLabel lblFiltr_4 = new JLabel("Filtr :");
+
+	filtrShoesTextField = new JTextField();
+	filtrShoesTextField.setColumns(10);
 	GroupLayout gl_shoesPanel = new GroupLayout(shoesPanel);
 	gl_shoesPanel.setHorizontalGroup(gl_shoesPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_shoesPanel.createSequentialGroup().addContainerGap().addComponent(shoesDodaj).addPreferredGap(ComponentPlacement.RELATED)
-	                .addComponent(shoesEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(shoesUsun)
-	                .addPreferredGap(ComponentPlacement.RELATED).addComponent(shoesPokaz).addContainerGap(131, Short.MAX_VALUE)));
-	gl_shoesPanel.setVerticalGroup(gl_shoesPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_shoesPanel
-	                .createSequentialGroup().addContainerGap().addGroup(gl_shoesPanel.createParallelGroup(Alignment.BASELINE)
-	                        .addComponent(shoesDodaj).addComponent(shoesEdytuj).addComponent(shoesUsun).addComponent(shoesPokaz))
-	        .addContainerGap(202, Short.MAX_VALUE)));
+	        .addGroup(gl_shoesPanel.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_shoesPanel.createParallelGroup(Alignment.LEADING)
+	                        .addComponent(shoesTableScrollPane, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+	                        .addGroup(gl_shoesPanel.createSequentialGroup().addComponent(shoesDodaj).addPreferredGap(ComponentPlacement.RELATED)
+	                                .addComponent(shoesEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(shoesUsun)
+	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(shoesPokaz))
+	                .addGroup(gl_shoesPanel.createSequentialGroup().addComponent(lblFiltr_4).addGap(31).addComponent(filtrShoesTextField,
+	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+	                .addContainerGap()));
+	gl_shoesPanel
+	        .setVerticalGroup(
+	                gl_shoesPanel.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_shoesPanel.createSequentialGroup().addContainerGap()
+	                                .addGroup(gl_shoesPanel.createParallelGroup(Alignment.BASELINE).addComponent(shoesDodaj)
+	                                        .addComponent(shoesEdytuj).addComponent(shoesUsun).addComponent(shoesPokaz))
+	                        .addGap(18)
+	                        .addGroup(gl_shoesPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_4).addComponent(
+	                                filtrShoesTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        .addGap(11).addComponent(shoesTableScrollPane, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE).addContainerGap()));
+
+	shoesTable = new JTable();
+	shoesTableScrollPane.setViewportView(shoesTable);
 	shoesPanel.setLayout(gl_shoesPanel);
 	masterPanel.setLayout(gl_masterPanel);
 
