@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,6 +13,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -18,8 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class MainView {
 
@@ -30,6 +36,8 @@ public class MainView {
     private JacketView jacketFrame;
     private ShoesView shoesFrame;
     private JTable pantsTable;
+    private JTextField filterPantsTextField;
+    private DefaultTableModel tablePantsModel;
 
     /**
      * Launch the application.
@@ -210,7 +218,8 @@ public class MainView {
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
 	JScrollPane pantsTableScrollPane = new JScrollPane();
 	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "D�ugo��" };
-	pantsTable = new JTable(new DefaultTableModel(new Object[][] {}, pantsHeaders));
+	tablePantsModel = new DefaultTableModel(new Object[][] {}, pantsHeaders);
+	pantsTable = new JTable(tablePantsModel);
 	pantsTableScrollPane.setViewportView(pantsTable);
 	JButton pantsUsun = new JButton("Usu\u0144");
 	pantsUsun.addMouseListener(new MouseAdapter() {
@@ -255,21 +264,41 @@ public class MainView {
 	    }
 	});
 
+	JLabel lblFiltr = new JLabel("Filtr :");
+
+	filterPantsTextField = new JTextField();
+	filterPantsTextField.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		String query = filterPantsTextField.toString().toLowerCase();
+		filter(query);
+		((DefaultTableModel) pantsTable.getModel()).fireTableDataChanged();
+	    }
+	});
+	filterPantsTextField.setColumns(10);
+
 	GroupLayout gl_pantsPanel = new GroupLayout(pantsPanel);
 	gl_pantsPanel.setHorizontalGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
 	        .addGroup(gl_pantsPanel.createSequentialGroup().addGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
 	                .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsDodaj)
 	                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsEdytuj).addPreferredGap(ComponentPlacement.RELATED)
 	                        .addComponent(pantsUsun).addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsPokaz))
-	                .addGroup(gl_pantsPanel.createSequentialGroup().addGap(23).addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 464,
-	                        GroupLayout.PREFERRED_SIZE)))
-	                .addContainerGap(24, Short.MAX_VALUE)));
-	gl_pantsPanel.setVerticalGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap()
-	                .addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(pantsDodaj).addComponent(pantsEdytuj)
-	                        .addComponent(pantsUsun).addComponent(pantsPokaz))
-	                .addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-	                .addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+	                .addGroup(gl_pantsPanel.createSequentialGroup().addGap(23).addGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_pantsPanel.createSequentialGroup().addComponent(lblFiltr).addGap(18).addComponent(filterPantsTextField,
+	                                GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                        .addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 464, GroupLayout.PREFERRED_SIZE))))
+	        .addContainerGap(24, Short.MAX_VALUE)));
+	gl_pantsPanel
+	        .setVerticalGroup(
+	                gl_pantsPanel.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap()
+	                                .addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(pantsDodaj)
+	                                        .addComponent(pantsEdytuj).addComponent(pantsUsun).addComponent(pantsPokaz))
+	                        .addPreferredGap(ComponentPlacement.RELATED)
+	                        .addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr).addComponent(
+	                                filterPantsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        .addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+	        .addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
 	pantsPanel.setLayout(gl_pantsPanel);
 
@@ -340,5 +369,11 @@ public class MainView {
 	    }
 	});
 	mnPlik.add(mntmExportDoXml);
+    }
+
+    private void filter(String query) {
+	TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tablePantsModel);
+	pantsTable.setRowSorter(tr);
+	tr.setRowFilter(RowFilter.regexFilter(query));
     }
 }
