@@ -27,6 +27,11 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+import org.apache.commons.lang3.StringUtils;
+
+import model.Gender;
+import model.Pants;
+
 public class MainView {
 
     private JFrame frame;
@@ -226,7 +231,33 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (pantsTable.getSelectedRow() != -1) {
-		    pantsList.remove(pantsTable.getSelectedRow());
+			Pants p = new Pants();
+			p.setGender(Gender.getByName(((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 0).toString()));
+			Object name = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 1);
+			if(name != null){
+				p.setName(name.toString());
+			}
+			String price = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 2).toString();
+			if(!StringUtils.isBlank(price)){
+				p.setPrice(new Double(price));
+			}
+			Object color = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 3);
+			if(color != null){
+				p.setColor(color.toString());
+			}
+			Object brand = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 4);
+			if(brand != null){
+				p.setBrand(brand.toString());
+			}
+			String waistSize = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 5).toString();
+			if(!StringUtils.isBlank(waistSize)){
+				p.setWaistSize(new Integer(waistSize));
+			}
+			String length = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 6).toString();
+			if(!StringUtils.isBlank(length)){
+				p.setLength(new Integer(length));
+			}
+		    pantsList.remove(p);
 		    ((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.getSelectedRow());
 		}
 	    }

@@ -20,6 +20,18 @@ public enum Gender {
     public String getName() {
 	return name;
     }
+    
+    public static Gender getByName(String name){
+    	if(name.equals(Gender.FEMALE.getName())){
+    		return Gender.FEMALE;
+    	} else if(name.equals(Gender.MALE.getName())){
+    		return Gender.MALE;
+    	} else if(name.equals(Gender.UNISEX.getName())){
+    		return Gender.UNISEX;
+    	}else{
+    		return null;
+    	}
+    }
 
     @Override
     public String toString() {
