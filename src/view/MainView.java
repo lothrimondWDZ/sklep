@@ -270,9 +270,8 @@ public class MainView {
 	filterPantsTextField.addKeyListener(new KeyAdapter() {
 	    @Override
 	    public void keyReleased(KeyEvent e) {
-		String query = filterPantsTextField.toString().toLowerCase();
+		String query = filterPantsTextField.getText().toLowerCase();
 		filter(query);
-		((DefaultTableModel) pantsTable.getModel()).fireTableDataChanged();
 	    }
 	});
 	filterPantsTextField.setColumns(10);
@@ -373,7 +372,8 @@ public class MainView {
 
     private void filter(String query) {
 	TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tablePantsModel);
+	tr.setRowFilter(RowFilter.regexFilter(query, 1));
 	pantsTable.setRowSorter(tr);
-	tr.setRowFilter(RowFilter.regexFilter(query));
+
     }
 }
