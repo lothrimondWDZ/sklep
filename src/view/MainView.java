@@ -31,6 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import model.Gender;
 import model.Pants;
+import model.Shirt;
 
 public class MainView {
 
@@ -43,6 +44,7 @@ public class MainView {
     private JTable pantsTable;
     private JTextField filterPantsTextField;
     private DefaultTableModel tablePantsModel;
+    private DefaultTableModel tableShirtModel;
     private JTable jacketTable;
     private JTextField filstrJacketTextField;
     private JTable shirtTable;
@@ -158,14 +160,22 @@ public class MainView {
 	jacketPanel.setLayout(gl_jacketPanel);
 
 	JPanel shirtPanel = new JPanel();
+	JScrollPane shirtTableScrollPane = new JScrollPane();
+	String[] shirtHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka" };
+	tableShirtModel = new DefaultTableModel(new Object[][] {}, shirtHeaders);
+	shirtTable = new JTable(tableShirtModel);
+	shirtTableScrollPane.setViewportView(shirtTable);
+	ShirtList shirtList = new ShirtList();
 	mainTabbedPane.addTab("Koszule", null, shirtPanel, null);
 
 	JButton shirtEdytuj = new JButton("Edytuj");
 	shirtEdytuj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		shirtFrame = new ShirtView(true, "Edytuj Koszule");
-		shirtFrame.show();
+	    	if (shirtTable.getSelectedRow() != -1) {
+	    		shirtFrame = new ShirtView(true, "Edytuj Koszule", shirtTable, shirtList);
+	    		shirtFrame.show();
+			}
 	    }
 	});
 
@@ -173,23 +183,49 @@ public class MainView {
 	shirtDodaj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		shirtFrame = new ShirtView(true, "Dodaj Koszule");
-		shirtFrame.show();
+	    	shirtTable.getSelectionModel().clearSelection();
+	    	shirtFrame = new ShirtView(true, "Dodaj Koszule", shirtTable, shirtList);
+	    	shirtFrame.show();
 	    }
 	});
 
 	JButton shirtUsun = new JButton("Usu\u0144");
+	shirtUsun.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		if (shirtTable.getSelectedRow() != -1) {
+		    Shirt s = new Shirt();
+		    s.setGender(Gender.getByName(((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 0).toString()));
+		    Object name = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 1);
+		    if (name != null) {
+			s.setName(name.toString());
+		    }
+		    String price = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 2).toString();
+		    if (!StringUtils.isBlank(price)) {
+			s.setPrice(new Double(price));
+		    }
+		    Object color = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 3);
+		    if (color != null) {
+			s.setColor(color.toString());
+		    }
+		    Object brand = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 4);
+		    if (brand != null) {
+			s.setBrand(brand.toString());
+		    }
+		    shirtList.remove(s);
+		    ((DefaultTableModel) shirtTable.getModel()).removeRow(shirtTable.convertRowIndexToModel(shirtTable.getSelectedRow()));
+		}
+	    }
+	});
 
 	JButton shirtPokaz = new JButton("Poka\u017C");
 	shirtPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		shirtFrame = new ShirtView(false, "Przeglï¿½daj Koszule");
+		shirtFrame = new ShirtView(false, "Przeglï¿½daj Koszule", shirtTable, shirtList);
 		shirtFrame.show();
 	    }
 	});
-
-	JScrollPane shirtTableScrollPane = new JScrollPane();
 
 	JLabel lblFiltr_2 = new JLabel("Filtr :");
 
@@ -218,8 +254,6 @@ public class MainView {
 	        .addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
 	        .addComponent(shirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
-	shirtTable = new JTable();
-	shirtTableScrollPane.setViewportView(shirtTable);
 	shirtPanel.setLayout(gl_shirtPanel);
 
 	JPanel tshirtPanel = new JPanel();
@@ -291,7 +325,7 @@ public class MainView {
 	PantsList pantsList = new PantsList();
 	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
 	JScrollPane pantsTableScrollPane = new JScrollPane();
-	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "D³ugoœæ" };
+	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "Dï¿½ugoï¿½ï¿½" };
 	tablePantsModel = new DefaultTableModel(new Object[][] {}, pantsHeaders);
 	pantsTable = new JTable(tablePantsModel);
 	pantsTableScrollPane.setViewportView(pantsTable);

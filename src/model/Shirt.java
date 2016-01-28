@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Shirt {
+public class Shirt {
 
 	@XmlElement(type = Gender.class)
     private Gender gender;
@@ -18,7 +18,7 @@ public abstract class Shirt {
 	@XmlElement
     private BufferedImage image;
 	@XmlElement
-    private double price;
+    private Double price;
 	@XmlElement
     private String color;
 	@XmlElement
@@ -50,11 +50,11 @@ public abstract class Shirt {
 	this.image = image;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
 	return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
 	this.price = price;
     }
 
