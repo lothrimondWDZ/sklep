@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public enum JacketClosing {
 
     ZIP_FASTENER("suwak"), BUTTONS("guziki"), VELCRO("rzep");
-	
-	@XmlElement
+
+    @XmlElement
     private String name;
 
     JacketClosing(final String name) {
@@ -22,4 +22,20 @@ public enum JacketClosing {
 	return name;
     }
 
+    public static JacketClosing getByName(String name) {
+	if (name.equals(JacketClosing.ZIP_FASTENER.getName())) {
+	    return JacketClosing.ZIP_FASTENER;
+	} else if (name.equals(JacketClosing.BUTTONS.getName())) {
+	    return JacketClosing.BUTTONS;
+	} else if (name.equals(JacketClosing.VELCRO.getName())) {
+	    return JacketClosing.VELCRO;
+	} else {
+	    return null;
+	}
+    }
+
+    @Override
+    public String toString() {
+	return name;
+    }
 }

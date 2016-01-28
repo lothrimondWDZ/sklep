@@ -190,6 +190,7 @@ public class PantsView extends JFrame {
 		    model.setValueAt(p.getBrand(), selectedRowIndex, 4);
 		    model.setValueAt(p.getWaistSize() != null ? p.getWaistSize().toString() : "", selectedRowIndex, 5);
 		    model.setValueAt(p.getLength() != null ? p.getLength().toString() : "", selectedRowIndex, 6);
+		    hide();
 		} else {
 		    pantsList.add(p);
 		    model.addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
