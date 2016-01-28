@@ -303,9 +303,16 @@ public class MainView {
 		});
 
 		JLabel lblFiltr_2 = new JLabel("Filtr :");
-
 		filtrShirtTextField = new JTextField();
+		filtrShirtTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String query = filtrShirtTextField.getText().toLowerCase();
+				filter(query, tableShirtModel, shirtTable);
+			}
+		});
 		filtrShirtTextField.setColumns(10);
+
 		GroupLayout gl_shirtPanel = new GroupLayout(shirtPanel);
 		gl_shirtPanel
 				.setHorizontalGroup(
