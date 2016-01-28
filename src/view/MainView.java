@@ -216,8 +216,10 @@ public class MainView {
 	pantsUsun.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsList.remove(pantsTable.getSelectedRow());
-		((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.getSelectedRow());
+		if (pantsTable.getSelectedRow() != -1) {
+		    pantsList.remove(pantsTable.getSelectedRow());
+		    ((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.getSelectedRow());
+		}
 	    }
 	});
 
@@ -235,8 +237,10 @@ public class MainView {
 	pantsEdytuj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(true, "Edytuj spodnie", pantsTable, pantsList);
-		pantsFrame.show();
+		if (pantsTable.getSelectedRow() != -1) {
+		    pantsFrame = new PantsView(true, "Edytuj spodnie", pantsTable, pantsList);
+		    pantsFrame.show();
+		}
 	    }
 	});
 
@@ -244,8 +248,10 @@ public class MainView {
 	pantsPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		pantsFrame = new PantsView(false, "Pokaż spodnie", pantsTable, pantsList);
-		pantsFrame.show();
+		if (pantsTable.getSelectedRow() != -1) {
+		    pantsFrame = new PantsView(false, "Pokaż spodnie", pantsTable, pantsList);
+		    pantsFrame.show();
+		}
 	    }
 	});
 
