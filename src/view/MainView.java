@@ -30,7 +30,9 @@ import javax.swing.table.TableRowSorter;
 import org.apache.commons.lang3.StringUtils;
 
 import model.Gender;
+import model.Jacket;
 import model.Pants;
+import model.TshirtSize;
 
 public class MainView {
 
@@ -42,7 +44,7 @@ public class MainView {
     private ShoesView shoesFrame;
     private JTable pantsTable;
     private JTextField filterPantsTextField;
-    private DefaultTableModel tablePantsModel;
+    private DefaultTableModel tablePantsModel, tableJacketModel;
     private JTable jacketTable;
     private JTextField filstrJacketTextField;
     private JTable shirtTable;
@@ -94,13 +96,20 @@ public class MainView {
 	        GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE));
 
 	JPanel jacketPanel = new JPanel();
+	JacketList jacketList = new JacketList();
 	mainTabbedPane.addTab("Kurtki", null, jacketPanel, null);
+	JScrollPane jacketTableScrollPane = new JScrollPane();
+	String[] jakcetHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar" };
+	tableJacketModel = new DefaultTableModel(new Object[][] {}, jakcetHeaders);
+	jacketTable = new JTable(tableJacketModel);
+	jacketTableScrollPane.setViewportView(jacketTable);
 
 	JButton jacketDodaj = new JButton("Dodaj");
 	jacketDodaj.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		jacketFrame = new JacketView(true, "Dodaj kurtke");
+		jacketTable.getSelectionModel().clearSelection();
+		jacketFrame = new JacketView(true, "Dodaj kurtke", jacketTable, jacketList);
 		jacketFrame.show();
 	    }
 	});
@@ -109,52 +118,88 @@ public class MainView {
 	jacketEdytuj.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		jacketFrame = new JacketView(true, "Edytuj kurtke");
-		jacketFrame.show();
+		if (jacketTable.getSelectedRow() != -1) {
+		    jacketFrame = new JacketView(true, "Edytuj kurtke", jacketTable, jacketList);
+		    jacketFrame.show();
+		}
 	    }
 	});
 
 	JButton jacketUsun = new JButton("Usu\u0144");
+	jacketUsun.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+		if (jacketTable.getSelectedRow() != -1) {
+		    Jacket p = new Jacket();
+		    p.setGender(
+	                    Gender.getByName(((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 0).toString()));
+		    Object name = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 1);
+		    if (name != null) {
+			p.setName(name.toString());
+		    }
+		    String price = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 2).toString();
+		    if (!StringUtils.isBlank(price)) {
+			p.setPrice(new Double(price));
+		    }
+		    Object color = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 3);
+		    if (color != null) {
+			p.setColor(color.toString());
+		    }
+		    Object brand = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 4);
+		    if (brand != null) {
+			p.setBrand(brand.toString());
+		    }
+		    p.setSize(
+	                    TshirtSize.valueOf(((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 5).toString()));
+
+		    jacketList.remove(p);
+		    ((DefaultTableModel) jacketTable.getModel()).removeRow(jacketTable.convertRowIndexToModel(jacketTable.getSelectedRow()));
+		}
+	    }
+	});
 
 	JButton jacketPokaz = new JButton("Poka\u017C");
 	jacketPokaz.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		jacketFrame = new JacketView(false, "Przeglï¿½daj kurtke");
-		jacketFrame.show();
+		if (jacketTable.getSelectedRow() != -1) {
+		    jacketFrame = new JacketView(false, "Przegl¹daj kurtke", jacketTable, jacketList);
+		    jacketFrame.show();
+		}
 	    }
 	});
-
-	JScrollPane jacketTableScrollPane = new JScrollPane();
 
 	JLabel lblFiltr_1 = new JLabel("Filtr :");
 
 	filstrJacketTextField = new JTextField();
+	filstrJacketTextField.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		String query = filstrJacketTextField.getText().toLowerCase();
+		filter(query, tableJacketModel, jacketTable);
+	    }
+	});
 	filstrJacketTextField.setColumns(10);
 	GroupLayout gl_jacketPanel = new GroupLayout(jacketPanel);
 	gl_jacketPanel.setHorizontalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
 	        .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
 	                .addGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
+	                        .addComponent(jacketTableScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
 	                        .addGroup(gl_jacketPanel.createSequentialGroup().addComponent(jacketDodaj).addPreferredGap(ComponentPlacement.RELATED)
 	                                .addComponent(jacketEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketUsun)
 	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketPokaz))
-	                .addComponent(jacketTableScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
 	                .addGroup(gl_jacketPanel.createSequentialGroup().addComponent(lblFiltr_1).addGap(29).addComponent(filstrJacketTextField,
 	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 	                .addContainerGap()));
-	gl_jacketPanel
-	        .setVerticalGroup(
-	                gl_jacketPanel.createParallelGroup(Alignment.LEADING)
-	                        .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
-	                                .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(jacketDodaj)
-	                                        .addComponent(jacketEdytuj).addComponent(jacketUsun).addComponent(jacketPokaz))
-	                        .addGap(12)
-	                        .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_1).addComponent(
-	                                filstrJacketTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        .addGap(18).addComponent(jacketTableScrollPane, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE).addContainerGap()));
+	gl_jacketPanel.setVerticalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
+	        .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(jacketDodaj).addComponent(jacketEdytuj)
+	                        .addComponent(jacketUsun).addComponent(jacketPokaz))
+	        .addGap(12)
+	        .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_1).addComponent(filstrJacketTextField,
+	                GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addPreferredGap(ComponentPlacement.RELATED)
+	        .addComponent(jacketTableScrollPane, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE).addContainerGap()));
 
-	jacketTable = new JTable();
-	jacketTableScrollPane.setViewportView(jacketTable);
 	jacketPanel.setLayout(gl_jacketPanel);
 
 	JPanel shirtPanel = new JPanel();
@@ -358,7 +403,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (pantsTable.getSelectedRow() != -1) {
-		    pantsFrame = new PantsView(false, "PokaÅ¼ spodnie", pantsTable, pantsList);
+		    pantsFrame = new PantsView(false, "Poka¿ spodnie", pantsTable, pantsList);
 		    pantsFrame.show();
 		}
 	    }
@@ -371,7 +416,7 @@ public class MainView {
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		String query = filterPantsTextField.getText().toLowerCase();
-		filter(query);
+		filter(query, tablePantsModel, pantsTable);
 	    }
 	});
 	filterPantsTextField.setColumns(10);
@@ -491,10 +536,10 @@ public class MainView {
 	mnPlik.add(mntmExportDoXml);
     }
 
-    private void filter(String query) {
-	TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tablePantsModel);
+    private void filter(String query, DefaultTableModel modelTable, JTable table) {
+	TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(modelTable);
 	tr.setRowFilter(RowFilter.regexFilter(query, 1));
-	pantsTable.setRowSorter(tr);
+	table.setRowSorter(tr);
 
     }
 }

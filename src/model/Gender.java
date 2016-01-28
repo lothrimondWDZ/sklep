@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public enum Gender {
 
-    MALE("mÄ™skie"), FEMALE("damskie"), UNISEX("unisex");
-	@XmlElement
+    MALE("mêskie"), FEMALE("damskie"), UNISEX("unisex");
+    @XmlElement
     private String name;
 
     Gender(final String name) {
@@ -20,21 +20,21 @@ public enum Gender {
     public String getName() {
 	return name;
     }
-    
-    public static Gender getByName(String name){
-    	if(name.equals(Gender.FEMALE.getName())){
-    		return Gender.FEMALE;
-    	} else if(name.equals(Gender.MALE.getName())){
-    		return Gender.MALE;
-    	} else if(name.equals(Gender.UNISEX.getName())){
-    		return Gender.UNISEX;
-    	}else{
-    		return null;
-    	}
+
+    public static Gender getByName(String name) {
+	if (name.equals(Gender.FEMALE.getName())) {
+	    return Gender.FEMALE;
+	} else if (name.equals(Gender.MALE.getName())) {
+	    return Gender.MALE;
+	} else if (name.equals(Gender.UNISEX.getName())) {
+	    return Gender.UNISEX;
+	} else {
+	    return null;
+	}
     }
 
     @Override
     public String toString() {
-    	return name;
+	return name;
     }
 }

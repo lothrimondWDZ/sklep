@@ -11,25 +11,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Jacket {
 
-	@XmlElement(type = Gender.class)
+    @XmlElement(type = Gender.class)
     private Gender gender;
-	@XmlElement
+    @XmlElement
     private String name;
-	@XmlElement
+    @XmlElement
     private BufferedImage image;
-	@XmlElement
-    private double price;
-	@XmlElement
+    @XmlElement
+    private Double price;
+    @XmlElement
     private String color;
-	@XmlElement
+    @XmlElement
     private String brand;
-	@XmlElement(type = TshirtSize.class)
+    @XmlElement(type = TshirtSize.class)
     private TshirtSize size;
-	@XmlElement(type = JacketClosing.class)
+    @XmlElement(type = JacketClosing.class)
     private JacketClosing jacketClosing;
-	@XmlElement
+    @XmlElement
     private String fabric;
-	@XmlElement
+    @XmlElement
     private boolean padded;
 
     public Gender getGender() {
@@ -56,11 +56,11 @@ public class Jacket {
 	this.image = image;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
 	return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
 	this.price = price;
     }
 
@@ -110,6 +110,68 @@ public class Jacket {
 
     public void setPadded(boolean padded) {
 	this.padded = padded;
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = (prime * result) + ((brand == null) ? 0 : brand.hashCode());
+	result = (prime * result) + ((color == null) ? 0 : color.hashCode());
+	result = (prime * result) + ((gender == null) ? 0 : gender.hashCode());
+	result = (prime * result) + ((name == null) ? 0 : name.hashCode());
+	result = (prime * result) + ((price == null) ? 0 : price.hashCode());
+	result = (prime * result) + ((size == null) ? 0 : size.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	Jacket other = (Jacket) obj;
+	if (brand == null) {
+	    if (other.brand != null) {
+		return false;
+	    }
+	} else if (!brand.equals(other.brand)) {
+	    return false;
+	}
+	if (color == null) {
+	    if (other.color != null) {
+		return false;
+	    }
+	} else if (!color.equals(other.color)) {
+	    return false;
+	}
+	if (gender != other.gender) {
+	    return false;
+	}
+	if (name == null) {
+	    if (other.name != null) {
+		return false;
+	    }
+	} else if (!name.equals(other.name)) {
+	    return false;
+	}
+	if (price == null) {
+	    if (other.price != null) {
+		return false;
+	    }
+	} else if (!price.equals(other.price)) {
+	    return false;
+	}
+	if (size != other.size) {
+	    return false;
+	}
+	return true;
     }
 
 }
