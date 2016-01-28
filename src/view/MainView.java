@@ -37,543 +37,642 @@ import model.TshirtSize;
 
 public class MainView {
 
-    private JFrame frame;
-    private TshirtView tshirtFrame;
-    private ShirtView shirtFrame;
-    private PantsView pantsFrame;
-    private JacketView jacketFrame;
-    private ShoesView shoesFrame;
-    private JTable pantsTable;
-    private JTextField filterPantsTextField;
-    private DefaultTableModel tableShirtModel;
-    private DefaultTableModel tablePantsModel, tableJacketModel;
-    private JTable jacketTable;
-    private JTextField filstrJacketTextField;
-    private JTable shirtTable;
-    private JTextField filtrShirtTextField;
-    private JTable tshirtTable;
-    private JTextField filtrTshirtTextField;
-    private JTable shoesTable;
-    private JTextField filtrShoesTextField;
+	private JFrame frame;
+	private TshirtView tshirtFrame;
+	private ShirtView shirtFrame;
+	private PantsView pantsFrame;
+	private JacketView jacketFrame;
+	private ShoesView shoesFrame;
+	private JTable pantsTable;
+	private JTextField filterPantsTextField;
+	private DefaultTableModel tableShirtModel;
+	private DefaultTableModel tablePantsModel, tableJacketModel;
+	private JTable jacketTable;
+	private JTextField filstrJacketTextField;
+	private JTable shirtTable;
+	private JTextField filtrShirtTextField;
+	private JTable tshirtTable;
+	private JTextField filtrTshirtTextField;
+	private JTable shoesTable;
+	private JTextField filtrShoesTextField;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-	EventQueue.invokeLater(new Runnable() {
-	    @Override
-	    public void run() {
-		try {
-		    MainView window = new MainView();
-		    window.frame.setVisible(true);
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-	    }
-	});
-    }
-
-    /**
-     * Create the application.
-     */
-    public MainView() {
-	initialize();
-    }
-
-    /**
-     * Initialize the contents of the frame.
-     */
-    private void initialize() {
-	frame = new JFrame();
-	frame.setBounds(100, 100, 532, 350);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	JPanel masterPanel = new JPanel();
-	frame.getContentPane().add(masterPanel, BorderLayout.CENTER);
-
-	JTabbedPane mainTabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	GroupLayout gl_masterPanel = new GroupLayout(masterPanel);
-	gl_masterPanel.setHorizontalGroup(gl_masterPanel.createParallelGroup(Alignment.LEADING).addComponent(mainTabbedPane, Alignment.TRAILING,
-	        GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE));
-	gl_masterPanel.setVerticalGroup(gl_masterPanel.createParallelGroup(Alignment.LEADING).addComponent(mainTabbedPane, Alignment.TRAILING,
-	        GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE));
-
-	JPanel jacketPanel = new JPanel();
-	JacketList jacketList = new JacketList();
-	mainTabbedPane.addTab("Kurtki", null, jacketPanel, null);
-	JScrollPane jacketTableScrollPane = new JScrollPane();
-	String[] jakcetHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar" };
-	tableJacketModel = new DefaultTableModel(new Object[][] {}, jakcetHeaders);
-	jacketTable = new JTable(tableJacketModel);
-	jacketTableScrollPane.setViewportView(jacketTable);
-
-	JButton jacketDodaj = new JButton("Dodaj");
-	jacketDodaj.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		jacketTable.getSelectionModel().clearSelection();
-		jacketFrame = new JacketView(true, "Dodaj kurtke", jacketTable, jacketList);
-		jacketFrame.show();
-	    }
-	});
-
-	JButton jacketEdytuj = new JButton("Edytuj");
-	jacketEdytuj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		if (jacketTable.getSelectedRow() != -1) {
-		    jacketFrame = new JacketView(true, "Edytuj kurtke", jacketTable, jacketList);
-		    jacketFrame.show();
-		}
-	    }
-	});
-
-	JButton jacketUsun = new JButton("Usu\u0144");
-	jacketUsun.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		if (jacketTable.getSelectedRow() != -1) {
-		    Jacket p = new Jacket();
-		    p.setGender(
-	                    Gender.getByName(((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 0).toString()));
-		    Object name = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 1);
-		    if (name != null) {
-			p.setName(name.toString());
-		    }
-		    String price = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 2).toString();
-		    if (!StringUtils.isBlank(price)) {
-			p.setPrice(new Double(price));
-		    }
-		    Object color = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 3);
-		    if (color != null) {
-			p.setColor(color.toString());
-		    }
-		    Object brand = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 4);
-		    if (brand != null) {
-			p.setBrand(brand.toString());
-		    }
-		    p.setSize(
-	                    TshirtSize.valueOf(((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(), 5).toString()));
-
-		    jacketList.remove(p);
-		    ((DefaultTableModel) jacketTable.getModel()).removeRow(jacketTable.convertRowIndexToModel(jacketTable.getSelectedRow()));
-		}
-	    }
-	});
-
-	JButton jacketPokaz = new JButton("Poka\u017C");
-	jacketPokaz.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		if (jacketTable.getSelectedRow() != -1) {
-		    jacketFrame = new JacketView(false, "Przegl�daj kurtke", jacketTable, jacketList);
-		    jacketFrame.show();
-		}
-	    }
-	});
-
-	JLabel lblFiltr_1 = new JLabel("Filtr :");
-
-	filstrJacketTextField = new JTextField();
-	filstrJacketTextField.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		String query = filstrJacketTextField.getText().toLowerCase();
-		filter(query, tableJacketModel, jacketTable);
-	    }
-	});
-	filstrJacketTextField.setColumns(10);
-	GroupLayout gl_jacketPanel = new GroupLayout(jacketPanel);
-	gl_jacketPanel.setHorizontalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
-	                .addGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
-	                        .addComponent(jacketTableScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-	                        .addGroup(gl_jacketPanel.createSequentialGroup().addComponent(jacketDodaj).addPreferredGap(ComponentPlacement.RELATED)
-	                                .addComponent(jacketEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketUsun)
-	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(jacketPokaz))
-	                .addGroup(gl_jacketPanel.createSequentialGroup().addComponent(lblFiltr_1).addGap(29).addComponent(filstrJacketTextField,
-	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-	                .addContainerGap()));
-	gl_jacketPanel.setVerticalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
-	                .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(jacketDodaj).addComponent(jacketEdytuj)
-	                        .addComponent(jacketUsun).addComponent(jacketPokaz))
-	        .addGap(12)
-	        .addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_1).addComponent(filstrJacketTextField,
-	                GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addPreferredGap(ComponentPlacement.RELATED)
-	        .addComponent(jacketTableScrollPane, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE).addContainerGap()));
-
-	jacketPanel.setLayout(gl_jacketPanel);
-
-	JPanel shirtPanel = new JPanel();
-	JScrollPane shirtTableScrollPane = new JScrollPane();
-	String[] shirtHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka" };
-	tableShirtModel = new DefaultTableModel(new Object[][] {}, shirtHeaders);
-	shirtTable = new JTable(tableShirtModel);
-	shirtTableScrollPane.setViewportView(shirtTable);
-	ShirtList shirtList = new ShirtList();
-	mainTabbedPane.addTab("Koszule", null, shirtPanel, null);
-
-	JButton shirtEdytuj = new JButton("Edytuj");
-	shirtEdytuj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-	    	if (shirtTable.getSelectedRow() != -1) {
-	    		shirtFrame = new ShirtView(true, "Edytuj Koszule", shirtTable, shirtList);
-	    		shirtFrame.show();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					MainView window = new MainView();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-	    }
-	});
+		});
+	}
 
-	JButton shirtDodaj = new JButton("Dodaj");
-	shirtDodaj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-	    	shirtTable.getSelectionModel().clearSelection();
-	    	shirtFrame = new ShirtView(true, "Dodaj Koszule", shirtTable, shirtList);
-	    	shirtFrame.show();
-	    }
-	});
+	/**
+	 * Create the application.
+	 */
+	public MainView() {
+		initialize();
+	}
 
-	JButton shirtUsun = new JButton("Usu\u0144");
-	shirtUsun.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		if (shirtTable.getSelectedRow() != -1) {
-		    Shirt s = new Shirt();
-		    s.setGender(Gender.getByName(((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 0).toString()));
-		    Object name = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 1);
-		    if (name != null) {
-			s.setName(name.toString());
-		    }
-		    String price = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 2).toString();
-		    if (!StringUtils.isBlank(price)) {
-			s.setPrice(new Double(price));
-		    }
-		    Object color = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 3);
-		    if (color != null) {
-			s.setColor(color.toString());
-		    }
-		    Object brand = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(), 4);
-		    if (brand != null) {
-			s.setBrand(brand.toString());
-		    }
-		    shirtList.remove(s);
-		    ((DefaultTableModel) shirtTable.getModel()).removeRow(shirtTable.convertRowIndexToModel(shirtTable.getSelectedRow()));
-		}
-	    }
-	});
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 532, 350);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel masterPanel = new JPanel();
+		frame.getContentPane().add(masterPanel, BorderLayout.CENTER);
 
-	JButton shirtPokaz = new JButton("Poka\u017C");
-	shirtPokaz.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		shirtFrame = new ShirtView(false, "Przegl�daj Koszule", shirtTable, shirtList);
-		shirtFrame.show();
-	    }
-	});
+		JTabbedPane mainTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		GroupLayout gl_masterPanel = new GroupLayout(masterPanel);
+		gl_masterPanel.setHorizontalGroup(gl_masterPanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(mainTabbedPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE));
+		gl_masterPanel.setVerticalGroup(gl_masterPanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(mainTabbedPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE));
 
-	JLabel lblFiltr_2 = new JLabel("Filtr :");
+		JPanel jacketPanel = new JPanel();
+		JacketList jacketList = new JacketList();
+		mainTabbedPane.addTab("Kurtki", null, jacketPanel, null);
+		JScrollPane jacketTableScrollPane = new JScrollPane();
+		String[] jakcetHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Rozmiar" };
+		tableJacketModel = new DefaultTableModel(new Object[][] {}, jakcetHeaders);
+		jacketTable = new JTable(tableJacketModel);
+		jacketTableScrollPane.setViewportView(jacketTable);
 
-	filtrShirtTextField = new JTextField();
-	filtrShirtTextField.setColumns(10);
-	GroupLayout gl_shirtPanel = new GroupLayout(shirtPanel);
-	gl_shirtPanel.setHorizontalGroup(gl_shirtPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_shirtPanel.createSequentialGroup().addContainerGap()
-	                .addGroup(gl_shirtPanel.createParallelGroup(Alignment.LEADING)
-	                        .addComponent(shirtTableScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-	                        .addGroup(gl_shirtPanel.createSequentialGroup().addComponent(shirtDodaj).addPreferredGap(ComponentPlacement.RELATED)
-	                                .addComponent(shirtEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(shirtUsun)
-	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(shirtPokaz))
-	                .addGroup(gl_shirtPanel.createSequentialGroup().addComponent(lblFiltr_2).addGap(34).addComponent(filtrShirtTextField,
-	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-	                .addContainerGap()));
-	gl_shirtPanel
-	        .setVerticalGroup(
-	                gl_shirtPanel.createParallelGroup(Alignment.LEADING)
-	                        .addGroup(gl_shirtPanel.createSequentialGroup().addContainerGap()
-	                                .addGroup(gl_shirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(shirtEdytuj)
-	                                        .addComponent(shirtDodaj).addComponent(shirtUsun).addComponent(shirtPokaz))
-	                        .addPreferredGap(ComponentPlacement.UNRELATED)
-	                        .addGroup(gl_shirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_2).addComponent(
-	                                filtrShirtTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        .addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-	        .addComponent(shirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+		JButton jacketDodaj = new JButton("Dodaj");
+		jacketDodaj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jacketTable.getSelectionModel().clearSelection();
+				jacketFrame = new JacketView(true, "Dodaj kurtke", jacketTable, jacketList);
+				jacketFrame.show();
+			}
+		});
 
-	shirtPanel.setLayout(gl_shirtPanel);
+		JButton jacketEdytuj = new JButton("Edytuj");
+		jacketEdytuj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (jacketTable.getSelectedRow() != -1) {
+					jacketFrame = new JacketView(true, "Edytuj kurtke", jacketTable, jacketList);
+					jacketFrame.show();
+				}
+			}
+		});
 
-	JPanel tshirtPanel = new JPanel();
-	mainTabbedPane.addTab("T-shirt", null, tshirtPanel, null);
+		JButton jacketUsun = new JButton("Usu\u0144");
+		jacketUsun.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (jacketTable.getSelectedRow() != -1) {
+					Jacket p = new Jacket();
+					p.setGender(Gender.getByName(((DefaultTableModel) jacketTable.getModel())
+							.getValueAt(jacketTable.getSelectedRow(), 0).toString()));
+					Object name = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(),
+							1);
+					if (name != null) {
+						p.setName(name.toString());
+					}
+					String price = ((DefaultTableModel) jacketTable.getModel())
+							.getValueAt(jacketTable.getSelectedRow(), 2).toString();
+					if (!StringUtils.isBlank(price)) {
+						p.setPrice(new Double(price));
+					}
+					Object color = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(),
+							3);
+					if (color != null) {
+						p.setColor(color.toString());
+					}
+					Object brand = ((DefaultTableModel) jacketTable.getModel()).getValueAt(jacketTable.getSelectedRow(),
+							4);
+					if (brand != null) {
+						p.setBrand(brand.toString());
+					}
+					p.setSize(TshirtSize.valueOf(((DefaultTableModel) jacketTable.getModel())
+							.getValueAt(jacketTable.getSelectedRow(), 5).toString()));
 
-	JButton tshirtDodaj = new JButton("Dodaj");
-	tshirtDodaj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		tshirtFrame = new TshirtView(true, "Dodaj T-shirt");
-		tshirtFrame.show();
-	    }
-	});
+					jacketList.remove(p);
+					((DefaultTableModel) jacketTable.getModel())
+							.removeRow(jacketTable.convertRowIndexToModel(jacketTable.getSelectedRow()));
+				}
+			}
+		});
 
-	JButton tshirtEdytuj = new JButton("Edytuj");
-	tshirtEdytuj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		tshirtFrame = new TshirtView(true, "Edytuj T-shirt");
-		tshirtFrame.show();
-	    }
-	});
+		JButton jacketPokaz = new JButton("Poka\u017C");
+		jacketPokaz.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (jacketTable.getSelectedRow() != -1) {
+					jacketFrame = new JacketView(false, "Przegl�daj kurtke", jacketTable, jacketList);
+					jacketFrame.show();
+				}
+			}
+		});
 
-	JButton tshirtUsun = new JButton("Usu\u0144");
+		JLabel lblFiltr_1 = new JLabel("Filtr :");
 
-	JButton tshirtPokaz = new JButton("Poka\u017C");
-	tshirtPokaz.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		tshirtFrame = new TshirtView(false, "Przegl�daj T-shirt");
-		tshirtFrame.show();
-	    }
-	});
+		filstrJacketTextField = new JTextField();
+		filstrJacketTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String query = filstrJacketTextField.getText().toLowerCase();
+				filter(query, tableJacketModel, jacketTable);
+			}
+		});
+		filstrJacketTextField.setColumns(10);
+		GroupLayout gl_jacketPanel = new GroupLayout(jacketPanel);
+		gl_jacketPanel
+				.setHorizontalGroup(
+						gl_jacketPanel
+								.createParallelGroup(
+										Alignment.LEADING)
+								.addGroup(
+										gl_jacketPanel.createSequentialGroup().addContainerGap()
+												.addGroup(
+														gl_jacketPanel.createParallelGroup(Alignment.LEADING)
+																.addComponent(jacketTableScrollPane, Alignment.TRAILING,
+																		GroupLayout.DEFAULT_SIZE, 491,
+																		Short.MAX_VALUE)
+																.addGroup(
+																		gl_jacketPanel.createSequentialGroup()
+																				.addComponent(jacketDodaj)
+																				.addPreferredGap(
+																						ComponentPlacement.RELATED)
+																		.addComponent(jacketEdytuj)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(jacketUsun)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(jacketPokaz))
+										.addGroup(gl_jacketPanel.createSequentialGroup().addComponent(lblFiltr_1)
+												.addGap(29).addComponent(filstrJacketTextField,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)))
+												.addContainerGap()));
+		gl_jacketPanel.setVerticalGroup(gl_jacketPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_jacketPanel.createSequentialGroup().addContainerGap()
+						.addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(jacketDodaj)
+								.addComponent(jacketEdytuj).addComponent(jacketUsun).addComponent(jacketPokaz))
+				.addGap(12)
+				.addGroup(gl_jacketPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_1).addComponent(
+						filstrJacketTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)).addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(jacketTableScrollPane, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+				.addContainerGap()));
 
-	JScrollPane tshirtTableScrollPane = new JScrollPane();
+		jacketPanel.setLayout(gl_jacketPanel);
 
-	JLabel lblFiltr_3 = new JLabel("Filtr :");
+		JPanel shirtPanel = new JPanel();
+		JScrollPane shirtTableScrollPane = new JScrollPane();
+		String[] shirtHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka" };
+		tableShirtModel = new DefaultTableModel(new Object[][] {}, shirtHeaders);
+		shirtTable = new JTable(tableShirtModel);
+		shirtTableScrollPane.setViewportView(shirtTable);
+		ShirtList shirtList = new ShirtList();
+		mainTabbedPane.addTab("Koszule", null, shirtPanel, null);
 
-	filtrTshirtTextField = new JTextField();
-	filtrTshirtTextField.setColumns(10);
-	GroupLayout gl_tshirtPanel = new GroupLayout(tshirtPanel);
-	gl_tshirtPanel.setHorizontalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap()
-	                .addGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
-	                        .addComponent(tshirtTableScrollPane, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-	                        .addGroup(gl_tshirtPanel.createSequentialGroup().addComponent(tshirtDodaj).addPreferredGap(ComponentPlacement.RELATED)
-	                                .addComponent(tshirtEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtUsun)
-	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(tshirtPokaz))
-	                .addGroup(gl_tshirtPanel.createSequentialGroup().addComponent(lblFiltr_3).addGap(32).addComponent(filtrTshirtTextField,
-	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-	                .addContainerGap()));
-	gl_tshirtPanel
-	        .setVerticalGroup(
-	                gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
-	                        .addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap()
-	                                .addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(tshirtDodaj)
-	                                        .addComponent(tshirtEdytuj).addComponent(tshirtUsun).addComponent(tshirtPokaz))
-	                        .addPreferredGap(ComponentPlacement.UNRELATED)
-	                        .addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_3).addComponent(
-	                                filtrTshirtTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        .addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-	        .addComponent(tshirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+		JButton shirtEdytuj = new JButton("Edytuj");
+		shirtEdytuj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (shirtTable.getSelectedRow() != -1) {
+					shirtFrame = new ShirtView(true, "Edytuj Koszule", shirtTable, shirtList);
+					shirtFrame.show();
+				}
+			}
+		});
 
-	tshirtTable = new JTable();
-	tshirtTableScrollPane.setViewportView(tshirtTable);
-	tshirtPanel.setLayout(gl_tshirtPanel);
+		JButton shirtDodaj = new JButton("Dodaj");
+		shirtDodaj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				shirtTable.getSelectionModel().clearSelection();
+				shirtFrame = new ShirtView(true, "Dodaj Koszule", shirtTable, shirtList);
+				shirtFrame.show();
+			}
+		});
 
-	JPanel pantsPanel = new JPanel();
-	PantsList pantsList = new PantsList();
-	mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
-	JScrollPane pantsTableScrollPane = new JScrollPane();
-	String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "D�ugo��" };
-	tablePantsModel = new DefaultTableModel(new Object[][] {}, pantsHeaders);
-	pantsTable = new JTable(tablePantsModel);
-	pantsTableScrollPane.setViewportView(pantsTable);
-	JButton pantsUsun = new JButton("Usu\u0144");
-	pantsUsun.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		if (pantsTable.getSelectedRow() != -1) {
-		    Pants p = new Pants();
-		    p.setGender(Gender.getByName(((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 0).toString()));
-		    Object name = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 1);
-		    if (name != null) {
-			p.setName(name.toString());
-		    }
-		    String price = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 2).toString();
-		    if (!StringUtils.isBlank(price)) {
-			p.setPrice(new Double(price));
-		    }
-		    Object color = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 3);
-		    if (color != null) {
-			p.setColor(color.toString());
-		    }
-		    Object brand = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 4);
-		    if (brand != null) {
-			p.setBrand(brand.toString());
-		    }
-		    String waistSize = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 5).toString();
-		    if (!StringUtils.isBlank(waistSize)) {
-			p.setWaistSize(new Integer(waistSize));
-		    }
-		    String length = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(), 6).toString();
-		    if (!StringUtils.isBlank(length)) {
-			p.setLength(new Integer(length));
-		    }
-		    pantsList.remove(p);
-		    ((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.convertRowIndexToModel(pantsTable.getSelectedRow()));
-		}
-	    }
-	});
+		JButton shirtUsun = new JButton("Usu\u0144");
+		shirtUsun.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (shirtTable.getSelectedRow() != -1) {
+					Shirt s = new Shirt();
+					s.setGender(Gender.getByName(((DefaultTableModel) shirtTable.getModel())
+							.getValueAt(shirtTable.getSelectedRow(), 0).toString()));
+					Object name = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(),
+							1);
+					if (name != null) {
+						s.setName(name.toString());
+					}
+					String price = ((DefaultTableModel) shirtTable.getModel())
+							.getValueAt(shirtTable.getSelectedRow(), 2).toString();
+					if (!StringUtils.isBlank(price)) {
+						s.setPrice(new Double(price));
+					}
+					Object color = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(),
+							3);
+					if (color != null) {
+						s.setColor(color.toString());
+					}
+					Object brand = ((DefaultTableModel) shirtTable.getModel()).getValueAt(shirtTable.getSelectedRow(),
+							4);
+					if (brand != null) {
+						s.setBrand(brand.toString());
+					}
+					shirtList.remove(s);
+					((DefaultTableModel) shirtTable.getModel())
+							.removeRow(shirtTable.convertRowIndexToModel(shirtTable.getSelectedRow()));
+				}
+			}
+		});
 
-	JButton pantsDodaj = new JButton("Dodaj");
-	pantsDodaj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		pantsTable.getSelectionModel().clearSelection();
-		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsTable, pantsList);
-		pantsFrame.show();
-	    }
-	});
+		JButton shirtPokaz = new JButton("Poka\u017C");
+		shirtPokaz.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				shirtFrame = new ShirtView(false, "Przegl�daj Koszule", shirtTable, shirtList);
+				shirtFrame.show();
+			}
+		});
 
-	JButton pantsEdytuj = new JButton("Edytuj");
-	pantsEdytuj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		if (pantsTable.getSelectedRow() != -1) {
-		    pantsFrame = new PantsView(true, "Edytuj spodnie", pantsTable, pantsList);
-		    pantsFrame.show();
-		}
-	    }
-	});
+		JLabel lblFiltr_2 = new JLabel("Filtr :");
 
-	JButton pantsPokaz = new JButton("Poka\u017C");
-	pantsPokaz.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		if (pantsTable.getSelectedRow() != -1) {
-		    pantsFrame = new PantsView(false, "Poka� spodnie", pantsTable, pantsList);
-		    pantsFrame.show();
-		}
-	    }
-	});
+		filtrShirtTextField = new JTextField();
+		filtrShirtTextField.setColumns(10);
+		GroupLayout gl_shirtPanel = new GroupLayout(shirtPanel);
+		gl_shirtPanel
+				.setHorizontalGroup(
+						gl_shirtPanel
+								.createParallelGroup(
+										Alignment.LEADING)
+								.addGroup(
+										gl_shirtPanel.createSequentialGroup().addContainerGap()
+												.addGroup(
+														gl_shirtPanel.createParallelGroup(Alignment.LEADING)
+																.addComponent(shirtTableScrollPane, Alignment.TRAILING,
+																		GroupLayout.DEFAULT_SIZE, 491,
+																		Short.MAX_VALUE)
+																.addGroup(
+																		gl_shirtPanel.createSequentialGroup()
+																				.addComponent(shirtDodaj)
+																				.addPreferredGap(
+																						ComponentPlacement.RELATED)
+																		.addComponent(shirtEdytuj)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(shirtUsun)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(shirtPokaz))
+										.addGroup(gl_shirtPanel.createSequentialGroup().addComponent(lblFiltr_2)
+												.addGap(34).addComponent(filtrShirtTextField,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)))
+												.addContainerGap()));
+		gl_shirtPanel.setVerticalGroup(gl_shirtPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_shirtPanel.createSequentialGroup().addContainerGap()
+						.addGroup(gl_shirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(shirtEdytuj)
+								.addComponent(shirtDodaj).addComponent(shirtUsun).addComponent(shirtPokaz))
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addGroup(gl_shirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_2).addComponent(
+						filtrShirtTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)).addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+				.addComponent(shirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap()));
 
-	JLabel lblFiltr = new JLabel("Filtr :");
+		shirtPanel.setLayout(gl_shirtPanel);
 
-	filterPantsTextField = new JTextField();
-	filterPantsTextField.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		String query = filterPantsTextField.getText().toLowerCase();
-		filter(query, tablePantsModel, pantsTable);
-	    }
-	});
-	filterPantsTextField.setColumns(10);
+		JPanel tshirtPanel = new JPanel();
+		mainTabbedPane.addTab("T-shirt", null, tshirtPanel, null);
 
-	GroupLayout gl_pantsPanel = new GroupLayout(pantsPanel);
-	gl_pantsPanel.setHorizontalGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_pantsPanel.createSequentialGroup().addGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
-	                .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsDodaj)
-	                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsEdytuj).addPreferredGap(ComponentPlacement.RELATED)
-	                        .addComponent(pantsUsun).addPreferredGap(ComponentPlacement.RELATED).addComponent(pantsPokaz))
-	                .addGroup(gl_pantsPanel.createSequentialGroup().addGap(23).addComponent(lblFiltr).addGap(18)
-	                        .addComponent(filterPantsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	                .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap().addComponent(pantsTableScrollPane, GroupLayout.DEFAULT_SIZE,
-	                        491, Short.MAX_VALUE)))
-	                .addContainerGap()));
-	gl_pantsPanel
-	        .setVerticalGroup(
-	                gl_pantsPanel.createParallelGroup(Alignment.LEADING)
-	                        .addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap()
-	                                .addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(pantsDodaj)
-	                                        .addComponent(pantsEdytuj).addComponent(pantsUsun).addComponent(pantsPokaz))
-	                        .addPreferredGap(ComponentPlacement.RELATED)
-	                        .addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr).addComponent(
-	                                filterPantsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	        .addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+		JButton tshirtDodaj = new JButton("Dodaj");
+		tshirtDodaj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tshirtFrame = new TshirtView(true, "Dodaj T-shirt");
+				tshirtFrame.show();
+			}
+		});
 
-	pantsPanel.setLayout(gl_pantsPanel);
+		JButton tshirtEdytuj = new JButton("Edytuj");
+		tshirtEdytuj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tshirtFrame = new TshirtView(true, "Edytuj T-shirt");
+				tshirtFrame.show();
+			}
+		});
 
-	JPanel shoesPanel = new JPanel();
-	mainTabbedPane.addTab("Buty", null, shoesPanel, null);
+		JButton tshirtUsun = new JButton("Usu\u0144");
 
-	JButton shoesPokaz = new JButton("Poka\u017C");
-	shoesPokaz.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		shoesFrame = new ShoesView(false, "Przegl�daj buty");
-		shoesFrame.show();
-	    }
-	});
+		JButton tshirtPokaz = new JButton("Poka\u017C");
+		tshirtPokaz.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tshirtFrame = new TshirtView(false, "Przegl�daj T-shirt");
+				tshirtFrame.show();
+			}
+		});
 
-	JButton shoesDodaj = new JButton("Dodaj");
-	shoesDodaj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		shoesFrame = new ShoesView(true, "Dodaj buty");
-		shoesFrame.show();
-	    }
-	});
+		JScrollPane tshirtTableScrollPane = new JScrollPane();
 
-	JButton shoesEdytuj = new JButton("Edytuj");
-	shoesEdytuj.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		shoesFrame = new ShoesView(true, "Edytuj buty");
-		shoesFrame.show();
-	    }
-	});
+		JLabel lblFiltr_3 = new JLabel("Filtr :");
 
-	JButton shoesUsun = new JButton("Usu\u0144");
+		filtrTshirtTextField = new JTextField();
+		filtrTshirtTextField.setColumns(10);
+		GroupLayout gl_tshirtPanel = new GroupLayout(tshirtPanel);
+		gl_tshirtPanel
+				.setHorizontalGroup(
+						gl_tshirtPanel
+								.createParallelGroup(
+										Alignment.LEADING)
+								.addGroup(
+										gl_tshirtPanel.createSequentialGroup().addContainerGap()
+												.addGroup(
+														gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+																.addComponent(tshirtTableScrollPane,
+																		GroupLayout.DEFAULT_SIZE, 491,
+																		Short.MAX_VALUE)
+																.addGroup(
+																		gl_tshirtPanel.createSequentialGroup()
+																				.addComponent(tshirtDodaj)
+																				.addPreferredGap(
+																						ComponentPlacement.RELATED)
+																		.addComponent(tshirtEdytuj)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(tshirtUsun)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(tshirtPokaz))
+										.addGroup(gl_tshirtPanel.createSequentialGroup().addComponent(lblFiltr_3)
+												.addGap(32).addComponent(filtrTshirtTextField,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)))
+												.addContainerGap()));
+		gl_tshirtPanel.setVerticalGroup(gl_tshirtPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_tshirtPanel.createSequentialGroup().addContainerGap()
+						.addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(tshirtDodaj)
+								.addComponent(tshirtEdytuj).addComponent(tshirtUsun).addComponent(tshirtPokaz))
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addGroup(gl_tshirtPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_3).addComponent(
+						filtrTshirtTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)).addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+				.addComponent(tshirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap()));
 
-	JScrollPane shoesTableScrollPane = new JScrollPane();
+		tshirtTable = new JTable();
+		tshirtTableScrollPane.setViewportView(tshirtTable);
+		tshirtPanel.setLayout(gl_tshirtPanel);
 
-	JLabel lblFiltr_4 = new JLabel("Filtr :");
+		JPanel pantsPanel = new JPanel();
+		PantsList pantsList = new PantsList();
+		mainTabbedPane.addTab("Spodnie", null, pantsPanel, null);
+		JScrollPane pantsTableScrollPane = new JScrollPane();
+		String[] pantsHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka", "Pas", "D�ugo��" };
+		tablePantsModel = new DefaultTableModel(new Object[][] {}, pantsHeaders);
+		pantsTable = new JTable(tablePantsModel);
+		pantsTableScrollPane.setViewportView(pantsTable);
+		JButton pantsUsun = new JButton("Usu\u0144");
+		pantsUsun.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pantsTable.getSelectedRow() != -1) {
+					Pants p = new Pants();
+					p.setGender(Gender.getByName(((DefaultTableModel) pantsTable.getModel())
+							.getValueAt(pantsTable.getSelectedRow(), 0).toString()));
+					Object name = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(),
+							1);
+					if (name != null) {
+						p.setName(name.toString());
+					}
+					String price = ((DefaultTableModel) pantsTable.getModel())
+							.getValueAt(pantsTable.getSelectedRow(), 2).toString();
+					if (!StringUtils.isBlank(price)) {
+						p.setPrice(new Double(price));
+					}
+					Object color = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(),
+							3);
+					if (color != null) {
+						p.setColor(color.toString());
+					}
+					Object brand = ((DefaultTableModel) pantsTable.getModel()).getValueAt(pantsTable.getSelectedRow(),
+							4);
+					if (brand != null) {
+						p.setBrand(brand.toString());
+					}
+					String waistSize = ((DefaultTableModel) pantsTable.getModel())
+							.getValueAt(pantsTable.getSelectedRow(), 5).toString();
+					if (!StringUtils.isBlank(waistSize)) {
+						p.setWaistSize(new Integer(waistSize));
+					}
+					String length = ((DefaultTableModel) pantsTable.getModel())
+							.getValueAt(pantsTable.getSelectedRow(), 6).toString();
+					if (!StringUtils.isBlank(length)) {
+						p.setLength(new Integer(length));
+					}
+					pantsList.remove(p);
+					((DefaultTableModel) pantsTable.getModel())
+							.removeRow(pantsTable.convertRowIndexToModel(pantsTable.getSelectedRow()));
+				}
+			}
+		});
 
-	filtrShoesTextField = new JTextField();
-	filtrShoesTextField.setColumns(10);
-	GroupLayout gl_shoesPanel = new GroupLayout(shoesPanel);
-	gl_shoesPanel.setHorizontalGroup(gl_shoesPanel.createParallelGroup(Alignment.LEADING)
-	        .addGroup(gl_shoesPanel.createSequentialGroup().addContainerGap()
-	                .addGroup(gl_shoesPanel.createParallelGroup(Alignment.LEADING)
-	                        .addComponent(shoesTableScrollPane, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-	                        .addGroup(gl_shoesPanel.createSequentialGroup().addComponent(shoesDodaj).addPreferredGap(ComponentPlacement.RELATED)
-	                                .addComponent(shoesEdytuj).addPreferredGap(ComponentPlacement.RELATED).addComponent(shoesUsun)
-	                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(shoesPokaz))
-	                .addGroup(gl_shoesPanel.createSequentialGroup().addComponent(lblFiltr_4).addGap(31).addComponent(filtrShoesTextField,
-	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-	                .addContainerGap()));
-	gl_shoesPanel
-	        .setVerticalGroup(
-	                gl_shoesPanel.createParallelGroup(Alignment.LEADING)
-	                        .addGroup(gl_shoesPanel.createSequentialGroup().addContainerGap()
-	                                .addGroup(gl_shoesPanel.createParallelGroup(Alignment.BASELINE).addComponent(shoesDodaj)
-	                                        .addComponent(shoesEdytuj).addComponent(shoesUsun).addComponent(shoesPokaz))
-	                        .addGap(18)
-	                        .addGroup(gl_shoesPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_4).addComponent(
-	                                filtrShoesTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        .addGap(11).addComponent(shoesTableScrollPane, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE).addContainerGap()));
+		JButton pantsDodaj = new JButton("Dodaj");
+		pantsDodaj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pantsTable.getSelectionModel().clearSelection();
+				pantsFrame = new PantsView(true, "Dodaj spodnie", pantsTable, pantsList);
+				pantsFrame.show();
+			}
+		});
 
-	shoesTable = new JTable();
-	shoesTableScrollPane.setViewportView(shoesTable);
-	shoesPanel.setLayout(gl_shoesPanel);
-	masterPanel.setLayout(gl_masterPanel);
+		JButton pantsEdytuj = new JButton("Edytuj");
+		pantsEdytuj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pantsTable.getSelectedRow() != -1) {
+					pantsFrame = new PantsView(true, "Edytuj spodnie", pantsTable, pantsList);
+					pantsFrame.show();
+				}
+			}
+		});
 
-	JMenuBar menuBar = new JMenuBar();
-	frame.getContentPane().add(menuBar, BorderLayout.NORTH);
+		JButton pantsPokaz = new JButton("Poka\u017C");
+		pantsPokaz.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pantsTable.getSelectedRow() != -1) {
+					pantsFrame = new PantsView(false, "Poka� spodnie", pantsTable, pantsList);
+					pantsFrame.show();
+				}
+			}
+		});
 
-	JMenu mnPlik = new JMenu("Plik");
-	menuBar.add(mnPlik);
+		JLabel lblFiltr = new JLabel("Filtr :");
 
-	JMenuItem mntmImportZXml = new JMenuItem("Import z XML");
-	mntmImportZXml.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		System.out.println("import z xml");
-	    }
-	});
-	mnPlik.add(mntmImportZXml);
+		filterPantsTextField = new JTextField();
+		filterPantsTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String query = filterPantsTextField.getText().toLowerCase();
+				filter(query, tablePantsModel, pantsTable);
+			}
+		});
+		filterPantsTextField.setColumns(10);
 
-	JMenuItem mntmExportDoXml = new JMenuItem("Export do XML");
-	mntmExportDoXml.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		System.out.println("eksport do xml");
-	    }
-	});
-	mnPlik.add(mntmExportDoXml);
-    }
+		GroupLayout gl_pantsPanel = new GroupLayout(pantsPanel);
+		gl_pantsPanel
+				.setHorizontalGroup(
+						gl_pantsPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(
+										gl_pantsPanel.createSequentialGroup()
+												.addGroup(gl_pantsPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addGroup(gl_pantsPanel.createSequentialGroup()
+																.addContainerGap().addComponent(pantsDodaj)
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addComponent(pantsEdytuj)
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addComponent(pantsUsun)
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addComponent(pantsPokaz))
+										.addGroup(gl_pantsPanel.createSequentialGroup().addGap(23)
+												.addComponent(lblFiltr).addGap(18).addComponent(filterPantsTextField,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap()
+								.addComponent(pantsTableScrollPane, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)))
+				.addContainerGap()));
+		gl_pantsPanel.setVerticalGroup(gl_pantsPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pantsPanel.createSequentialGroup().addContainerGap()
+						.addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(pantsDodaj)
+								.addComponent(pantsEdytuj).addComponent(pantsUsun).addComponent(pantsPokaz))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_pantsPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr).addComponent(
+						filterPantsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(pantsTableScrollPane, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap()));
 
-    private void filter(String query, DefaultTableModel modelTable, JTable table) {
-	TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(modelTable);
-	tr.setRowFilter(RowFilter.regexFilter(query, 1));
-	table.setRowSorter(tr);
+		pantsPanel.setLayout(gl_pantsPanel);
 
-    }
+		JPanel shoesPanel = new JPanel();
+		mainTabbedPane.addTab("Buty", null, shoesPanel, null);
+
+		JButton shoesPokaz = new JButton("Poka\u017C");
+		shoesPokaz.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				shoesFrame = new ShoesView(false, "Przegl�daj buty");
+				shoesFrame.show();
+			}
+		});
+
+		JButton shoesDodaj = new JButton("Dodaj");
+		shoesDodaj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				shoesFrame = new ShoesView(true, "Dodaj buty");
+				shoesFrame.show();
+			}
+		});
+
+		JButton shoesEdytuj = new JButton("Edytuj");
+		shoesEdytuj.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				shoesFrame = new ShoesView(true, "Edytuj buty");
+				shoesFrame.show();
+			}
+		});
+
+		JButton shoesUsun = new JButton("Usu\u0144");
+
+		JScrollPane shoesTableScrollPane = new JScrollPane();
+
+		JLabel lblFiltr_4 = new JLabel("Filtr :");
+
+		filtrShoesTextField = new JTextField();
+		filtrShoesTextField.setColumns(10);
+		GroupLayout gl_shoesPanel = new GroupLayout(shoesPanel);
+		gl_shoesPanel
+				.setHorizontalGroup(
+						gl_shoesPanel
+								.createParallelGroup(
+										Alignment.LEADING)
+								.addGroup(
+										gl_shoesPanel.createSequentialGroup().addContainerGap()
+												.addGroup(
+														gl_shoesPanel.createParallelGroup(Alignment.LEADING)
+																.addComponent(shoesTableScrollPane,
+																		GroupLayout.DEFAULT_SIZE, 491,
+																		Short.MAX_VALUE)
+																.addGroup(
+																		gl_shoesPanel.createSequentialGroup()
+																				.addComponent(shoesDodaj)
+																				.addPreferredGap(
+																						ComponentPlacement.RELATED)
+																		.addComponent(shoesEdytuj)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(shoesUsun)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(shoesPokaz))
+										.addGroup(gl_shoesPanel.createSequentialGroup().addComponent(lblFiltr_4)
+												.addGap(31).addComponent(filtrShoesTextField,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)))
+												.addContainerGap()));
+		gl_shoesPanel.setVerticalGroup(gl_shoesPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_shoesPanel.createSequentialGroup().addContainerGap()
+						.addGroup(gl_shoesPanel.createParallelGroup(Alignment.BASELINE).addComponent(shoesDodaj)
+								.addComponent(shoesEdytuj).addComponent(shoesUsun).addComponent(shoesPokaz))
+				.addGap(18)
+				.addGroup(gl_shoesPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblFiltr_4).addComponent(
+						filtrShoesTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)).addGap(11)
+				.addComponent(shoesTableScrollPane, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE).addContainerGap()));
+
+		shoesTable = new JTable();
+		shoesTableScrollPane.setViewportView(shoesTable);
+		shoesPanel.setLayout(gl_shoesPanel);
+		masterPanel.setLayout(gl_masterPanel);
+
+		JMenuBar menuBar = new JMenuBar();
+		frame.getContentPane().add(menuBar, BorderLayout.NORTH);
+
+		JMenu mnPlik = new JMenu("Plik");
+		menuBar.add(mnPlik);
+
+		JMenuItem mntmImportZXml = new JMenuItem("Import z XML");
+		mntmImportZXml.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("import z xml");
+			}
+		});
+		mnPlik.add(mntmImportZXml);
+
+		JMenuItem mntmExportDoXml = new JMenuItem("Export do XML");
+		mntmExportDoXml.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("eksport do xml");
+			}
+		});
+		mnPlik.add(mntmExportDoXml);
+	}
+
+	private void filter(String query, DefaultTableModel modelTable, JTable table) {
+		TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(modelTable);
+		tr.setRowFilter(RowFilter.regexFilter(query, 1));
+		table.setRowSorter(tr);
+
+	}
 }
