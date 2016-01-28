@@ -216,8 +216,8 @@ public class MainView {
 	pantsUsun.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.getSelectedRow());
 		pantsList.remove(pantsTable.getSelectedRow());
+		((DefaultTableModel) pantsTable.getModel()).removeRow(pantsTable.getSelectedRow());
 	    }
 	});
 
