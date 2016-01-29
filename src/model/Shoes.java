@@ -10,24 +10,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Shoes {
-	@XmlElement(type = Gender.class)
+    @XmlElement(type = Gender.class)
     private Gender gender;
-	@XmlElement
+    @XmlElement
     private String name;
-	@XmlElement
-    private double price;
-	@XmlElement
+    @XmlElement
+    private Double price;
+    @XmlElement
     private Integer size;
-	@XmlElement
+    @XmlElement
     private String color;
-	@XmlElement
+    @XmlElement
     private String brand;
-	@XmlElement
+    @XmlElement
     private boolean heel;
-	@XmlElement
+    @XmlElement
     private BufferedImage image;
-	@XmlElement(type = Promotion.class)
-	private Promotion promotion;
+    @XmlElement(type = Promotion.class)
+    private Promotion promotion;
 
     public Gender getGender() {
 	return gender;
@@ -45,11 +45,11 @@ public class Shoes {
 	this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
 	return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
 	this.price = price;
     }
 
@@ -93,12 +93,12 @@ public class Shoes {
 	this.image = image;
     }
 
-	public Promotion getPromotion() {
-		return promotion;
-	}
+    public Promotion getPromotion() {
+	return promotion;
+    }
 
-	public void setPromotion(Promotion promotion) {
-		this.promotion = promotion;
-	}
+    public void setPromotion(Promotion promotion) {
+	this.promotion = promotion;
+    }
 
 }
