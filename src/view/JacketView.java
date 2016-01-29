@@ -129,6 +129,8 @@ public class JacketView extends JFrame {
 	    fabricTextField.setText(p.getFabric() != null ? p.getFabric() : "");
 	    sizeComboBox.setSelectedItem(p.getSize());
 	    genderComboBox.setSelectedItem(p.getGender());
+	    jacketClosinComboBox.setSelectedItem(p.getJacketClosing());
+	    paddedCheckBox.setSelected(p.isPadded());
 	    if (p.getImage() != null) {
 		ImageIcon icon = new ImageIcon(p.getImage());
 		imageCanvas.setIcon(icon);
