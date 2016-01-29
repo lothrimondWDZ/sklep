@@ -99,7 +99,6 @@ public class ShirtView extends JFrame {
 		genderComboBox.addItem(Gender.FEMALE);
 		genderComboBox.addItem(Gender.MALE);
 		genderComboBox.addItem(Gender.UNISEX);
-		
 
 		JLabel label_6 = new JLabel("Rodzaj :");
 
@@ -108,23 +107,23 @@ public class ShirtView extends JFrame {
 		imagePanel.add(imageCanvas);
 
 		if (!(selectedRowIndex < 0)) {
-		    Shirt s = shirtList.get(selectedRowIndex);
-		    priceTextField.setText(s.getPrice() != null ? s.getPrice().toString() : "");
-		    nameTextField.setText(s.getName() != null ? s.getName() : "");
-		    colorTextField.setText(s.getColor() != null ? s.getColor() : "");
-		    brandTextField.setText(s.getBrand() != null ? s.getBrand() : "");
-		    fabricTextField.setText(s.getFabric() != null ? s.getFabric() : "");
-		    genderComboBox.setSelectedItem(s.getGender());
-		    if (s.getImage() != null) {
-			ImageIcon icon = new ImageIcon(s.getImage());
-			imageCanvas.setIcon(icon);
+			Shirt s = shirtList.get(selectedRowIndex);
+			priceTextField.setText(s.getPrice() != null ? s.getPrice().toString() : "");
+			nameTextField.setText(s.getName() != null ? s.getName() : "");
+			colorTextField.setText(s.getColor() != null ? s.getColor() : "");
+			brandTextField.setText(s.getBrand() != null ? s.getBrand() : "");
+			fabricTextField.setText(s.getFabric() != null ? s.getFabric() : "");
+			genderComboBox.setSelectedItem(s.getGender());
+			if (s.getImage() != null) {
+				ImageIcon icon = new ImageIcon(s.getImage());
+				imageCanvas.setIcon(icon);
 
-			Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
-			imageCanvas.setPreferredSize(imageSize);
+				Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+				imageCanvas.setPreferredSize(imageSize);
 
-			imageCanvas.revalidate();
-			imageCanvas.repaint();
-		    }
+				imageCanvas.revalidate();
+				imageCanvas.repaint();
+			}
 		}
 
 		JLabel lblKonierzyk = new JLabel("Ko\u0142nierzyk :");
@@ -135,26 +134,26 @@ public class ShirtView extends JFrame {
 
 		JButton addImageButton = new JButton("Przegl\u0105daj");
 		addImageButton.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-			JFileChooser chooser = new JFileChooser();
-			File file;
-			chooser.showOpenDialog(null);
-			file = chooser.getSelectedFile();
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				File file;
+				chooser.showOpenDialog(null);
+				file = chooser.getSelectedFile();
 
-			try {
-			    image = ImageIO.read(file);
-			    ImageIcon icon = new ImageIcon(image);
-			    imageCanvas.setIcon(icon);
+				try {
+					image = ImageIO.read(file);
+					ImageIcon icon = new ImageIcon(image);
+					imageCanvas.setIcon(icon);
 
-			    Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
-			    imageCanvas.setPreferredSize(imageSize);
+					Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+					imageCanvas.setPreferredSize(imageSize);
 
-			    imageCanvas.revalidate();
-			    imageCanvas.repaint();
-			} catch (IOException e1) {
+					imageCanvas.revalidate();
+					imageCanvas.repaint();
+				} catch (IOException e1) {
+				}
 			}
-		    }
 
 		});
 
@@ -168,31 +167,32 @@ public class ShirtView extends JFrame {
 
 		JButton saveButton = new JButton("Zapisz");
 		saveButton.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-			Shirt s = selectedRowIndex == -1 ? new Shirt() : shirtList.get(selectedRowIndex);
-			s.setBrand(!brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
-			s.setColor(!colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
-			s.setFabric(!fabricTextField.getText().isEmpty() ? fabricTextField.getText() : null);
-			s.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
-			s.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
-			s.setGender((Gender) genderComboBox.getSelectedItem());
-			s.setImage(image != null ? image : null);
-			DefaultTableModel model = ((DefaultTableModel) shirtTable.getModel());
-			if (selectedRowIndex != -1) {
-				shirtList.edit(s, selectedRowIndex);
-			    model.setValueAt(s.getGender() != null ? s.getGender().toString() : "", selectedRowIndex, 0);
-			    model.setValueAt(s.getName(), selectedRowIndex, 1);
-			    model.setValueAt(s.getPrice() != null ? s.getPrice().toString() : "", selectedRowIndex, 2);
-			    model.setValueAt(s.getColor(), selectedRowIndex, 3);
-			    model.setValueAt(s.getBrand(), selectedRowIndex, 4);
-			} else {
-				shirtList.add(s);
-			    model.addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
-		                    s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand()});
-			    hide();
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Shirt s = selectedRowIndex == -1 ? new Shirt() : shirtList.get(selectedRowIndex);
+				s.setBrand(!brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
+				s.setColor(!colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
+				s.setFabric(!fabricTextField.getText().isEmpty() ? fabricTextField.getText() : null);
+				s.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
+				s.setPrice(NumberUtils
+						.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
+				s.setGender((Gender) genderComboBox.getSelectedItem());
+				s.setImage(image != null ? image : null);
+				DefaultTableModel model = ((DefaultTableModel) shirtTable.getModel());
+				if (selectedRowIndex != -1) {
+					shirtList.edit(s, selectedRowIndex);
+					model.setValueAt(s.getGender() != null ? s.getGender().toString() : "", selectedRowIndex, 0);
+					model.setValueAt(s.getName(), selectedRowIndex, 1);
+					model.setValueAt(s.getPrice() != null ? s.getPrice().toString() : "", selectedRowIndex, 2);
+					model.setValueAt(s.getColor(), selectedRowIndex, 3);
+					model.setValueAt(s.getBrand(), selectedRowIndex, 4);
+				} else {
+					shirtList.add(s);
+					model.addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
+							s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand() });
+					hide();
+				}
 			}
-		    }
 		});
 
 		colarSizeTextField = new JTextField();

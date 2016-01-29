@@ -33,6 +33,7 @@ import model.Gender;
 import model.Jacket;
 import model.Pants;
 import model.Shirt;
+import model.Tshirt;
 import model.TshirtSize;
 
 public class MainView {
@@ -45,7 +46,7 @@ public class MainView {
 	private ShoesView shoesFrame;
 	private JTable pantsTable;
 	private JTextField filterPantsTextField;
-	private DefaultTableModel tableShirtModel;
+	private DefaultTableModel tableShirtModel, tableTShirtModel;
 	private DefaultTableModel tablePantsModel, tableJacketModel;
 	private JTable jacketTable;
 	private JTextField filstrJacketTextField;
@@ -355,13 +356,20 @@ public class MainView {
 		shirtPanel.setLayout(gl_shirtPanel);
 
 		JPanel tshirtPanel = new JPanel();
+		String[] tshirtHeaders = { "Rodzaj", "Nazwa", "Cena", "Kolor", "Marka" };
+		tableTShirtModel = new DefaultTableModel(new Object[][] {}, tshirtHeaders);
+		tshirtTable = new JTable(tableTShirtModel);
+		JScrollPane tshirtTableScrollPane = new JScrollPane();
+		tshirtTableScrollPane.setViewportView(tshirtTable);
+		TShirtList tshirtList = new TShirtList();
 		mainTabbedPane.addTab("T-shirt", null, tshirtPanel, null);
 
 		JButton tshirtDodaj = new JButton("Dodaj");
 		tshirtDodaj.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				tshirtFrame = new TshirtView(true, "Dodaj T-shirt");
+				tshirtTable.getSelectionModel().clearSelection();
+				tshirtFrame = new TshirtView(true, "Dodaj T-shirt", tshirtTable, tshirtList);
 				tshirtFrame.show();
 			}
 		});
@@ -370,28 +378,68 @@ public class MainView {
 		tshirtEdytuj.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				tshirtFrame = new TshirtView(true, "Edytuj T-shirt");
-				tshirtFrame.show();
+				if (tshirtTable.getSelectedRow() != -1) {
+					tshirtFrame = new TshirtView(true, "Edytuj T-shirt", tshirtTable, tshirtList);
+					tshirtFrame.show();
+				}
 			}
 		});
 
 		JButton tshirtUsun = new JButton("Usu\u0144");
+		tshirtUsun.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (tshirtTable.getSelectedRow() != -1) {
+					Tshirt t = new Tshirt();
+					t.setGender(Gender.getByName(((DefaultTableModel) tshirtTable.getModel())
+							.getValueAt(tshirtTable.getSelectedRow(), 0).toString()));
+					Object name = ((DefaultTableModel) tshirtTable.getModel()).getValueAt(tshirtTable.getSelectedRow(),
+							1);
+					if (name != null) {
+						t.setName(name.toString());
+					}
+					String price = ((DefaultTableModel) tshirtTable.getModel())
+							.getValueAt(tshirtTable.getSelectedRow(), 2).toString();
+					if (!StringUtils.isBlank(price)) {
+						t.setPrice(new Double(price));
+					}
+					Object color = ((DefaultTableModel) tshirtTable.getModel()).getValueAt(tshirtTable.getSelectedRow(),
+							3);
+					if (color != null) {
+						t.setColor(color.toString());
+					}
+					Object brand = ((DefaultTableModel) tshirtTable.getModel()).getValueAt(tshirtTable.getSelectedRow(),
+							4);
+					if (brand != null) {
+						t.setBrand(brand.toString());
+					}
+					tshirtList.remove(t);
+					((DefaultTableModel) tshirtTable.getModel())
+							.removeRow(tshirtTable.convertRowIndexToModel(tshirtTable.getSelectedRow()));
+				}
+			}
+		});
 
 		JButton tshirtPokaz = new JButton("Poka\u017C");
 		tshirtPokaz.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				tshirtFrame = new TshirtView(false, "Przegl�daj T-shirt");
+				tshirtFrame = new TshirtView(false, "Przegl�daj T-shirt", tshirtTable, tshirtList);
 				tshirtFrame.show();
 			}
 		});
 
-		JScrollPane tshirtTableScrollPane = new JScrollPane();
-
 		JLabel lblFiltr_3 = new JLabel("Filtr :");
-
 		filtrTshirtTextField = new JTextField();
+		filtrTshirtTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String query = filtrTshirtTextField.getText().toLowerCase();
+				filter(query, tableTShirtModel, tshirtTable);
+			}
+		});
 		filtrTshirtTextField.setColumns(10);
+
 		GroupLayout gl_tshirtPanel = new GroupLayout(tshirtPanel);
 		gl_tshirtPanel
 				.setHorizontalGroup(
@@ -431,8 +479,6 @@ public class MainView {
 				.addComponent(tshirtTableScrollPane, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE)
 				.addContainerGap()));
 
-		tshirtTable = new JTable();
-		tshirtTableScrollPane.setViewportView(tshirtTable);
 		tshirtPanel.setLayout(gl_tshirtPanel);
 
 		JPanel pantsPanel = new JPanel();

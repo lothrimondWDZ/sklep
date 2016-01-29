@@ -14,8 +14,8 @@ public class ShirtList {
 		shirtList = new ArrayList<Shirt>();
 	}
 
-	public void add(final Shirt p) {
-		shirtList.add(p);
+	public void add(final Shirt s) {
+		shirtList.add(s);
 	}
 
 	public void remove(final Shirt shirt) {
