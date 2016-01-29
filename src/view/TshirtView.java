@@ -181,6 +181,7 @@ public class TshirtView extends JFrame {
 		    model.setValueAt(t.getPrice() != null ? t.getPrice().toString() : "", selectedRowIndex, 2);
 		    model.setValueAt(t.getColor(), selectedRowIndex, 3);
 		    model.setValueAt(t.getBrand(), selectedRowIndex, 4);
+		    hide();
 		} else {
 		    tshirtList.add(t);
 		    model.addRow(new Object[] { t.getGender() != null ? t.getGender().toString() : "", t.getName(),
