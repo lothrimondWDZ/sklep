@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 
- * Klasa typu wyliczeniowego dla rodzaju zapiêcia kurtek : suwak, guzik, rzep
+ * Klasa typu wyliczeniowego dla rodzaju zapiecia kurtek : suwak, guzik, rzep
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -15,7 +15,7 @@ public enum JacketClosing {
 
     ZIP_FASTENER("suwak"), BUTTONS("guziki"), VELCRO("rzep");
     /**
-     * Zmienna oznaczaj¹ca nazwê rodzaju zapiêcia
+     * Zmienna oznaczajaca nazwe rodzaju zapiecia
      */
     @XmlElement
     private String name;
@@ -25,20 +25,20 @@ public enum JacketClosing {
     }
 
     /**
-     * Funkcja s³u¿¹ca do pobrania nazwy rodzaju zapêcia
+     * Funkcja sluzaca do pobrania nazwy rodzaju zapiecia
      * 
-     * @return name parametrem zwracanym jest nazwa rodzaju zapiêcia
+     * @return name parametrem zwracanym jest nazwa rodzaju zapiecia
      */
     public String getName() {
 	return name;
     }
 
     /**
-     * Funkcja zwaracaj¹ca typ wyliczeniowy dla podanej nazwy rodzaju zapêcia
+     * Funkcja zwaracajaca typ wyliczeniowy dla podanej nazwy rodzaju zapiecia
      * 
      * @param name
-     *            jest wprowadzan¹ nazw¹ rodzaju zapiêcia
-     * @return zwracany jest typ wyliczeniowy b¹dŸ null
+     *            jest wprowadzana nazwa rodzaju zapiecia
+     * @return zwracany jest typ wyliczeniowy badz null
      */
     public static JacketClosing getByName(String name) {
 	if (name.equals(JacketClosing.ZIP_FASTENER.getName())) {

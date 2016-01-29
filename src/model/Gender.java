@@ -7,15 +7,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 
- * Klasa typu wyliczeniowego dla Rodzaju okreœla jakiego rodzaj¹u s¹ ubrania : mêskie, damskie i unisex
+ * Klasa typu wyliczeniowego dla Rodzaju okresla jakiego rodzaju sa ubrania : meskie, damskie i unisex
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public enum Gender {
 
-    MALE("mêskie"), FEMALE("damskie"), UNISEX("unisex");
+    MALE("mÄ™skie"), FEMALE("damskie"), UNISEX("unisex");
     /**
-     * Zmienna oznaczaj¹ca nazwê rodzaju ubrania
+     * Zmienna oznaczajaca nazwe rodzaju ubrania
      */
     @XmlElement
     private String name;
@@ -25,7 +25,7 @@ public enum Gender {
     }
 
     /**
-     * Funkcja s³u¿¹ca do pobrania nazwy rodzaju ubrania
+     * Funkcja sluzaca do pobrania nazwy rodzaju ubrania
      * 
      * @return name parametrem zwracanym jest nazwa rodzaju
      */
@@ -34,11 +34,11 @@ public enum Gender {
     }
 
     /**
-     * Funkcja zwaracaj¹ca typ wyliczeniowy dla podanej nazwy rodzaju
+     * Funkcja zwaracajaca typ wyliczeniowy dla podanej nazwy rodzaju
      * 
      * @param name
-     *            jest wprowadzan¹ nazw¹ rodzaju ubrania
-     * @return zwracany jest typ wyliczeniowy b¹dŸ null
+     *            jest wprowadzana nazwa rodzaju ubrania
+     * @return zwracany jest typ wyliczeniowy badz null
      */
     public static Gender getByName(String name) {
 	if (name.equals(Gender.FEMALE.getName())) {

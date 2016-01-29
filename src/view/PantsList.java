@@ -10,12 +10,12 @@ import model.Pants;
 
 /**
  * 
- * Klasa zawieraj¹ca listê spodni znajdujacych siê aktualnie w sklepie
+ * Klasa zawierajaca liste spodni znajdujacych sie aktualnie w sklepie
  *
  */
 public class PantsList {
     /**
-     * Lista dostêpnych spodni
+     * Lista dostepnych spodni
      */
     private List<Pants> pantsList;
 
@@ -33,19 +33,19 @@ public class PantsList {
 
     /**
      * @param {@link
-     *            Pants} usniêcie spodni
+     *            Pants} usuniecie spodni
      */
     public void remove(final Pants pants) {
 	pantsList.remove(pants);
     }
 
     /**
-     * Edycja istniej¹cych spodni
+     * Edycja istniejacych spodni
      * 
      * @param Pants
      *            ze zmienionymi parametrami
      * @param index
-     *            wskazuj¹cy na po³o¿enie spodni do zamiany
+     *            wskazujacy na polozenie spodni do zamiany
      */
     public void edit(final Pants p, final Integer index) {
 	pantsList.set(index, p);
@@ -63,9 +63,9 @@ public class PantsList {
     }
 
     /**
-     * Przekszta³cenie spodni na model dla tabeli na widoku ({@link JTable})
+     * Przeksztalcenie spodni na model dla tabeli na widoku ({@link JTable})
      * 
-     * @return {@link Object} dane do wyœwietlenia w tabeli
+     * @return {@link Object} dane do wyswietlenia w tabeli
      */
     public Object[][] getTableModel() {
 	Object[][] data = new Object[pantsList.size()][7];
@@ -84,7 +84,7 @@ public class PantsList {
     }
 
     /**
-     * Pobranie listy dostêpnych spodni
+     * Pobranie listy dostepnych spodni
      * 
      * @return {@link List} lista spodni
      */
@@ -96,7 +96,7 @@ public class PantsList {
      * Ustawienie listy spodni (import)
      * 
      * @param {@link
-     *            List} nowa lista dostêpnych spodni
+     *            List} nowa lista dostepnych spodni
      */
     public void setList(List<Pants> pantsList) {
 	this.pantsList = pantsList;

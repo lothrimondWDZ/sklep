@@ -7,20 +7,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 
- * Klasa reprezentuj¹ca T-shirt
+ * Klasa reprezentujaca T-shirt
  *
  */
 @XmlRootElement(name = "tshirt")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tshirt extends Shirt {
     /**
-     * pole oznaczaj¹ce rozmiar T-shirt
+     * pole oznaczajace rozmiar T-shirt
      */
     @XmlElement(type = TshirtSize.class)
     private TshirtSize size;
 
     /**
-     * Funkcja zwracaj¹ca rozmiar T-shirt
+     * Funkcja zwracajaca rozmiar T-shirt
      * 
      * @return {@link TshirtSize} parametrem zwracanym rozmiar
      */
@@ -30,7 +30,7 @@ public class Tshirt extends Shirt {
     }
 
     /**
-     * Funkcja ustawiaj¹ca rozmiar T-shirt
+     * Funkcja ustawiajaca rozmiar T-shirt
      * 
      * @param size
      *            przyjmowany jest rozmiar w postaci {@link TshirtSize}

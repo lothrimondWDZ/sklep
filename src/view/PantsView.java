@@ -32,7 +32,7 @@ import model.Pants;
 
 /**
  * 
- * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy spodni
+ * Klasa przedstawiajaca widok formularza dodawania, edycji i przegladu spodni
  *
  */
 public class PantsView extends JFrame {
@@ -53,18 +53,18 @@ public class PantsView extends JFrame {
     private PromotionList promotionList;
 
     /**
-     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du spodni
+     * Funkcja tworzaca widok formularza dodawania, edycji i przeglï¿½du spodni
      * 
      * @param addEditShow
-     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     *            parametr okreslajacy dla jakiej z trzech opcji(edycja, dodawaie, przeglad) widok ma zostal wyswietlony
      * @param actionName
-     *            parametr okeœlajacy nazwê danej akcji
+     *            parametr okeslajacy nazwe danej akcji
      * @param pantsTable
-     *            parametr zawieraj¹cy tabelê spodni z g³ównego widoku, w celu dokonania w niej zmian
+     *            parametr zawierajacy tabele spodni z glownego widoku, w celu dokonania w niej zmian
      * @param pantsList
-     *            parametr zawieraj¹cy listê wszystkich spodni w aplikacji
+     *            parametr zawierajacy liste wszystkich spodni w aplikacji
      * @param promotionList
-     *            parametr zwieraj¹cy listê wszystkich promocji
+     *            parametr zwierajacy liste wszystkich promocji
      */
     public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList, PromotionList promotionList) {
 	this.promotionList = promotionList;
@@ -111,12 +111,12 @@ public class PantsView extends JFrame {
 	fabricTextField = new JTextField();
 	fabricTextField.setColumns(10);
 
-	JLabel lblDugo = new JLabel("D³ugoœæ :");
+	JLabel lblDugo = new JLabel("Dï¿½ugoï¿½ï¿½ :");
 
 	lengthTextField = new JTextField();
 	lengthTextField.setColumns(10);
 
-	JLabel lblObwdPasa = new JLabel("Obwód :");
+	JLabel lblObwdPasa = new JLabel("Obwï¿½d :");
 
 	obwodTextField = new JTextField();
 	obwodTextField.setColumns(10);
@@ -150,7 +150,7 @@ public class PantsView extends JFrame {
 	JLabel labelEndDate = new JLabel("");
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	/**
-	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 * Jezeli wczesniej wybrany byl wiersz tabeli, wowczas dla opcji edycji i przegladu zostana uzupelnione odpowiednie pola
 	 */
 	if (!(selectedRowIndex < 0)) {
 	    Pants p = pantsList.get(selectedRowIndex);
@@ -193,7 +193,7 @@ public class PantsView extends JFrame {
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek spodni
+	     * Funkcja wyswietlajaca okno wyboru obrazka i wczytujaca obrazek spodni
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
@@ -232,7 +232,7 @@ public class PantsView extends JFrame {
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja dodaj¹ca nowe spodnie oraz zapisuj¹ca spodnie edytowane w tabeli i liœcie spodni
+	     * Funkcja dodajaca nowe spodnie oraz zapisujaca spodnie edytowane w tabeli i liscie spodni
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {

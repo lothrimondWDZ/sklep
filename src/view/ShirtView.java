@@ -33,7 +33,7 @@ import model.TshirtSize;
 
 /**
  * 
- * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy koszul formalnych
+ * Klasa przedstawiajaca widok formularza dodawania, edycji i przeglady koszul formalnych
  *
  */
 public class ShirtView extends JFrame {
@@ -52,16 +52,16 @@ public class ShirtView extends JFrame {
     private BufferedImage image;
 
     /**
-     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du koszul
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegladu koszul
      * 
      * @param addEditShow
-     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     *            parametr okreslajacy dla jakiej z trzech opcji(edycja, dodawaie, przeglad) widok ma zostal wyswietlony
      * @param actionName
-     *            parametr okeœlajacy nazwê danej akcji
+     *            parametr okreslajacy nazwe danej akcji
      * @param shirtTable
-     *            parametr zawieraj¹cy tabelê koszul z g³ównego widoku, w celu dokonania w niej zmian
+     *            parametr zawierajacy tabele koszul z glownego widoku, w celu dokonania w niej zmian
      * @param shirtList
-     *            parametr zawieraj¹cy listê wszystkich koszul w aplikacji
+     *            parametr zawierajacy liste wszystkich koszul w aplikacji
      */
     public ShirtView(boolean addEditShow, String actionName, JTable shirtTable, ShirtList shirtList) {
 	this.shirtList = shirtList;
@@ -133,7 +133,7 @@ public class ShirtView extends JFrame {
 
 	JCheckBox tieIncludedCheckBox = new JCheckBox("");
 	/**
-	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 * Jezeli wczesniej wybrany byl wiersz tabeli, wowczas dla opcji edycji i przegladu zostana uzupelnione odpowiednie pola
 	 */
 	if (!(selectedRowIndex < 0)) {
 	    Shirt s = shirtList.get(selectedRowIndex);
@@ -165,7 +165,7 @@ public class ShirtView extends JFrame {
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek koszuli
+	     * Funkcja wyswietlajaca okno wyboru obrazka i wczytujaca obrazek koszuli
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
@@ -204,7 +204,7 @@ public class ShirtView extends JFrame {
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja dodaj¹ca now¹ koszulê oraz zapisuj¹ca koszulê edytowan¹ w tabeli i liœcie koszul
+	     * Funkcja dodajaca nowa koszule oraz zapisujaca koszule edytowana w tabeli i liscie koszul
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {

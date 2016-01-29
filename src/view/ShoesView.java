@@ -33,7 +33,7 @@ import model.Shoes;
 
 /**
  * 
- * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy butów
+ * Klasa przedstawiajaca widok formularza dodawania, edycji i przeglady butow
  *
  */
 public class ShoesView extends JFrame {
@@ -54,18 +54,18 @@ public class ShoesView extends JFrame {
     private JLabel lblOd;
 
     /**
-     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du butów
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegladu butow
      * 
      * @param addEditShow
-     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     *            parametr okreslajacy dla jakiej z trzech opcji(edycja, dodawaie, przeglad) widok ma zostac wyswietlony
      * @param actionName
-     *            parametr okeœlajacy nazwê danej akcji
+     *            parametr okreslajacy nazwe danej akcji
      * @param shoesTable
-     *            parametr zawieraj¹cy tabelê butów z g³ównego widoku, w celu dokonania w niej zmian
+     *            parametr zawierajacy tabele butow z glownego widoku, w celu dokonania w niej zmian
      * @param shoesList
-     *            parametr zawieraj¹cy listê wszystkich butów w aplikacji
+     *            parametr zawierajacy liste wszystkich butow w aplikacji
      * @param promotionList
-     *            parametr zwieraj¹cy listê wszystkich promocji
+     *            parametr zawierajacy liste wszystkich promocji
      */
     public ShoesView(boolean addEditShow, String actionName, JTable shoesTable, ShoesList shoesList, PromotionList promotionList) {
 	this.promotionList = promotionList;
@@ -145,7 +145,7 @@ public class ShoesView extends JFrame {
 	JLabel labelEndDate = new JLabel("");
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	/**
-	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 * Jezeli wczesniej wybrany byl wiersz tabeli, wowczas dla opcji edycji i przegladu zostana uzupelnione odpowiednie pola
 	 */
 	if (!(selectedRowIndex < 0)) {
 	    Shoes p = shoesList.get(selectedRowIndex);
@@ -186,7 +186,7 @@ public class ShoesView extends JFrame {
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek butów
+	     * Funkcja wyswietlajaca okno wyboru obrazka i wczytujaca obrazek butow
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
@@ -224,7 +224,7 @@ public class ShoesView extends JFrame {
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja dodaj¹ca nowe buty oraz zapisuj¹ca buty edytowane w tabeli i liœcie butów
+	     * Funkcja dodajaca nowe buty oraz zapisujaca buty edytowane w tabeli i liscie butow
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {

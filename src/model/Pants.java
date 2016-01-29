@@ -12,14 +12,14 @@ import logic.ImageAdapter;
 
 /**
  * 
- * Klasa reprezentuj¹ca spodnie
+ * Klasa reprezentujaca spodnie
  *
  */
 @XmlRootElement(name = "pants")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Pants {
     /**
-     * pole rodzaj spodni : damska, mêska, unisex
+     * pole rodzaj spodni : damskie, meskie, unisex
      */
     @XmlElement(type = Gender.class)
     private Gender gender;
@@ -44,34 +44,34 @@ public class Pants {
     @XmlElement
     private String brand;
     /**
-     * obwód w pasie spodni
+     * obwod w pasie spodni
      */
     @XmlElement
     private Integer waistSize;
     /**
-     * d³ugoœc spodni
+     * dlugosc spodni
      */
     @XmlElement
     private Integer length;
     @XmlElement
     /**
-     * materia³ z jakiego s¹ wykonane spodnie
+     * material z jakiego sa wykonane spodnie
      */
     private String fabric;
     /**
-     * zdjêcie spodni
+     * zdjecie spodni
      */
     @XmlElement
     @XmlJavaTypeAdapter(ImageAdapter.class)
     private BufferedImage image;
     /**
-     * ustawaiona promocja {@link Promotion} b¹dŸ jej brak dla spodni
+     * ustawiona promocja {@link Promotion} badz jej brak dla spodni
      */
     @XmlElement(type = Promotion.class)
     private Promotion promotion;
 
     /**
-     * Funkcja zwaracaj¹ca rodzaj spodni
+     * Funkcja zwaracajaca rodzaj spodni
      * 
      * @return {@link Gender} parametrem zwracanym jest rodzaj
      */
@@ -80,7 +80,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja ustawaiaj¹ca rodzaj dla spodni
+     * Funkcja ustawaiajaca rodzaj dla spodni
      * 
      * @param gender
      *            przyjmowany jest rodzaj spodni
@@ -90,7 +90,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwracaj¹ca nazwê spodni
+     * Funkcja zwracajaca nazwe spodni
      * 
      * @return name parametrem zwracanym jest nazwa spodni
      */
@@ -99,7 +99,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja ustawiaj¹ca nazwê spodni
+     * Funkcja ustawiajaca nazwe spodni
      * 
      * @param name
      *            przyjmowana jest nazwa spodni w postaci String
@@ -109,7 +109,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwaracaj¹ca cenê spodni
+     * Funkcja zwaracajaca cene spodni
      * 
      * @return price parametrem zwracanym jest cena spodni
      */
@@ -118,7 +118,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja ustawiajaca cenê spodni
+     * Funkcja ustawiajaca cene spodni
      * 
      * @param price
      *            przyjmowana jest cena w postaci Double
@@ -128,7 +128,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwarcaj¹ca kolor spodni
+     * Funkcja zwarcajaca kolor spodni
      * 
      * @return parametrem zwracanym jest kolor spodni
      */
@@ -137,7 +137,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja ustawiaj¹ca kolor spodni
+     * Funkcja ustawiajaca kolor spodni
      * 
      * @param color
      *            przyjmowany jest kolor spodni w postaci String
@@ -147,7 +147,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwracajaca markê spodni
+     * Funkcja zwracajaca marke spodni
      * 
      * @return parametrem zwracanym jest marka spodni
      */
@@ -156,7 +156,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja ustawiaj¹ca markê spodni
+     * Funkcja ustawiajaca marke spodni
      * 
      * @param brand
      *            przyjmowana jest marka spodni w postaci String
@@ -166,35 +166,35 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwracajaca obwód w pasie spodni
+     * Funkcja zwracajaca obwod w pasie spodni
      * 
-     * @return parametrem zwracanym jest obwód w pasie
+     * @return parametrem zwracanym jest obwod w pasie
      */
     public Integer getWaistSize() {
 	return waistSize;
     }
 
     /**
-     * Funkcja ustawiaj¹ca obwód w pasie spodni
+     * Funkcja ustawiajaca obwod w pasie spodni
      * 
      * @param waistSize
-     *            przyjmowany jest obwód w pasie w postaci Integer
+     *            przyjmowany jest obwod w pasie w postaci Integer
      */
     public void setWaistSize(Integer waistSize) {
 	this.waistSize = waistSize;
     }
 
     /**
-     * Funkcja zwaracaj¹ca d³ugoœæ spodni
+     * Funkcja zwaracajaca dlugosc spodni
      * 
-     * @return parametrem zwaracanym jest d³ugoœæ spodni
+     * @return parametrem zwaracanym jest dlugosc spodni
      */
     public Integer getLength() {
 	return length;
     }
 
     /**
-     * Funkcja ustawiaj¹ca d³ugoœæ spodni
+     * Funkcja ustawiajaca dlugosc spodni
      * 
      * @param length
      *            przyjmowany jest parametr w postaci Integer
@@ -204,16 +204,16 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwracaj¹ca materia³ spodni
+     * Funkcja zwracajaca material spodni
      * 
-     * @return parametrem zwracanym jest materia³ z jakiego wykonane sa spodnie
+     * @return parametrem zwracanym jest material z jakiego wykonane sa spodnie
      */
     public String getFabric() {
 	return fabric;
     }
 
     /**
-     * Funkcja ustawiaj¹ca materia³ z jakiego wykonane s¹ spodnie
+     * Funkcja ustawiajaca material z jakiego wykonane sa spodnie
      * 
      * @param fabric
      *            przyjmowany jest parametr w postaci String
@@ -223,7 +223,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwracaj¹ca obrazek dla spodni
+     * Funkcja zwracajaca obrazek dla spodni
      * 
      * @return parametrem zwracanym jest obrazek spodni
      */
@@ -232,7 +232,7 @@ public class Pants {
     }
 
     /**
-     * funkcja ustawiaj¹ca obrazek dla spodni
+     * funkcja ustawiajaca obrazek dla spodni
      * 
      * @param image
      *            przyjmowany jest parametr w postaci {@link BufferedImage}
@@ -242,7 +242,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja zwarcaj¹ca promocjê, b¹dŸ jej brak dla spodni
+     * Funkcja zwarcajaca promocje, badz jej brak dla spodni
      * 
      * @return parametrem zwracanym jest promocja
      */
@@ -251,7 +251,7 @@ public class Pants {
     }
 
     /**
-     * Funkcja ustawiaj¹ca promocjê dla spodni
+     * Funkcja ustawiajaca promocje dla spodni
      * 
      * @param promotion
      *            przyjmowany jest parametr w postaci {@link Promotion}

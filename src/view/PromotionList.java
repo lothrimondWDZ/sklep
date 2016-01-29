@@ -9,12 +9,12 @@ import model.Promotion;
 
 /**
  * 
- * Klasa zawieraj¹ca listê promocji znajdujacych siê aktualnie w sklepie
+ * Klasa zawierajaca liste promocji znajdujacych sie aktualnie w sklepie
  *
  */
 public class PromotionList {
     /**
-     * Lista dostêpnych promocji
+     * Lista dostepnych promocji
      */
     private List<Promotion> promotionsList;
 
@@ -32,19 +32,19 @@ public class PromotionList {
 
     /**
      * @param {@link
-     *            Promotion} usniêcie promocji
+     *            Promotion} usniecie promocji
      */
     public void remove(final Promotion promotion) {
 	promotionsList.remove(promotion);
     }
 
     /**
-     * Edycja istniej¹cej promocji
+     * Edycja istniejacej promocji
      * 
      * @param Promotion
      *            ze zmienionymi parametrami
      * @param index
-     *            wskazuj¹cy na po³o¿enie promocji do zamiany
+     *            wskazujacy na polozenie promocji do zamiany
      */
     public void edit(final Promotion p, final Integer index) {
 	promotionsList.set(index, p);
@@ -55,14 +55,14 @@ public class PromotionList {
      * 
      * @param {@link
      *            Integer} index
-     * @return {@link Promotion} znaleziona promocjia
+     * @return {@link Promotion} znaleziona promocja
      */
     public Promotion get(Integer index) {
 	return promotionsList.get(index);
     }
 
     /**
-     * Uzupe³nienie listy promocji pocz¹tkowymi danymi
+     * Uzupelnienie listy promocji poczatkowymi danymi
      */
     public void fileList() {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

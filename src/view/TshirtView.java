@@ -32,7 +32,7 @@ import model.TshirtSize;
 
 /**
  * 
- * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy t-shirt
+ * Klasa przedstawiajaca widok formularza dodawania, edycji i przeglady t-shirt
  *
  */
 public class TshirtView extends JFrame {
@@ -50,16 +50,16 @@ public class TshirtView extends JFrame {
     private BufferedImage image;
 
     /**
-     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du t-shirt
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegladu t-shirt
      * 
      * @param addEditShow
-     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     *            parametr okreslajacy dla jakiej z trzech opcji(edycja, dodawaie, przeglad) widok ma zostal wyswietlony
      * @param actionName
-     *            parametr okeœlajacy nazwê danej akcji
+     *            parametr okreslajacy nazwe danej akcji
      * @param tshirtTable
-     *            parametr zawieraj¹cy tabelê t-shirt z g³ównego widoku, w celu dokonania w niej zmian
+     *            parametr zawierajacy tabele t-shirt z glownego widoku, w celu dokonania w niej zmian
      * @param tshirtList
-     *            parametr zawieraj¹cy listê wszystkich t-shirt w aplikacji
+     *            parametr zawierajacy liste wszystkich t-shirt w aplikacji
      */
     public TshirtView(boolean addEditShow, String actionName, JTable tshirtTable, TShirtList tshirtList) {
 	this.tshirtList = tshirtList;
@@ -126,7 +126,7 @@ public class TshirtView extends JFrame {
 	JLabel imageCanvas = new JLabel();
 	imagePanel.add(imageCanvas);
 	/**
-	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 * Jezeli wczesniej wybrany byl wiersz tabeli, wowczas dla opcji edycji i przegladu zostana uzupelnione odpowiednie pola
 	 */
 	if (!(selectedRowIndex < 0)) {
 	    Tshirt t = tshirtList.get(selectedRowIndex);
@@ -152,7 +152,7 @@ public class TshirtView extends JFrame {
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek t-shirt
+	     * Funkcja wyswietlajaca okno wyboru obrazka i wczytujaca obrazek t-shirt
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
@@ -191,7 +191,7 @@ public class TshirtView extends JFrame {
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
 	    /**
-	     * Funkcja dodaj¹ca nowe t-shirt oraz zapisuj¹ca t-shirt edytowany w tabeli i liœcie t-shirt
+	     * Funkcja dodajaca nowe t-shirt oraz zapisujaca t-shirt edytowany w tabeli i liscie t-shirt
 	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {

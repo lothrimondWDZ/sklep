@@ -9,12 +9,12 @@ import model.Shoes;
 
 /**
  * 
- * Klasa zawieraj¹ca listê butów znajdujacych siê aktualnie w sklepie
+ * Klasa zawierajaca liste butow znajdujacych sie aktualnie w sklepie
  *
  */
 public class ShoesList {
     /**
-     * Lista dostêpnych butów
+     * Lista dostepnych butow
      */
     private List<Shoes> shoesList;
 
@@ -24,7 +24,7 @@ public class ShoesList {
 
     /**
      * @param {@link
-     *            Shoes} dodanie nowych butów
+     *            Shoes} dodanie nowych butow
      */
     public void add(final Shoes p) {
 	shoesList.add(p);
@@ -32,26 +32,26 @@ public class ShoesList {
 
     /**
      * @param {@link
-     *            Shoes} usniêcie butów
+     *            Shoes} usniecie butow
      */
     public void remove(final Shoes pants) {
 	shoesList.remove(pants);
     }
 
     /**
-     * Edycja istniej¹cych butów
+     * Edycja istniejacych butow
      * 
      * @param Shoes
      *            ze zmienionymi parametrami
      * @param index
-     *            wskazuj¹cy na po³o¿enie butów do zamiany
+     *            wskazujacy na polozenie butow do zamiany
      */
     public void edit(final Shoes p, final Integer index) {
 	shoesList.set(index, p);
     }
 
     /**
-     * Pobranie butów
+     * Pobranie butow
      * 
      * @param {@link
      *            Integer} index
@@ -62,9 +62,9 @@ public class ShoesList {
     }
 
     /**
-     * Przekszta³cenie bytów na model dla tabeli na widoku ({@link JTable})
+     * Przeksztalcenie butow na model dla tabeli na widoku ({@link JTable})
      * 
-     * @return {@link Object} dane do wyœwietlenia w tabeli
+     * @return {@link Object} dane do wyswietlenia w tabeli
      */
     public Object[][] getTableModel() {
 	Object[][] data = new Object[shoesList.size()][7];
@@ -82,19 +82,19 @@ public class ShoesList {
     }
 
     /**
-     * Pobranie listy dostêpnych butów
+     * Pobranie listy dostepnych butow
      * 
-     * @return {@link List} lista butów
+     * @return {@link List} lista butow
      */
     public List<Shoes> getList() {
 	return shoesList;
     }
 
     /**
-     * Ustawienie listy butów (import)
+     * Ustawienie listy butow (import)
      * 
      * @param {@link
-     *            List} nowa lista dostêpnych butów
+     *            List} nowa lista dostepnych butow
      */
     public void setList(List<Shoes> shoesList) {
 	this.shoesList = shoesList;
