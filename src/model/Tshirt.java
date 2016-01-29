@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "tshirt")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tshirt extends Shirt {
 	@XmlElement(type = TshirtSize.class)

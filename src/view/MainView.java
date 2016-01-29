@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +9,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -26,6 +36,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -544,7 +558,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shoesTable.getSelectedRow() != -1) {
-		    shoesFrame = new ShoesView(false, "Przegl¹daj buty", shoesTable, shoesList, promotionList);
+		    shoesFrame = new ShoesView(false, "Przeglï¿½daj buty", shoesTable, shoesList, promotionList);
 		    shoesFrame.show();
 		}
 	    }
@@ -650,7 +664,35 @@ public class MainView {
 	mntmImportZXml.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		System.out.println("import z xml");
+	    	XMLModel model = importFromXML();
+	    	System.out.println(model);
+	    	jacketList.setList(model.getJacketList());
+	    	shirtList.setList(model.getShirtList());
+	    	tshirtList.setList(model.getTshirtList());
+	    	shoesList.setList(model.getShoesList());
+	    	pantsList.setList(model.getPantsList());
+	    	for(Tshirt t : tshirtList.getList()){
+	    		((DefaultTableModel)tshirtTable.getModel()).addRow(new Object[] { t.getGender() != null ? t.getGender().toString() : "", t.getName(),
+	                    t.getPrice() != null ? t.getPrice().toString() : "", t.getColor(), t.getBrand() });
+	    	}
+	    	for(Shirt s : shirtList.getList()){
+	    		((DefaultTableModel)shirtTable.getModel()).addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
+	    				s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand() });
+	    	}
+	    	for(Pants p : pantsList.getList()){
+	    		((DefaultTableModel)pantsTable.getModel()).addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
+	    				p.getPrice() != null ? p.getPrice().toString() : "", p.getColor(), p.getBrand() });
+	    	}
+	    	for(Shoes s : shoesList.getList()){
+	    		((DefaultTableModel)shoesTable.getModel()).addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
+	                    s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand(),
+	                    s.getSize() != null ? s.getSize().toString() : "" });
+	    	}
+	    	for(Jacket j : jacketList.getList()){
+	    		((DefaultTableModel)jacketTable.getModel()).addRow(new Object[] { j.getGender() != null ? j.getGender().toString() : "", j.getName(),
+	                    j.getPrice() != null ? j.getPrice().toString() : "", j.getColor(), j.getBrand(),
+	                    j.getSize() != null ? j.getSize().toString() : "" });
+	    	}
 	    }
 	});
 	mnPlik.add(mntmImportZXml);
@@ -659,7 +701,7 @@ public class MainView {
 	mntmExportDoXml.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		System.out.println("eksport do xml");
+	    	exportToXML(pantsList, jacketList, shoesList, tshirtList, shirtList);
 	    }
 	});
 	mnPlik.add(mntmExportDoXml);
@@ -669,6 +711,49 @@ public class MainView {
 	TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(modelTable);
 	tr.setRowFilter(RowFilter.regexFilter(query, 1));
 	table.setRowSorter(tr);
-
+    }
+    
+    private XMLModel importFromXML(){
+    	JFileChooser chooser = new JFileChooser();
+		File file;
+		chooser.showOpenDialog(null);
+		file = chooser.getSelectedFile();
+		XMLModel model = new XMLModel();
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(XMLModel.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			String content = new Scanner(file).useDelimiter("\\Z").next();
+			StringReader sr = new StringReader(content);
+			model = (XMLModel) jaxbUnmarshaller.unmarshal(sr);
+		} catch (IOException | JAXBException e1) {
+		}
+		return model;
+    }
+    
+    private void exportToXML(PantsList pantsList, JacketList jacketList, ShoesList shoesList, TShirtList tShirtList, ShirtList shirtList) {
+    	JFileChooser chooser = new JFileChooser();
+		File file;
+		chooser.showSaveDialog(null);
+		try {
+			File xmlFile = new File("file.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(XMLModel.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			StringWriter sw = new StringWriter();
+			StringBuilder sb = new StringBuilder();
+			XMLModel xmlModel = new XMLModel();
+			xmlModel.setPantsList(pantsList.getList());
+			xmlModel.setJacketList(jacketList.getList());
+			xmlModel.setShoesList(shoesList.getList());
+			xmlModel.setShirtList(shirtList.getList());
+			xmlModel.setTshirtList(tShirtList.getList());
+			jaxbMarshaller.marshal(xmlModel, sw);
+			sb.append(sw.toString());
+			String content = sb.toString();
+			System.out.println(content);
+			FileWriter fw = new FileWriter(chooser.getSelectedFile()+".xml");
+			fw.write(content);
+			fw.close();
+		} catch (JAXBException | IOException e1) {
+		}
     }
 }

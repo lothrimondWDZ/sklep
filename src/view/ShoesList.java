@@ -44,4 +44,12 @@ public class ShoesList {
 	return data;
     }
 
+	public List<Shoes> getList() {
+		return shoesList;
+	}
+
+	public void setList(List<Shoes> shoesList) {
+		this.shoesList = shoesList;
+	}
+
 }

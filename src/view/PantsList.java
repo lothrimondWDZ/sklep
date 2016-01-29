@@ -3,6 +3,11 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import model.Pants;
 
 public class PantsList {
@@ -43,6 +48,14 @@ public class PantsList {
 			i++;
 		}
 		return data;
+	}
+
+	public List<Pants> getList() {
+		return this.pantsList;
+	}
+
+	public void setList(List<Pants> pantsList) {
+		this.pantsList = pantsList;
 	}
 
 }

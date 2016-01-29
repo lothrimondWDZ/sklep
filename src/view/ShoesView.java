@@ -201,31 +201,31 @@ public class ShoesView extends JFrame {
 	saveButton.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		Shoes p = selectedRowIndex == -1 ? new Shoes() : shoesList.get(selectedRowIndex);
-		p.setBrand(!brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
-		p.setColor(!colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
-		p.setSize(NumberUtils.createInteger(!sizeTextField.getText().isEmpty() ? sizeTextField.getText() : null));
-		p.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
-		p.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
-		p.setGender((Gender) genderTextField.getSelectedItem());
-		p.setImage(image != null ? image : null);
-		p.setHeel(heelCheckBox.isSelected() ? true : false);
-		p.setPromotion(promotionList.get(promotionComboBox.getSelectedIndex()));
+		Shoes s = selectedRowIndex == -1 ? new Shoes() : shoesList.get(selectedRowIndex);
+		s.setBrand(!brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
+		s.setColor(!colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
+		s.setSize(NumberUtils.createInteger(!sizeTextField.getText().isEmpty() ? sizeTextField.getText() : null));
+		s.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
+		s.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
+		s.setGender((Gender) genderTextField.getSelectedItem());
+		s.setImage(image != null ? image : null);
+		s.setHeel(heelCheckBox.isSelected() ? true : false);
+		s.setPromotion(promotionList.get(promotionComboBox.getSelectedIndex()));
 		DefaultTableModel model = ((DefaultTableModel) shoesTable.getModel());
 		if (selectedRowIndex != -1) {
-		    shoesList.edit(p, selectedRowIndex);
-		    model.setValueAt(p.getGender() != null ? p.getGender().toString() : "", selectedRowIndex, 0);
-		    model.setValueAt(p.getName(), selectedRowIndex, 1);
-		    model.setValueAt(p.getPrice() != null ? p.getPrice().toString() : "", selectedRowIndex, 2);
-		    model.setValueAt(p.getColor(), selectedRowIndex, 3);
-		    model.setValueAt(p.getBrand(), selectedRowIndex, 4);
-		    model.setValueAt(p.getSize() != null ? p.getSize().toString() : "", selectedRowIndex, 5);
+		    shoesList.edit(s, selectedRowIndex);
+		    model.setValueAt(s.getGender() != null ? s.getGender().toString() : "", selectedRowIndex, 0);
+		    model.setValueAt(s.getName(), selectedRowIndex, 1);
+		    model.setValueAt(s.getPrice() != null ? s.getPrice().toString() : "", selectedRowIndex, 2);
+		    model.setValueAt(s.getColor(), selectedRowIndex, 3);
+		    model.setValueAt(s.getBrand(), selectedRowIndex, 4);
+		    model.setValueAt(s.getSize() != null ? s.getSize().toString() : "", selectedRowIndex, 5);
 		    hide();
 		} else {
-		    shoesList.add(p);
-		    model.addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
-	                    p.getPrice() != null ? p.getPrice().toString() : "", p.getColor(), p.getBrand(),
-	                    p.getSize() != null ? p.getSize().toString() : "" });
+		    shoesList.add(s);
+		    model.addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
+	                    s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand(),
+	                    s.getSize() != null ? s.getSize().toString() : "" });
 		    hide();
 		}
 	    }

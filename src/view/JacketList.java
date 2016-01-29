@@ -45,4 +45,12 @@ public class JacketList {
 	return data;
     }
 
+	public List<Jacket> getList() {
+		return jacketsList;
+	}
+
+	public void setList(List<Jacket> jacketList) {
+		this.jacketsList = jacketList;
+	}
+
 }

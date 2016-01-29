@@ -126,18 +126,18 @@ public class JacketView extends JFrame {
 	panel.add(imageCanvas);
 
 	if (!(selectedRowIndex < 0)) {
-	    Jacket p = jacketList.get(selectedRowIndex);
-	    priceTextField.setText(p.getPrice() != null ? p.getPrice().toString() : "");
-	    nameTextField.setText(p.getName() != null ? p.getName() : "");
-	    colorTextField.setText(p.getColor() != null ? p.getColor() : "");
-	    brandTextField.setText(p.getBrand() != null ? p.getBrand() : "");
-	    fabricTextField.setText(p.getFabric() != null ? p.getFabric() : "");
-	    sizeComboBox.setSelectedItem(p.getSize());
-	    genderComboBox.setSelectedItem(p.getGender());
-	    jacketClosinComboBox.setSelectedItem(p.getJacketClosing());
-	    paddedCheckBox.setSelected(p.isPadded());
-	    if (p.getImage() != null) {
-		ImageIcon icon = new ImageIcon(p.getImage());
+	    Jacket j = jacketList.get(selectedRowIndex);
+	    priceTextField.setText(j.getPrice() != null ? j.getPrice().toString() : "");
+	    nameTextField.setText(j.getName() != null ? j.getName() : "");
+	    colorTextField.setText(j.getColor() != null ? j.getColor() : "");
+	    brandTextField.setText(j.getBrand() != null ? j.getBrand() : "");
+	    fabricTextField.setText(j.getFabric() != null ? j.getFabric() : "");
+	    sizeComboBox.setSelectedItem(j.getSize());
+	    genderComboBox.setSelectedItem(j.getGender());
+	    jacketClosinComboBox.setSelectedItem(j.getJacketClosing());
+	    paddedCheckBox.setSelected(j.isPadded());
+	    if (j.getImage() != null) {
+		ImageIcon icon = new ImageIcon(j.getImage());
 		imageCanvas.setIcon(icon);
 
 		Dimension imageSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
@@ -183,32 +183,32 @@ public class JacketView extends JFrame {
 	saveButton.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-		Jacket p = selectedRowIndex == -1 ? new Jacket() : jacketList.get(selectedRowIndex);
-		p.setBrand(!brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
-		p.setColor(!colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
-		p.setFabric(!fabricTextField.getText().isEmpty() ? fabricTextField.getText() : null);
-		p.setSize((TshirtSize) sizeComboBox.getSelectedItem());
-		p.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
-		p.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
-		p.setGender((Gender) genderComboBox.getSelectedItem());
-		p.setImage(image != null ? image : null);
-		p.setJacketClosing((JacketClosing) jacketClosinComboBox.getSelectedItem());
-		p.setPadded(paddedCheckBox.isSelected() ? true : false);
+		Jacket j = selectedRowIndex == -1 ? new Jacket() : jacketList.get(selectedRowIndex);
+		j.setBrand(!brandTextField.getText().isEmpty() ? brandTextField.getText() : null);
+		j.setColor(!colorTextField.getText().isEmpty() ? colorTextField.getText() : null);
+		j.setFabric(!fabricTextField.getText().isEmpty() ? fabricTextField.getText() : null);
+		j.setSize((TshirtSize) sizeComboBox.getSelectedItem());
+		j.setName(!nameTextField.getText().isEmpty() ? nameTextField.getText() : null);
+		j.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
+		j.setGender((Gender) genderComboBox.getSelectedItem());
+		j.setImage(image != null ? image : null);
+		j.setJacketClosing((JacketClosing) jacketClosinComboBox.getSelectedItem());
+		j.setPadded(paddedCheckBox.isSelected() ? true : false);
 		DefaultTableModel model = ((DefaultTableModel) jacketTable.getModel());
 		if (selectedRowIndex != -1) {
-		    jacketList.edit(p, selectedRowIndex);
-		    model.setValueAt(p.getGender() != null ? p.getGender().toString() : "", selectedRowIndex, 0);
-		    model.setValueAt(p.getName(), selectedRowIndex, 1);
-		    model.setValueAt(p.getPrice() != null ? p.getPrice().toString() : "", selectedRowIndex, 2);
-		    model.setValueAt(p.getColor(), selectedRowIndex, 3);
-		    model.setValueAt(p.getBrand(), selectedRowIndex, 4);
-		    model.setValueAt(p.getSize() != null ? p.getSize().toString() : "", selectedRowIndex, 5);
+		    jacketList.edit(j, selectedRowIndex);
+		    model.setValueAt(j.getGender() != null ? j.getGender().toString() : "", selectedRowIndex, 0);
+		    model.setValueAt(j.getName(), selectedRowIndex, 1);
+		    model.setValueAt(j.getPrice() != null ? j.getPrice().toString() : "", selectedRowIndex, 2);
+		    model.setValueAt(j.getColor(), selectedRowIndex, 3);
+		    model.setValueAt(j.getBrand(), selectedRowIndex, 4);
+		    model.setValueAt(j.getSize() != null ? j.getSize().toString() : "", selectedRowIndex, 5);
 		    hide();
 		} else {
-		    jacketList.add(p);
-		    model.addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
-	                    p.getPrice() != null ? p.getPrice().toString() : "", p.getColor(), p.getBrand(),
-	                    p.getSize() != null ? p.getSize().toString() : "" });
+		    jacketList.add(j);
+		    model.addRow(new Object[] { j.getGender() != null ? j.getGender().toString() : "", j.getName(),
+	                    j.getPrice() != null ? j.getPrice().toString() : "", j.getColor(), j.getBrand(),
+	                    j.getSize() != null ? j.getSize().toString() : "" });
 		    hide();
 		}
 	    }

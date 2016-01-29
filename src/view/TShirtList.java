@@ -42,4 +42,12 @@ public class TShirtList {
 		}
 		return data;
 	}
+
+	public List<Tshirt> getList() {
+		return tshirtList;
+	}
+
+	public void setList(List<Tshirt> tshirtList) {
+		this.tshirtList = tshirtList;
+	}
 }

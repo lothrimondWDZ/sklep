@@ -43,4 +43,12 @@ public class ShirtList {
 		}
 		return data;
 	}
+
+	public List <Shirt>getList() {
+		return shirtList;
+	}
+
+	public void setList(List<Shirt> shirtList) {
+		this.shirtList = shirtList;
+	}
 }
