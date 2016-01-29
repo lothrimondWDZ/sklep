@@ -55,7 +55,12 @@ public class ShirtView extends JFrame {
     public ShirtView(boolean addEditShow, String actionName, JTable shirtTable, ShirtList shirtList) {
 	this.shirtList = shirtList;
 	this.shirtTable = shirtTable;
-	int selectedRowIndex = shirtTable.convertRowIndexToModel(shirtTable.getSelectedRow());
+	int selectedRowIndex;
+	if (shirtTable.getSelectedRow() != -1) {
+	    selectedRowIndex = shirtTable.convertRowIndexToModel(shirtTable.getSelectedRow());
+	} else {
+	    selectedRowIndex = shirtTable.getSelectedRow();
+	}
 	this.addEditShow = addEditShow;
 	this.actionName = actionName;
 	setBounds(100, 100, 505, 417);

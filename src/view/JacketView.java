@@ -52,7 +52,12 @@ public class JacketView extends JFrame {
     public JacketView(boolean addEditShow, String actionName, JTable jacketTable, JacketList jacketList) {
 	this.jacketTable = jacketTable;
 	this.jacketList = jacketList;
-	int selectedRowIndex = jacketTable.convertRowIndexToModel(jacketTable.getSelectedRow());
+	int selectedRowIndex;
+	if (jacketTable.getSelectedRow() != -1) {
+	    selectedRowIndex = jacketTable.convertRowIndexToModel(jacketTable.getSelectedRow());
+	} else {
+	    selectedRowIndex = jacketTable.getSelectedRow();
+	}
 	this.addEditShow = addEditShow;
 	this.actionName = actionName;
 	setBounds(100, 100, 500, 433);
