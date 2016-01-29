@@ -28,6 +28,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import model.Gender;
 import model.Tshirt;
+import model.TshirtSize;
 
 public class TshirtView extends JFrame {
 
@@ -96,6 +97,12 @@ public class TshirtView extends JFrame {
 	JLabel lblRozmiar = new JLabel("Rozmiar :");
 
 	JComboBox sizeComboBox = new JComboBox();
+	sizeComboBox.addItem(TshirtSize.L);
+	sizeComboBox.addItem(TshirtSize.M);
+	sizeComboBox.addItem(TshirtSize.S);
+	sizeComboBox.addItem(TshirtSize.XL);
+	sizeComboBox.addItem(TshirtSize.XS);
+	sizeComboBox.addItem(TshirtSize.XXL);
 
 	JLabel lblRodzaj = new JLabel("Rodzaj :");
 
@@ -116,6 +123,7 @@ public class TshirtView extends JFrame {
 	    brandTextField.setText(t.getBrand() != null ? t.getBrand() : "");
 	    fabricTextField.setText(t.getFabric() != null ? t.getFabric() : "");
 	    genderComboBox.setSelectedItem(t.getGender());
+	    sizeComboBox.setSelectedItem(t.getSize());
 	    if (t.getImage() != null) {
 		ImageIcon icon = new ImageIcon(t.getImage());
 		imageCanvas.setIcon(icon);
@@ -173,6 +181,7 @@ public class TshirtView extends JFrame {
 		t.setPrice(NumberUtils.createDouble(!priceTextField.getText().isEmpty() ? priceTextField.getText() : null));
 		t.setGender((Gender) genderComboBox.getSelectedItem());
 		t.setImage(image != null ? image : null);
+		t.setSize((TshirtSize) sizeComboBox.getSelectedItem());
 		DefaultTableModel model = ((DefaultTableModel) tshirtTable.getModel());
 		if (selectedRowIndex != -1) {
 		    tshirtList.edit(t, selectedRowIndex);
