@@ -7,30 +7,63 @@ import java.util.List;
 
 import model.Promotion;
 
+/**
+ * 
+ * Klasa zawieraj¹ca listê promocji znajdujacych siê aktualnie w sklepie
+ *
+ */
 public class PromotionList {
-
+    /**
+     * Lista dostêpnych promocji
+     */
     private List<Promotion> promotionsList;
 
     public PromotionList() {
 	promotionsList = new ArrayList<Promotion>();
     }
 
+    /**
+     * @param {@link
+     *            Promotion} dodanie nowej promocji
+     */
     public void add(final Promotion p) {
 	promotionsList.add(p);
     }
 
+    /**
+     * @param {@link
+     *            Promotion} usniêcie promocji
+     */
     public void remove(final Promotion promotion) {
 	promotionsList.remove(promotion);
     }
 
+    /**
+     * Edycja istniej¹cej promocji
+     * 
+     * @param Promotion
+     *            ze zmienionymi parametrami
+     * @param index
+     *            wskazuj¹cy na po³o¿enie promocji do zamiany
+     */
     public void edit(final Promotion p, final Integer index) {
 	promotionsList.set(index, p);
     }
 
+    /**
+     * Pobranie promocji
+     * 
+     * @param {@link
+     *            Integer} index
+     * @return {@link Promotion} znaleziona promocjia
+     */
     public Promotion get(Integer index) {
 	return promotionsList.get(index);
     }
 
+    /**
+     * Uzupe³nienie listy promocji pocz¹tkowymi danymi
+     */
     public void fileList() {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	Promotion p = new Promotion();

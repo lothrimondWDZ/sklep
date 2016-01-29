@@ -52,7 +52,7 @@ public class JacketView extends JFrame {
     private BufferedImage image;
 
     /**
-     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹dy kurtek
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du kurtek
      * 
      * @param addEditShow
      *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
