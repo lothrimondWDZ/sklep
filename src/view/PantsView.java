@@ -30,6 +30,11 @@ import org.apache.commons.lang3.math.NumberUtils;
 import model.Gender;
 import model.Pants;
 
+/**
+ * 
+ * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy spodni
+ *
+ */
 public class PantsView extends JFrame {
 
     private JPanel contentPane;
@@ -48,10 +53,18 @@ public class PantsView extends JFrame {
     private PromotionList promotionList;
 
     /**
-     * Create the frame.
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du spodni
      * 
+     * @param addEditShow
+     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     * @param actionName
+     *            parametr okeœlajacy nazwê danej akcji
      * @param pantsTable
-     * @param pantsPanel
+     *            parametr zawieraj¹cy tabelê spodni z g³ównego widoku, w celu dokonania w niej zmian
+     * @param pantsList
+     *            parametr zawieraj¹cy listê wszystkich spodni w aplikacji
+     * @param promotionList
+     *            parametr zwieraj¹cy listê wszystkich promocji
      */
     public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList, PromotionList promotionList) {
 	this.promotionList = promotionList;
@@ -136,6 +149,9 @@ public class PantsView extends JFrame {
 
 	JLabel labelEndDate = new JLabel("");
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	/**
+	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 */
 	if (!(selectedRowIndex < 0)) {
 	    Pants p = pantsList.get(selectedRowIndex);
 	    priceTextField.setText(p.getPrice() != null ? p.getPrice().toString() : "");
@@ -176,6 +192,9 @@ public class PantsView extends JFrame {
 
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek spodni
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		JFileChooser chooser = new JFileChooser();
@@ -201,6 +220,9 @@ public class PantsView extends JFrame {
 
 	JButton cancelButton = new JButton("Anuluj");
 	cancelButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja zamykajace okno bez zapisywania zmian
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		hide();
@@ -209,6 +231,9 @@ public class PantsView extends JFrame {
 
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja dodaj¹ca nowe spodnie oraz zapisuj¹ca spodnie edytowane w tabeli i liœcie spodni
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		Pants p = selectedRowIndex == -1 ? new Pants() : pantsList.get(selectedRowIndex);

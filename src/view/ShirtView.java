@@ -31,6 +31,11 @@ import model.Gender;
 import model.Shirt;
 import model.TshirtSize;
 
+/**
+ * 
+ * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy koszul formalnych
+ *
+ */
 public class ShirtView extends JFrame {
 
     private JPanel contentPane;
@@ -47,10 +52,16 @@ public class ShirtView extends JFrame {
     private BufferedImage image;
 
     /**
-     * Create the frame.
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du koszul
      * 
-     * @param shirtList
+     * @param addEditShow
+     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     * @param actionName
+     *            parametr okeœlajacy nazwê danej akcji
      * @param shirtTable
+     *            parametr zawieraj¹cy tabelê koszul z g³ównego widoku, w celu dokonania w niej zmian
+     * @param shirtList
+     *            parametr zawieraj¹cy listê wszystkich koszul w aplikacji
      */
     public ShirtView(boolean addEditShow, String actionName, JTable shirtTable, ShirtList shirtList) {
 	this.shirtList = shirtList;
@@ -121,7 +132,9 @@ public class ShirtView extends JFrame {
 	colarSizeTextField.setColumns(10);
 
 	JCheckBox tieIncludedCheckBox = new JCheckBox("");
-
+	/**
+	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 */
 	if (!(selectedRowIndex < 0)) {
 	    Shirt s = shirtList.get(selectedRowIndex);
 	    priceTextField.setText(s.getPrice() != null ? s.getPrice().toString() : "");
@@ -151,6 +164,9 @@ public class ShirtView extends JFrame {
 
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek koszuli
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		JFileChooser chooser = new JFileChooser();
@@ -176,6 +192,9 @@ public class ShirtView extends JFrame {
 
 	JButton cancelButton = new JButton("Anuluj");
 	cancelButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja zamykajace okno bez zapisywania zmian
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		hide();
@@ -184,6 +203,9 @@ public class ShirtView extends JFrame {
 
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja dodaj¹ca now¹ koszulê oraz zapisuj¹ca koszulê edytowan¹ w tabeli i liœcie koszul
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		Shirt s = selectedRowIndex == -1 ? new Shirt() : shirtList.get(selectedRowIndex);

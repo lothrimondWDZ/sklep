@@ -32,6 +32,11 @@ import model.Jacket;
 import model.JacketClosing;
 import model.TshirtSize;
 
+/**
+ * 
+ * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy kurtek
+ *
+ */
 public class JacketView extends JFrame {
 
     private JPanel contentPane;
@@ -47,7 +52,16 @@ public class JacketView extends JFrame {
     private BufferedImage image;
 
     /**
-     * Create the frame.
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du kurtek
+     * 
+     * @param addEditShow
+     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     * @param actionName
+     *            parametr okeœlajacy nazwê danej akcji
+     * @param jacketTable
+     *            parametr zawieraj¹cy tabelê kurtek z g³ównego widoku, w celu dokonania w niej zmian
+     * @param jacketList
+     *            parametr zawieraj¹cy listê wszystkich kurtek w aplikacji
      */
     public JacketView(boolean addEditShow, String actionName, JTable jacketTable, JacketList jacketList) {
 	this.jacketTable = jacketTable;
@@ -124,7 +138,9 @@ public class JacketView extends JFrame {
 	JPanel panel = new JPanel();
 	JLabel imageCanvas = new JLabel();
 	panel.add(imageCanvas);
-
+	/**
+	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 */
 	if (!(selectedRowIndex < 0)) {
 	    Jacket j = jacketList.get(selectedRowIndex);
 	    priceTextField.setText(j.getPrice() != null ? j.getPrice().toString() : "");
@@ -149,6 +165,9 @@ public class JacketView extends JFrame {
 	}
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek kurtki
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		JFileChooser chooser = new JFileChooser();
@@ -173,6 +192,9 @@ public class JacketView extends JFrame {
 
 	JButton cancelButton = new JButton("Anuluj");
 	cancelButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja zamykajace okno bez zapisywania zmian
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		hide();
@@ -181,6 +203,9 @@ public class JacketView extends JFrame {
 
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja dodaj¹ca now¹ kurtkê oraz zapisuj¹ca kurtkê edytowan¹ w tabeli i liœcie kurtek
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		Jacket j = selectedRowIndex == -1 ? new Jacket() : jacketList.get(selectedRowIndex);

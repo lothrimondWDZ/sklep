@@ -31,6 +31,11 @@ import org.apache.commons.lang3.math.NumberUtils;
 import model.Gender;
 import model.Shoes;
 
+/**
+ * 
+ * Klasa przedstawiaj¹ca widok formularza dodawania, edycji i przegl¹dy butów
+ *
+ */
 public class ShoesView extends JFrame {
 
     private JPanel contentPane;
@@ -49,7 +54,18 @@ public class ShoesView extends JFrame {
     private JLabel lblOd;
 
     /**
-     * Create the frame.
+     * Funkcja tworzaca widok formularza dodawania, edycji i przegl¹du butów
+     * 
+     * @param addEditShow
+     *            parametr okreœlaj¹cy dla jakiej z trzech opcji(edycja, dodawaie, przegl¹d) widok ma zostaæ wyœwietlony
+     * @param actionName
+     *            parametr okeœlajacy nazwê danej akcji
+     * @param shoesTable
+     *            parametr zawieraj¹cy tabelê butów z g³ównego widoku, w celu dokonania w niej zmian
+     * @param shoesList
+     *            parametr zawieraj¹cy listê wszystkich butów w aplikacji
+     * @param promotionList
+     *            parametr zwieraj¹cy listê wszystkich promocji
      */
     public ShoesView(boolean addEditShow, String actionName, JTable shoesTable, ShoesList shoesList, PromotionList promotionList) {
 	this.promotionList = promotionList;
@@ -128,7 +144,9 @@ public class ShoesView extends JFrame {
 
 	JLabel labelEndDate = new JLabel("");
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+	/**
+	 * Je¿eli wczeœniej wybrany by³ wiersz tabeli, wówczas dla opcji edycji i przegl¹du zostan¹ uzupe³nione odpowiednie pola
+	 */
 	if (!(selectedRowIndex < 0)) {
 	    Shoes p = shoesList.get(selectedRowIndex);
 	    priceTextField.setText(p.getPrice() != null ? p.getPrice().toString() : "");
@@ -167,6 +185,9 @@ public class ShoesView extends JFrame {
 	}
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja wyswietlaj¹ca okno wyboru obrazka i wczytuj¹ca obrazek butów
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		JFileChooser chooser = new JFileChooser();
@@ -191,6 +212,9 @@ public class ShoesView extends JFrame {
 
 	JButton cancelButton = new JButton("Anuluj");
 	cancelButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja zamykajace okno bez zapisywania zmian
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		hide();
@@ -199,6 +223,9 @@ public class ShoesView extends JFrame {
 
 	JButton saveButton = new JButton("Zapisz");
 	saveButton.addMouseListener(new MouseAdapter() {
+	    /**
+	     * Funkcja dodaj¹ca nowe buty oraz zapisuj¹ca buty edytowane w tabeli i liœcie butów
+	     */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		Shoes s = selectedRowIndex == -1 ? new Shoes() : shoesList.get(selectedRowIndex);
