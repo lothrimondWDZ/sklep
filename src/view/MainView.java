@@ -51,6 +51,11 @@ import model.Shoes;
 import model.Tshirt;
 import model.TshirtSize;
 
+/**
+ * 
+ * Główna klasa programu. Początkowe okno aplikacji.
+ *
+ */
 public class MainView {
 
     private JFrame frame;
@@ -90,14 +95,14 @@ public class MainView {
     }
 
     /**
-     * Create the application.
+     * Stworzenie głównego okna aplikacji
      */
     public MainView() {
 	initialize();
     }
 
     /**
-     * Initialize the contents of the frame.
+     * Inicjalizacja elementów w głównym oknie
      */
     private void initialize() {
 	frame = new JFrame();
@@ -125,6 +130,9 @@ public class MainView {
 
 	JButton jacketDodaj = new JButton("Dodaj");
 	jacketDodaj.addActionListener(new ActionListener() {
+		/**
+		 * Wyświetlenie okna z formularzem dodawania kurtki
+		 */
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		jacketTable.getSelectionModel().clearSelection();
@@ -135,6 +143,9 @@ public class MainView {
 
 	JButton jacketEdytuj = new JButton("Edytuj");
 	jacketEdytuj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie okna z formularzem edycji kurtki
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (jacketTable.getSelectedRow() != -1) {
@@ -146,6 +157,9 @@ public class MainView {
 
 	JButton jacketUsun = new JButton("Usu\u0144");
 	jacketUsun.addMouseListener(new MouseAdapter() {
+		/**
+		 * Usunięcie kurtki zaznaczonej na liście 
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (jacketTable.getSelectedRow() != -1) {
@@ -179,6 +193,9 @@ public class MainView {
 
 	JButton jacketPokaz = new JButton("Poka\u017C");
 	jacketPokaz.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie szczegółów wybranej z listy kurtki
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (jacketTable.getSelectedRow() != -1) {
@@ -192,6 +209,9 @@ public class MainView {
 
 	filstrJacketTextField = new JTextField();
 	filstrJacketTextField.addKeyListener(new KeyAdapter() {
+		/**
+		 * Obsługa filtrowania na liście kurtek
+		 */
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		String query = filstrJacketTextField.getText().toLowerCase();
@@ -232,6 +252,9 @@ public class MainView {
 
 	JButton shirtEdytuj = new JButton("Edytuj");
 	shirtEdytuj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza edycji koszuli
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shirtTable.getSelectedRow() != -1) {
@@ -243,6 +266,9 @@ public class MainView {
 
 	JButton shirtDodaj = new JButton("Dodaj");
 	shirtDodaj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza dodawania nowej koszuli
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		shirtTable.getSelectionModel().clearSelection();
@@ -253,6 +279,9 @@ public class MainView {
 
 	JButton shirtUsun = new JButton("Usu\u0144");
 	shirtUsun.addMouseListener(new MouseAdapter() {
+		/**
+		 * Usunięcie koszuli zaznaczonej na tabeli
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shirtTable.getSelectedRow() != -1) {
@@ -282,6 +311,9 @@ public class MainView {
 
 	JButton shirtPokaz = new JButton("Poka\u017C");
 	shirtPokaz.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie szczegółów koszuli wybranej z listy
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		shirtFrame = new ShirtView(false, "Przegl�daj Koszule", shirtTable, shirtList);
@@ -292,6 +324,9 @@ public class MainView {
 	JLabel lblFiltr_2 = new JLabel("Filtr :");
 	filtrShirtTextField = new JTextField();
 	filtrShirtTextField.addKeyListener(new KeyAdapter() {
+		/**
+		 * Obsługa filtrowania na tabeli koszul
+		 */
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		String query = filtrShirtTextField.getText().toLowerCase();
@@ -336,6 +371,9 @@ public class MainView {
 
 	JButton tshirtDodaj = new JButton("Dodaj");
 	tshirtDodaj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza dodawania koszulki
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		tshirtTable.getSelectionModel().clearSelection();
@@ -346,6 +384,9 @@ public class MainView {
 
 	JButton tshirtEdytuj = new JButton("Edytuj");
 	tshirtEdytuj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza edycji koszulki
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (tshirtTable.getSelectedRow() != -1) {
@@ -357,6 +398,9 @@ public class MainView {
 
 	JButton tshirtUsun = new JButton("Usu\u0144");
 	tshirtUsun.addMouseListener(new MouseAdapter() {
+		/**
+		 * Usunięcie koszulki zaznaczonej na tabeli
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (tshirtTable.getSelectedRow() != -1) {
@@ -387,6 +431,9 @@ public class MainView {
 
 	JButton tshirtPokaz = new JButton("Poka\u017C");
 	tshirtPokaz.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie szczegółów koszuli zaznaczonej na tabeli
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		tshirtFrame = new TshirtView(false, "Przegl�daj T-shirt", tshirtTable, tshirtList);
@@ -397,6 +444,9 @@ public class MainView {
 	JLabel lblFiltr_3 = new JLabel("Filtr :");
 	filtrTshirtTextField = new JTextField();
 	filtrTshirtTextField.addKeyListener(new KeyAdapter() {
+		/**
+		 * Obsługa filtrowania na tabeli koszulek
+		 */
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		String query = filtrTshirtTextField.getText().toLowerCase();
@@ -440,6 +490,9 @@ public class MainView {
 	pantsTableScrollPane.setViewportView(pantsTable);
 	JButton pantsUsun = new JButton("Usu\u0144");
 	pantsUsun.addMouseListener(new MouseAdapter() {
+		/**
+		 * Usuwanie spodni zaznaczonych w tabeli
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (pantsTable.getSelectedRow() != -1) {
@@ -477,6 +530,9 @@ public class MainView {
 
 	JButton pantsDodaj = new JButton("Dodaj");
 	pantsDodaj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza dodawania spodni
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		pantsTable.getSelectionModel().clearSelection();
@@ -487,6 +543,9 @@ public class MainView {
 
 	JButton pantsEdytuj = new JButton("Edytuj");
 	pantsEdytuj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza edycji spodni
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (pantsTable.getSelectedRow() != -1) {
@@ -498,6 +557,9 @@ public class MainView {
 
 	JButton pantsPokaz = new JButton("Poka\u017C");
 	pantsPokaz.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie szczegółów o spodniach zaznaczonych na liście
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (pantsTable.getSelectedRow() != -1) {
@@ -511,6 +573,9 @@ public class MainView {
 
 	filterPantsTextField = new JTextField();
 	filterPantsTextField.addKeyListener(new KeyAdapter() {
+		/**
+		 * Obsługa filtrowania w tabeli ze spodniami
+		 */
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		String query = filterPantsTextField.getText().toLowerCase();
@@ -555,6 +620,9 @@ public class MainView {
 
 	JButton shoesPokaz = new JButton("Poka\u017C");
 	shoesPokaz.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie szczegółów o wybranych na liście butach
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shoesTable.getSelectedRow() != -1) {
@@ -566,6 +634,9 @@ public class MainView {
 
 	JButton shoesDodaj = new JButton("Dodaj");
 	shoesDodaj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza dodawania butów
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		shoesTable.getSelectionModel().clearSelection();
@@ -576,6 +647,9 @@ public class MainView {
 
 	JButton shoesEdytuj = new JButton("Edytuj");
 	shoesEdytuj.addMouseListener(new MouseAdapter() {
+		/**
+		 * Wyświetlenie formularza edycji butów
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shoesTable.getSelectedRow() != -1) {
@@ -587,6 +661,9 @@ public class MainView {
 
 	JButton shoesUsun = new JButton("Usu\u0144");
 	shoesUsun.addMouseListener(new MouseAdapter() {
+		/**
+		 * Usuwanie butów wybranych zaznaczonych z tabeli
+		 */
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shoesTable.getSelectedRow() != -1) {
@@ -622,6 +699,9 @@ public class MainView {
 
 	filtrShoesTextField = new JTextField();
 	filtrShoesTextField.addKeyListener(new KeyAdapter() {
+		/**
+		 * Obsługa filtrowania w tabeli butów
+		 */
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		String query = filtrShoesTextField.getText().toLowerCase();
@@ -662,6 +742,9 @@ public class MainView {
 
 	JMenuItem mntmImportZXml = new JMenuItem("Import z XML");
 	mntmImportZXml.addActionListener(new ActionListener() {
+		/**
+		 * Wczytanie do pamięci ubrań zaimportowanych z pliku XML
+		 */
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	XMLModel model = importFromXML();
@@ -708,6 +791,9 @@ public class MainView {
 
 	JMenuItem mntmExportDoXml = new JMenuItem("Export do XML");
 	mntmExportDoXml.addActionListener(new ActionListener() {
+		/**
+		 * Eksport ubrań z pamięci do pliku XML
+		 */
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	exportToXML(pantsList, jacketList, shoesList, tshirtList, shirtList);
@@ -716,12 +802,22 @@ public class MainView {
 	mnPlik.add(mntmExportDoXml);
     }
 
+    /**
+     * Funkcja filtrująca wyniki z tabeli
+     * @param {@link String} treść zapytania 
+     * @param {@link DefaultTableModel} model tabeli
+     * @param {@link JTable} tabela
+     */
     private void filter(String query, DefaultTableModel modelTable, JTable table) {
 	TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(modelTable);
 	tr.setRowFilter(RowFilter.regexFilter(query, 1));
 	table.setRowSorter(tr);
     }
     
+    /**
+     * Import z pliku XML
+     * @return {@link XMLModel} obiekt zawierający listy ubrań
+     */
     private XMLModel importFromXML(){
     	JFileChooser chooser = new JFileChooser();
 		File file;
@@ -739,6 +835,14 @@ public class MainView {
 		return model;
     }
     
+    /**
+     * Funkcja eksportująca dane do pliku XML
+     * @param {@link PantsList} lista spodni
+     * @param {@link JacketList} lista kurtek
+     * @param {@link ShoesList} lista butów
+     * @param {@link TShirtList} lista koszulek
+     * @param {@link ShirtList} lista koszul
+     */
     private void exportToXML(PantsList pantsList, JacketList jacketList, ShoesList shoesList, TShirtList tShirtList, ShirtList shirtList) {
     	JFileChooser chooser = new JFileChooser();
 		File file;
