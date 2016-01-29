@@ -8,7 +8,7 @@ public class Promotion {
 
     private Date endDate;
 
-    private Integer reduction;
+    private String reduction;
 
     public Date getStartDate() {
 	return startDate;
@@ -26,17 +26,17 @@ public class Promotion {
 	this.endDate = endDate;
     }
 
-    public Integer getReduction() {
+    public String getReduction() {
 	return reduction;
     }
 
-    public void setReduction(Integer reduction) {
+    public void setReduction(String reduction) {
 	this.reduction = reduction;
     }
 
-	@Override
-	public String toString() {
-		return "Promotion [startDate=" + startDate + ", endDate=" + endDate + ", reduction=" + reduction + "]";
-	}
+    @Override
+    public String toString() {
+	return "Promotion [startDate=" + startDate + ", endDate=" + endDate + ", reduction=" + reduction + "]";
+    }
 
 }

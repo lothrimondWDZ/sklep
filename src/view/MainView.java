@@ -91,7 +91,8 @@ public class MainView {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	JPanel masterPanel = new JPanel();
 	frame.getContentPane().add(masterPanel, BorderLayout.CENTER);
-
+	PromotionList promotionList = new PromotionList();
+	promotionList.fileList();
 	JTabbedPane mainTabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	GroupLayout gl_masterPanel = new GroupLayout(masterPanel);
 	gl_masterPanel.setHorizontalGroup(gl_masterPanel.createParallelGroup(Alignment.LEADING).addComponent(mainTabbedPane, Alignment.TRAILING,
@@ -465,7 +466,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		pantsTable.getSelectionModel().clearSelection();
-		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsTable, pantsList);
+		pantsFrame = new PantsView(true, "Dodaj spodnie", pantsTable, pantsList, promotionList);
 		pantsFrame.show();
 	    }
 	});
@@ -475,7 +476,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (pantsTable.getSelectedRow() != -1) {
-		    pantsFrame = new PantsView(true, "Edytuj spodnie", pantsTable, pantsList);
+		    pantsFrame = new PantsView(true, "Edytuj spodnie", pantsTable, pantsList, promotionList);
 		    pantsFrame.show();
 		}
 	    }
@@ -486,7 +487,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (pantsTable.getSelectedRow() != -1) {
-		    pantsFrame = new PantsView(false, "Pokaï¿½ spodnie", pantsTable, pantsList);
+		    pantsFrame = new PantsView(false, "Pokaï¿½ spodnie", pantsTable, pantsList, promotionList);
 		    pantsFrame.show();
 		}
 	    }
@@ -543,7 +544,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shoesTable.getSelectedRow() != -1) {
-		    shoesFrame = new ShoesView(false, "Przegl¹daj buty", shoesTable, shoesList);
+		    shoesFrame = new ShoesView(false, "Przegl¹daj buty", shoesTable, shoesList, promotionList);
 		    shoesFrame.show();
 		}
 	    }
@@ -554,7 +555,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		shoesTable.getSelectionModel().clearSelection();
-		shoesFrame = new ShoesView(true, "Dodaj buty", shoesTable, shoesList);
+		shoesFrame = new ShoesView(true, "Dodaj buty", shoesTable, shoesList, promotionList);
 		shoesFrame.show();
 	    }
 	});
@@ -564,7 +565,7 @@ public class MainView {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 		if (shoesTable.getSelectedRow() != -1) {
-		    shoesFrame = new ShoesView(true, "Edytuj buty", shoesTable, shoesList);
+		    shoesFrame = new ShoesView(true, "Edytuj buty", shoesTable, shoesList, promotionList);
 		    shoesFrame.show();
 		}
 	    }

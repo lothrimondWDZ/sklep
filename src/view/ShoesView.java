@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
@@ -44,11 +45,14 @@ public class ShoesView extends JFrame {
     private JTable shoesTable;
     private ShoesList shoesList;
     private BufferedImage image;
+    private PromotionList promotionList;
+    private JLabel lblOd;
 
     /**
      * Create the frame.
      */
-    public ShoesView(boolean addEditShow, String actionName, JTable shoesTable, ShoesList shoesList) {
+    public ShoesView(boolean addEditShow, String actionName, JTable shoesTable, ShoesList shoesList, PromotionList promotionList) {
+	this.promotionList = promotionList;
 	this.shoesTable = shoesTable;
 	this.shoesList = shoesList;
 	int selectedRowIndex;
@@ -59,7 +63,7 @@ public class ShoesView extends JFrame {
 	}
 	this.addEditShow = addEditShow;
 	this.actionName = actionName;
-	setBounds(100, 100, 510, 420);
+	setBounds(100, 100, 510, 454);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);
@@ -106,10 +110,24 @@ public class ShoesView extends JFrame {
 	JLabel lblPromocja = new JLabel("Promocja :");
 
 	JComboBox promotionComboBox = new JComboBox();
+	promotionComboBox.addItem(promotionList.get(0).getReduction());
+	promotionComboBox.addItem(promotionList.get(1).getReduction());
+	promotionComboBox.addItem(promotionList.get(2).getReduction());
+	promotionComboBox.addItem(promotionList.get(3).getReduction());
 
 	JPanel panel = new JPanel();
 	JLabel imageCanvas = new JLabel();
 	panel.add(imageCanvas);
+	JLabel lblCzasTrwaniaPromocji = new JLabel("Czas trwania promocji :");
+
+	lblOd = new JLabel("od :");
+
+	JLabel lblStartDate = new JLabel("");
+
+	JLabel lblDo = new JLabel("do :");
+
+	JLabel labelEndDate = new JLabel("");
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	if (!(selectedRowIndex < 0)) {
 	    Shoes p = shoesList.get(selectedRowIndex);
@@ -120,7 +138,16 @@ public class ShoesView extends JFrame {
 	    sizeTextField.setText(p.getSize() != null ? p.getSize().toString() : "");
 	    genderTextField.setSelectedItem(p.getGender());
 	    heelCheckBox.setSelected(p.hasHeel());
-	    // promotion
+	    if (p.getPromotion().getReduction().equals("brak")) {
+		lblStartDate.hide();
+		labelEndDate.hide();
+		lblCzasTrwaniaPromocji.hide();
+		lblOd.hide();
+		lblDo.hide();
+	    }
+	    promotionComboBox.setSelectedItem(p.getPromotion().getReduction());
+	    lblStartDate.setText(sdf.format(p.getPromotion().getStartDate()));
+	    labelEndDate.setText(sdf.format(p.getPromotion().getEndDate()));
 	    if (p.getImage() != null) {
 		ImageIcon icon = new ImageIcon(p.getImage());
 		imageCanvas.setIcon(icon);
@@ -131,6 +158,12 @@ public class ShoesView extends JFrame {
 		imageCanvas.revalidate();
 		imageCanvas.repaint();
 	    }
+	} else {
+	    lblStartDate.hide();
+	    labelEndDate.hide();
+	    lblCzasTrwaniaPromocji.hide();
+	    lblOd.hide();
+	    lblDo.hide();
 	}
 	JButton addImageButton = new JButton("Przegl\u0105daj");
 	addImageButton.addMouseListener(new MouseAdapter() {
@@ -177,6 +210,7 @@ public class ShoesView extends JFrame {
 		p.setGender((Gender) genderTextField.getSelectedItem());
 		p.setImage(image != null ? image : null);
 		p.setHeel(heelCheckBox.isSelected() ? true : false);
+		p.setPromotion(promotionList.get(promotionComboBox.getSelectedIndex()));
 		DefaultTableModel model = ((DefaultTableModel) shoesTable.getModel());
 		if (selectedRowIndex != -1) {
 		    shoesList.edit(p, selectedRowIndex);
@@ -212,23 +246,49 @@ public class ShoesView extends JFrame {
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
 	gl_contentPane
 	        .setHorizontalGroup(
-	                gl_contentPane
-	                        .createParallelGroup(
-	                                Alignment.LEADING)
-	                        .addGroup(gl_contentPane.createSequentialGroup()
+	                gl_contentPane.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(
+	                                gl_contentPane.createSequentialGroup()
+	                                        .addGroup(gl_contentPane
+	                                                .createParallelGroup(
+	                                                        Alignment.LEADING)
+	                                                .addGroup(
+	                                                        gl_contentPane.createSequentialGroup()
+	                                                                .addGroup(
+	                                                                        gl_contentPane
+	                                                                                .createParallelGroup(
+	                                                                                        Alignment.LEADING)
+	                                                                                .addGroup(
+	                                                                                        gl_contentPane.createSequentialGroup()
+	                                                                                                .addGroup(gl_contentPane
+	                                                                                                        .createParallelGroup(
+	                                                                                                                Alignment.LEADING)
+	                                                                                                        .addComponent(lblNazwa)
+	                                                                                                        .addComponent(lblNewLabel)
+	                                                                                                        .addComponent(lblRozmiar)
+	                                                                                                        .addComponent(lblKolor)
+	                                                                                                        .addComponent(lblMarka)
+	                                                                                                        .addComponent(lblRodzaj)
+	                                                                                                        .addComponent(
+	                                                                                                                lblObcas)
+	                                                .addComponent(lblPromocja)).addGap(
+	                                                        25).addGroup(
+	                                                                gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+	                                                                        .addComponent(promotionComboBox, 0, GroupLayout.DEFAULT_SIZE,
+	                                                                                Short.MAX_VALUE)
+	                                                                .addComponent(heelCheckBox)
+	                                                                .addComponent(genderTextField, GroupLayout.PREFERRED_SIZE,
+	                                                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                                        .addComponent(brandTextField).addComponent(colorTextField).addComponent(sizeTextField)
+	                                        .addComponent(priceTextField).addComponent(nameTextField)))
+	                        .addComponent(lblCzasTrwaniaPromocji)
+	                        .addGroup(gl_contentPane.createSequentialGroup().addComponent(lblOd)
 	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-	                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblNazwa)
-	                                                        .addComponent(lblNewLabel).addComponent(lblRozmiar).addComponent(lblKolor)
-	                                                        .addComponent(lblMarka).addComponent(lblRodzaj).addComponent(lblObcas)
-	                                                        .addComponent(lblPromocja))
-	                                                .addGap(25)
-	                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-	                                                        .addComponent(promotionComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                                                        .addComponent(heelCheckBox).addComponent(genderTextField).addComponent(brandTextField)
-	                                                        .addComponent(colorTextField).addComponent(sizeTextField).addComponent(priceTextField)
-	                                                        .addComponent(nameTextField))
-	                .addGap(31)
+	                                        .addGroup(gl_contentPane.createSequentialGroup().addPreferredGap(ComponentPlacement.UNRELATED)
+	                                                .addComponent(lblStartDate))
+	                                .addGroup(gl_contentPane.createSequentialGroup().addGap(89).addComponent(lblDo)
+	                                        .addPreferredGap(ComponentPlacement.RELATED).addComponent(labelEndDate)))))
+	                .addGap(14)
 	                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(addImageButton)
 	                        .addComponent(panel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 	                        .addGroup(gl_contentPane.createSequentialGroup().addComponent(saveButton).addPreferredGap(ComponentPlacement.RELATED)
@@ -263,9 +323,17 @@ public class ShoesView extends JFrame {
 	                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 	                .addGroup(gl_contentPane.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
 	                        .addComponent(panel, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE).addGap(18)
-	                        .addComponent(addImageButton))).addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(cancelButton).addComponent(saveButton))
-	        .addContainerGap()));
+	                        .addComponent(addImageButton)))
+	        .addGroup(
+	                gl_contentPane.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_contentPane.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(cancelButton)
+	                                        .addComponent(saveButton))
+	                                .addContainerGap())
+	                .addGroup(gl_contentPane.createSequentialGroup().addGap(18)
+	                        .addComponent(lblCzasTrwaniaPromocji).addGap(7).addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+	                                .addComponent(lblOd).addComponent(lblStartDate).addComponent(lblDo).addComponent(labelEndDate))
+	                        .addContainerGap()))));
 	contentPane.setLayout(gl_contentPane);
     }
 }

@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
@@ -44,6 +45,7 @@ public class PantsView extends JFrame {
     private JTable pantsTable;
     private PantsList pantsList;
     private BufferedImage image;
+    private PromotionList promotionList;
 
     /**
      * Create the frame.
@@ -51,7 +53,8 @@ public class PantsView extends JFrame {
      * @param pantsTable
      * @param pantsPanel
      */
-    public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList) {
+    public PantsView(boolean addEditShow, String actionName, JTable pantsTable, PantsList pantsList, PromotionList promotionList) {
+	this.promotionList = promotionList;
 	this.pantsTable = pantsTable;
 	this.pantsList = pantsList;
 	int selectedRowIndex;
@@ -62,7 +65,7 @@ public class PantsView extends JFrame {
 	}
 	this.addEditShow = addEditShow;
 	this.actionName = actionName;
-	setBounds(100, 100, 509, 400);
+	setBounds(100, 100, 509, 473);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);
@@ -115,7 +118,24 @@ public class PantsView extends JFrame {
 	JPanel imagePanel = new JPanel();
 	JLabel imageCanvas = new JLabel();
 	imagePanel.add(imageCanvas);
+	JLabel lblPromocja = new JLabel("Promocja :");
 
+	JComboBox promotionComboBox = new JComboBox();
+	promotionComboBox.addItem(promotionList.get(0).getReduction());
+	promotionComboBox.addItem(promotionList.get(1).getReduction());
+	promotionComboBox.addItem(promotionList.get(2).getReduction());
+	promotionComboBox.addItem(promotionList.get(3).getReduction());
+
+	JLabel lblPromocjaTrwa = new JLabel("Czas trwania promocji  :");
+
+	JLabel lblOd = new JLabel("Od :");
+
+	JLabel labelStartDate = new JLabel("");
+
+	JLabel lblDo = new JLabel("Do :");
+
+	JLabel labelEndDate = new JLabel("");
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	if (!(selectedRowIndex < 0)) {
 	    Pants p = pantsList.get(selectedRowIndex);
 	    priceTextField.setText(p.getPrice() != null ? p.getPrice().toString() : "");
@@ -126,6 +146,16 @@ public class PantsView extends JFrame {
 	    lengthTextField.setText(p.getLength() != null ? p.getLength().toString() : "");
 	    obwodTextField.setText(p.getWaistSize() != null ? p.getWaistSize().toString() : "");
 	    genderComboBox.setSelectedItem(p.getGender());
+	    if (p.getPromotion().getReduction().equals("brak")) {
+		labelStartDate.hide();
+		labelEndDate.hide();
+		lblPromocjaTrwa.hide();
+		lblOd.hide();
+		lblDo.hide();
+	    }
+	    promotionComboBox.setSelectedItem(p.getPromotion().getReduction());
+	    labelStartDate.setText(sdf.format(p.getPromotion().getStartDate()));
+	    labelEndDate.setText(sdf.format(p.getPromotion().getEndDate()));
 	    if (p.getImage() != null) {
 		ImageIcon icon = new ImageIcon(p.getImage());
 		imageCanvas.setIcon(icon);
@@ -136,6 +166,12 @@ public class PantsView extends JFrame {
 		imageCanvas.revalidate();
 		imageCanvas.repaint();
 	    }
+	} else {
+	    labelStartDate.hide();
+	    labelEndDate.hide();
+	    lblPromocjaTrwa.hide();
+	    lblOd.hide();
+	    lblDo.hide();
 	}
 
 	JButton addImageButton = new JButton("Przegl\u0105daj");
@@ -185,6 +221,7 @@ public class PantsView extends JFrame {
 		p.setWaistSize(NumberUtils.createInteger(!obwodTextField.getText().isEmpty() ? obwodTextField.getText() : null));
 		p.setGender((Gender) genderComboBox.getSelectedItem());
 		p.setImage(image != null ? image : null);
+		p.setPromotion(promotionList.get(promotionComboBox.getSelectedIndex()));
 		DefaultTableModel model = ((DefaultTableModel) pantsTable.getModel());
 		if (selectedRowIndex != -1) {
 		    pantsList.edit(p, selectedRowIndex);
@@ -217,35 +254,31 @@ public class PantsView extends JFrame {
 	lengthTextField.enable(this.addEditShow);
 	obwodTextField.enable(this.addEditShow);
 	genderComboBox.setEnabled(this.addEditShow);
+	promotionComboBox.setEnabled(this.addEditShow);
 
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
-	gl_contentPane
-	        .setHorizontalGroup(
-	                gl_contentPane
-	                        .createParallelGroup(
-	                                Alignment.LEADING)
-	                        .addGroup(
-	                                gl_contentPane.createSequentialGroup().addContainerGap()
-	                                        .addGroup(
-	                                                gl_contentPane.createParallelGroup(Alignment.TRAILING)
-	                                                        .addGroup(gl_contentPane.createSequentialGroup().addComponent(saveButton)
-	                                                                .addPreferredGap(ComponentPlacement.RELATED)
-	                                                                .addComponent(cancelButton))
-	                                                        .addGroup(
-	                                                                gl_contentPane.createSequentialGroup()
-	                                                                        .addGroup(
-	                                                                                gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-	                                                                                        .addGroup(gl_contentPane.createSequentialGroup()
-	                                                                                                .addGroup(gl_contentPane
-	                                                                                                        .createParallelGroup(
-	                                                                                                                Alignment.LEADING)
-	                                                                                                        .addComponent(lblNazwa)
-	                                                                                                        .addComponent(lblCena)
-	                                                                                                        .addComponent(lblKolor)
-	                                                                                                        .addComponent(lblMarka)
-	                                                                                                        .addComponent(lblMateria)
-	                                                                                                        .addComponent(lblRodzaj).addComponent(
-	                                                                                                                lblDugo))
+	gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+	        .addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+	                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+	                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblPromocjaTrwa)
+	                                        .addGroup(gl_contentPane.createSequentialGroup().addComponent(lblOd)
+	                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+	                                                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                                                .addPreferredGap(ComponentPlacement.RELATED).addComponent(labelStartDate))
+	                                        .addGroup(gl_contentPane.createSequentialGroup().addGap(83).addComponent(lblDo)))))
+	                .addPreferredGap(ComponentPlacement.UNRELATED).addComponent(labelEndDate)
+	                .addPreferredGap(ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+	                .addComponent(
+	                        saveButton).addPreferredGap(
+	                                ComponentPlacement.RELATED).addComponent(
+	                                        cancelButton))
+	                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+	                                        .addGroup(gl_contentPane.createSequentialGroup()
+	                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblNazwa)
+	                                                        .addComponent(lblCena).addComponent(lblKolor).addComponent(lblMarka)
+	                                                        .addComponent(lblMateria).addComponent(lblRodzaj).addComponent(lblDugo))
 	                                        .addGap(28)
 	                                        .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 	                                                .addComponent(lengthTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -253,18 +286,18 @@ public class PantsView extends JFrame {
 	                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 	                                                        .addComponent(genderComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	                                                        .addComponent(fabricTextField).addComponent(brandTextField)
-	                                                        .addComponent(colorTextField).addComponent(priceTextField)
-	                                                        .addComponent(nameTextField)))).addGroup(
-	                                                                gl_contentPane.createSequentialGroup().addComponent(lblObwdPasa)
-	                                                                        .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-	                                                                                Short.MAX_VALUE)
-	                                                                        .addComponent(obwodTextField, GroupLayout.PREFERRED_SIZE,
-	                                                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-	                        .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                                        .addComponent(colorTextField).addComponent(priceTextField).addComponent(nameTextField)
+	                                                        .addComponent(promotionComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+	                        .addGroup(gl_contentPane.createSequentialGroup().addComponent(lblObwdPasa)
+	                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(
+	                                        obwodTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+	                        .addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
 	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 	                                .addComponent(imagePanel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-	                                .addComponent(addImageButton)))).addGap(31))
-	        .addGroup(gl_contentPane.createSequentialGroup().addGap(188).addComponent(lblSpodni).addContainerGap(311, Short.MAX_VALUE)));
+	                                .addComponent(addImageButton))))
+	                .addGap(31))
+	        .addGroup(gl_contentPane.createSequentialGroup().addGap(188).addComponent(lblSpodni).addContainerGap(295, Short.MAX_VALUE))
+	        .addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addComponent(lblPromocja).addContainerGap(422, Short.MAX_VALUE)));
 	gl_contentPane
 	        .setVerticalGroup(
 	                gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -299,9 +332,19 @@ public class PantsView extends JFrame {
 	                                .addPreferredGap(ComponentPlacement.RELATED)
 	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblRodzaj).addComponent(
 	                                        genderComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-	        .addPreferredGap(ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-	        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(cancelButton).addComponent(saveButton))
-	        .addContainerGap()));
+	        .addGroup(
+	                gl_contentPane.createParallelGroup(Alignment.LEADING)
+	                        .addGroup(gl_contentPane.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+	                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(cancelButton)
+	                                        .addComponent(saveButton))
+	                                .addContainerGap())
+	                .addGroup(gl_contentPane.createSequentialGroup().addGap(18)
+	                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblPromocja).addComponent(
+	                                promotionComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                        .addGap(18).addComponent(lblPromocjaTrwa)
+	                        .addPreferredGap(ComponentPlacement.UNRELATED).addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+	                                .addComponent(lblOd).addComponent(labelStartDate).addComponent(lblDo).addComponent(labelEndDate))
+	                        .addGap(8)))));
 	contentPane.setLayout(gl_contentPane);
     }
 }
