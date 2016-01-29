@@ -3,32 +3,62 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import model.Jacket;
 
+/**
+ * 
+ * Klasa zawierająca listę kurtek znajdujących się aktualnie w sklepie
+ *
+ */
 public class JacketList {
 
+	/**
+	 * lista dostępnych kurtek
+	 */
     private List<Jacket> jacketsList;
 
     public JacketList() {
 	jacketsList = new ArrayList<Jacket>();
     }
 
-    public void add(final Jacket p) {
-	jacketsList.add(p);
+    /**
+     * @param {@link Jacket} dodanie nowej kurtki
+     */
+    public void add(final Jacket j) {
+	jacketsList.add(j);
     }
 
-    public void remove(final Jacket pants) {
-	jacketsList.remove(pants);
+    /**
+     * @param {@link Jacket} usunięcie kurtki
+     */
+    public void remove(final Jacket j) {
+	jacketsList.remove(j);
     }
 
-    public void edit(final Jacket p, final Integer index) {
-	jacketsList.set(index, p);
+    /**
+     * Edycja istniejącej kurtki
+     * @param kurtka ze zmienionymi parametrami
+     * @param index wskazujący na położenie kurtki do zamiany
+     */
+    public void edit(final Jacket j, final Integer index) {
+	jacketsList.set(index, j);
     }
 
+    /**
+     * Pobranie kurtki
+     * @param {@link Integer} index
+     * @return {@link Jacket} znaleziona kurtka
+     */
     public Jacket get(Integer index) {
 	return jacketsList.get(index);
     }
 
+    /**
+     * Przekształcenie kurtek na model dla tabeli na widoku ({@link JTable})
+     * @return {@link Object} dane do wyświetlenia w tabeli
+     */
     public Object[][] getTableModel() {
 	Object[][] data = new Object[jacketsList.size()][7];
 	int i = 0;
@@ -45,10 +75,18 @@ public class JacketList {
 	return data;
     }
 
+    /**
+     * Pobranie listy dostępnych kurtek
+     * @return {@link List} lista kurtek
+     */
 	public List<Jacket> getList() {
 		return jacketsList;
 	}
 
+	/**
+	 * Ustawienie listy kurtek (import)
+	 * @param {@link List} nowa lista dostępnych kurtek
+	 */
 	public void setList(List<Jacket> jacketList) {
 		this.jacketsList = jacketList;
 	}

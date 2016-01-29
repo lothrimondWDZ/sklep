@@ -11,9 +11,18 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
-
+/**
+ * 
+ * Implementacja klasy XmlAdapter dla BufferedImage
+ * @see {@link XmlAdapter}, {@link BufferedImage}
+ *
+ */
 public class ImageAdapter extends XmlAdapter<String, BufferedImage>{
 
+	/**
+	 * Metoda przekształcająca obrazek z postaci String na BufferedImage
+	 * @see {@link String}, {@link BufferedImage} 
+	 */
 	@Override
 	public BufferedImage unmarshal(String imageString) throws Exception {
 		BufferedImage bImage = null;
@@ -29,6 +38,10 @@ public class ImageAdapter extends XmlAdapter<String, BufferedImage>{
         return bImage;
 	}
 
+	/**
+	 * Metoda przekształcająca obrazek z postaci BufferedImage na String
+	 * @see {@link String}, {@link BufferedImage} 
+	 */
 	@Override
 	public String marshal(BufferedImage image) throws Exception {
 		String imageString = null;
