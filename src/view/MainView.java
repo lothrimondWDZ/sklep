@@ -665,33 +665,42 @@ public class MainView {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	XMLModel model = importFromXML();
-	    	System.out.println(model);
 	    	jacketList.setList(model.getJacketList());
 	    	shirtList.setList(model.getShirtList());
 	    	tshirtList.setList(model.getTshirtList());
 	    	shoesList.setList(model.getShoesList());
 	    	pantsList.setList(model.getPantsList());
-	    	for(Tshirt t : tshirtList.getList()){
-	    		((DefaultTableModel)tshirtTable.getModel()).addRow(new Object[] { t.getGender() != null ? t.getGender().toString() : "", t.getName(),
-	                    t.getPrice() != null ? t.getPrice().toString() : "", t.getColor(), t.getBrand() });
+	    	if(tshirtList.getList()!= null){
+	    		for(Tshirt t : tshirtList.getList()){
+	    			((DefaultTableModel)tshirtTable.getModel()).addRow(new Object[] { t.getGender() != null ? t.getGender().toString() : "", t.getName(),
+	    					t.getPrice() != null ? t.getPrice().toString() : "", t.getColor(), t.getBrand() });
+	    		}
 	    	}
-	    	for(Shirt s : shirtList.getList()){
-	    		((DefaultTableModel)shirtTable.getModel()).addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
-	    				s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand() });
+	    	if(shirtList.getList()!= null){
+	    		for(Shirt s : shirtList.getList()){
+	    			((DefaultTableModel)shirtTable.getModel()).addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
+	    					s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand() });
+	    		}
 	    	}
-	    	for(Pants p : pantsList.getList()){
-	    		((DefaultTableModel)pantsTable.getModel()).addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
-	    				p.getPrice() != null ? p.getPrice().toString() : "", p.getColor(), p.getBrand() });
+	    	if(pantsList.getList()!= null){
+	    		for(Pants p : pantsList.getList()){
+	    			((DefaultTableModel)pantsTable.getModel()).addRow(new Object[] { p.getGender() != null ? p.getGender().toString() : "", p.getName(),
+	    					p.getPrice() != null ? p.getPrice().toString() : "", p.getColor(), p.getBrand() });
+	    		}
 	    	}
-	    	for(Shoes s : shoesList.getList()){
-	    		((DefaultTableModel)shoesTable.getModel()).addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
-	                    s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand(),
-	                    s.getSize() != null ? s.getSize().toString() : "" });
+	    	if(shoesList.getList()!= null){
+	    		for(Shoes s : shoesList.getList()){
+	    			((DefaultTableModel)shoesTable.getModel()).addRow(new Object[] { s.getGender() != null ? s.getGender().toString() : "", s.getName(),
+	    					s.getPrice() != null ? s.getPrice().toString() : "", s.getColor(), s.getBrand(),
+	    							s.getSize() != null ? s.getSize().toString() : "" });
+	    		}
 	    	}
-	    	for(Jacket j : jacketList.getList()){
-	    		((DefaultTableModel)jacketTable.getModel()).addRow(new Object[] { j.getGender() != null ? j.getGender().toString() : "", j.getName(),
-	                    j.getPrice() != null ? j.getPrice().toString() : "", j.getColor(), j.getBrand(),
-	                    j.getSize() != null ? j.getSize().toString() : "" });
+	    	if(jacketList.getList()!= null){
+	    		for(Jacket j : jacketList.getList()){
+	    			((DefaultTableModel)jacketTable.getModel()).addRow(new Object[] { j.getGender() != null ? j.getGender().toString() : "", j.getName(),
+	    					j.getPrice() != null ? j.getPrice().toString() : "", j.getColor(), j.getBrand(),
+	    							j.getSize() != null ? j.getSize().toString() : "" });
+	    		}
 	    	}
 	    }
 	});
@@ -749,7 +758,6 @@ public class MainView {
 			jaxbMarshaller.marshal(xmlModel, sw);
 			sb.append(sw.toString());
 			String content = sb.toString();
-			System.out.println(content);
 			FileWriter fw = new FileWriter(chooser.getSelectedFile()+".xml");
 			fw.write(content);
 			fw.close();
