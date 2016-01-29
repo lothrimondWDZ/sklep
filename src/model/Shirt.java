@@ -11,20 +11,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Shirt {
 
-	@XmlElement(type = Gender.class)
+    @XmlElement(type = Gender.class)
     private Gender gender;
-	@XmlElement
+    @XmlElement
     private String name;
-	@XmlElement
+    @XmlElement
     private BufferedImage image;
-	@XmlElement
+    @XmlElement
     private Double price;
-	@XmlElement
+    @XmlElement
     private String color;
-	@XmlElement
+    @XmlElement
     private String brand;
-	@XmlElement
+    @XmlElement
     private String fabric;
+
+    private TshirtSize size;
+
+    private Integer colarSize;
+
+    private Boolean tieIncluded;
 
     public Gender getGender() {
 	return gender;
@@ -80,6 +86,30 @@ public class Shirt {
 
     public void setFabric(String fabric) {
 	this.fabric = fabric;
+    }
+
+    public TshirtSize getSize() {
+	return size;
+    }
+
+    public void setSize(TshirtSize size) {
+	this.size = size;
+    }
+
+    public Integer getColarSize() {
+	return colarSize;
+    }
+
+    public void setColarSize(Integer colarSize) {
+	this.colarSize = colarSize;
+    }
+
+    public Boolean getTieIncluded() {
+	return tieIncluded;
+    }
+
+    public void setTieIncluded(Boolean tieIncluded) {
+	this.tieIncluded = tieIncluded;
     }
 
 }
